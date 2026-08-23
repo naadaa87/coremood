@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://coremood.pages.dev/sitemap.xml
+Sitemap: https://coremood.kr/sitemap.xml
