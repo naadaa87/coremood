@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /content/
+Disallow: /scripts/
+Disallow: /functions/
 
 Sitemap: https://coremood.kr/sitemap.xml
