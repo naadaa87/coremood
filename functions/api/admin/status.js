@@ -11,7 +11,7 @@ export async function onRequestGet(context) {
   if (env.DB) {
     try {
       await ensureSchema(env.DB);
-      const r = await env.DB.prepare("SELECT COUNT(*) AS n FROM inquiries").first();
+      const r = await env.DB.prepare("SELECT COUNT(*) AS n FROM cm_inquiries").first();
       db = true; total = r ? r.n : 0;
     } catch (e) { dbError = String(e).slice(0, 200); }
   }

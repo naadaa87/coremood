@@ -1,5 +1,6 @@
 // 상담 문의 저장소 — Cloudflare D1 (바인딩 이름: DB)
 // 표는 처음 요청 때 자동으로 만들어집니다. 따로 SQL을 실행할 필요가 없습니다.
+// 표 이름에 cm_ 를 붙여 두어, 다른 사이트가 쓰는 D1 데이터베이스를 함께 연결해도 서로 겹치지 않습니다.
 
 export const STATUS = ["new", "contacted", "meeting", "quoted", "won", "hold", "closed"];
 export const STATUS_KO = { new: "새 문의", contacted: "연락 완료", meeting: "미팅·실측", quoted: "견적 발송", won: "계약", hold: "보류", closed: "종료" };
@@ -10,17 +11,17 @@ export const FIELDS = {
 };
 
 const SCHEMA = [
-  `CREATE TABLE IF NOT EXISTS inquiries (
+  `CREATE TABLE IF NOT EXISTS cm_inquiries (
     id TEXT PRIMARY KEY, created_at TEXT NOT NULL, updated_at TEXT, status TEXT NOT NULL DEFAULT 'new',
     type TEXT, channel TEXT, name TEXT, phone TEXT, email TEXT, biz TEXT, region TEXT, area TEXT, grade TEXT,
     open TEXT, budget TEXT, stage TEXT, svc TEXT, note TEXT, page TEXT, ref TEXT, landing TEXT, utm TEXT,
     follow_up TEXT, quote TEXT, memo TEXT, ip_hash TEXT, ua TEXT, updated_by TEXT)`,
-  "CREATE INDEX IF NOT EXISTS idx_inq_created ON inquiries(created_at)",
-  "CREATE INDEX IF NOT EXISTS idx_inq_status ON inquiries(status)",
-  "CREATE INDEX IF NOT EXISTS idx_inq_ip ON inquiries(ip_hash, created_at)",
-  `CREATE TABLE IF NOT EXISTS inquiry_notes (
+  "CREATE INDEX IF NOT EXISTS cm_idx_inq_created ON cm_inquiries(created_at)",
+  "CREATE INDEX IF NOT EXISTS cm_idx_inq_status ON cm_inquiries(status)",
+  "CREATE INDEX IF NOT EXISTS cm_idx_inq_ip ON cm_inquiries(ip_hash, created_at)",
+  `CREATE TABLE IF NOT EXISTS cm_inquiry_notes (
     id INTEGER PRIMARY KEY AUTOINCREMENT, inquiry_id TEXT NOT NULL, at TEXT NOT NULL, by TEXT, kind TEXT, text TEXT)`,
-  "CREATE INDEX IF NOT EXISTS idx_notes_inq ON inquiry_notes(inquiry_id)"
+  "CREATE INDEX IF NOT EXISTS cm_idx_notes_inq ON cm_inquiry_notes(inquiry_id)"
 ];
 
 let ready = false;
@@ -50,7 +51,7 @@ export function toItem(r) {
 
 export async function insertInquiry(db, item) {
   await db.prepare(
-    `INSERT INTO inquiries (id, created_at, updated_at, status, type, channel, name, phone, email, biz, region, area, grade, open,
+    `INSERT INTO cm_inquiries (id, created_at, updated_at, status, type, channel, name, phone, email, biz, region, area, grade, open,
       budget, stage, svc, note, page, ref, landing, utm, follow_up, quote, memo, ip_hash, ua, updated_by)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   ).bind(
@@ -62,6 +63,6 @@ export async function insertInquiry(db, item) {
 }
 
 export async function addNote(db, id, by, kind, text) {
-  await db.prepare("INSERT INTO inquiry_notes (inquiry_id, at, by, kind, text) VALUES (?, ?, ?, ?, ?)")
+  await db.prepare("INSERT INTO cm_inquiry_notes (inquiry_id, at, by, kind, text) VALUES (?, ?, ?, ?, ?)")
     .bind(id, new Date().toISOString(), by || "", kind || "note", String(text || "").slice(0, 2000)).run();
 }

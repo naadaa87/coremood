@@ -40,7 +40,7 @@ export async function onRequestPost(context) {
   // 같은 곳에서 10분 안에 5건 이상은 막습니다
   item.ipHash = (await sha256(ip + "|coremood")).slice(0, 24);
   const since = new Date(Date.now() - 10 * 60 * 1000).toISOString();
-  const recent = await db.prepare("SELECT COUNT(*) AS n FROM inquiries WHERE ip_hash = ? AND created_at > ?").bind(item.ipHash, since).first();
+  const recent = await db.prepare("SELECT COUNT(*) AS n FROM cm_inquiries WHERE ip_hash = ? AND created_at > ?").bind(item.ipHash, since).first();
   if (recent && recent.n >= 5) return json({ ok: false, reason: "too-many" }, 429);
 
   item.id = newId();

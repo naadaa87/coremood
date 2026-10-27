@@ -51,6 +51,8 @@ D1이 연결되기 전에는 문의가 방문자의 메일 앱으로 넘어갑�
 | 6. 방문 분석(선택) | Workers & Pages → coremood → Metrics → Web Analytics → Enable | |
 | 7. 관리자 잠금(선택) | Zero Trust → Access → Applications → Self-hosted | `coremood.kr/admin`, 대표 메일만 허용 |
 
+무료 요금제의 D1 개수 제한(10개)에 걸리면 새로 만들지 않고 기존 데이터베이스를 `DB`로 연결해도 됩니다. 코어무드 표는 `cm_inquiries`, `cm_inquiry_notes`, `cm_auth_cache` 이름을 써서 다른 사이트의 표와 겹치지 않습니다.
+
 선택 변수: `NOTIFY_EMAIL`(받는 주소, 기본 spaceblank0100@gmail.com), `NOTIFY_FROM`(보내는 주소, Resend 도메인 인증 후).
 
 ---

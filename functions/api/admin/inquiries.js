@@ -18,12 +18,12 @@ export async function onRequest(context) {
   if (request.method === "GET") {
     const id = url.searchParams.get("id");
     if (id) {
-      const row = await db.prepare("SELECT * FROM inquiries WHERE id = ?").bind(id).first();
+      const row = await db.prepare("SELECT * FROM cm_inquiries WHERE id = ?").bind(id).first();
       if (!row) return json({ ok: false, reason: "not-found" }, 404);
-      const notes = await db.prepare("SELECT at, by, kind, text FROM inquiry_notes WHERE inquiry_id = ? ORDER BY id DESC").bind(id).all();
+      const notes = await db.prepare("SELECT at, by, kind, text FROM cm_inquiry_notes WHERE inquiry_id = ? ORDER BY id DESC").bind(id).all();
       return json({ ok: true, item: toItem(row), notes: notes.results || [] });
     }
-    const rows = await db.prepare("SELECT * FROM inquiries ORDER BY created_at DESC LIMIT 2000").all();
+    const rows = await db.prepare("SELECT * FROM cm_inquiries ORDER BY created_at DESC LIMIT 2000").all();
     const items = (rows.results || []).map(toItem);
     return json({ ok: true, total: items.length, items });
   }
@@ -49,12 +49,12 @@ export async function onRequest(context) {
     item.updatedBy = auth.login;
     await insertInquiry(db, item);
     await addNote(db, item.id, auth.login, "system", "직접 등록 (" + item.channel + ")");
-    const row = await db.prepare("SELECT * FROM inquiries WHERE id = ?").bind(item.id).first();
+    const row = await db.prepare("SELECT * FROM cm_inquiries WHERE id = ?").bind(item.id).first();
     return json({ ok: true, item: toItem(row) });
   }
 
   if (request.method === "PATCH") {
-    const row = await db.prepare("SELECT * FROM inquiries WHERE id = ?").bind(clip(b.id, 40)).first();
+    const row = await db.prepare("SELECT * FROM cm_inquiries WHERE id = ?").bind(clip(b.id, 40)).first();
     if (!row) return json({ ok: false, reason: "not-found" }, 404);
     const sets = [], vals = [];
     if (b.status && STATUS.includes(b.status) && b.status !== row.status) {
@@ -69,9 +69,9 @@ export async function onRequest(context) {
     });
     if (typeof b.note === "string" && b.note.trim()) await addNote(db, row.id, auth.login, "note", b.note.trim());
     sets.push("updated_at = ?", "updated_by = ?"); vals.push(new Date().toISOString(), auth.login);
-    await db.prepare("UPDATE inquiries SET " + sets.join(", ") + " WHERE id = ?").bind(...vals, row.id).run();
-    const fresh = await db.prepare("SELECT * FROM inquiries WHERE id = ?").bind(row.id).first();
-    const notes = await db.prepare("SELECT at, by, kind, text FROM inquiry_notes WHERE inquiry_id = ? ORDER BY id DESC").bind(row.id).all();
+    await db.prepare("UPDATE cm_inquiries SET " + sets.join(", ") + " WHERE id = ?").bind(...vals, row.id).run();
+    const fresh = await db.prepare("SELECT * FROM cm_inquiries WHERE id = ?").bind(row.id).first();
+    const notes = await db.prepare("SELECT at, by, kind, text FROM cm_inquiry_notes WHERE inquiry_id = ? ORDER BY id DESC").bind(row.id).all();
     return json({ ok: true, item: toItem(fresh), notes: notes.results || [] });
   }
 
@@ -79,8 +79,8 @@ export async function onRequest(context) {
     const id = url.searchParams.get("id");
     if (!id) return json({ ok: false, reason: "id" }, 400);
     await db.batch([
-      db.prepare("DELETE FROM inquiry_notes WHERE inquiry_id = ?").bind(id),
-      db.prepare("DELETE FROM inquiries WHERE id = ?").bind(id)
+      db.prepare("DELETE FROM cm_inquiry_notes WHERE inquiry_id = ?").bind(id),
+      db.prepare("DELETE FROM cm_inquiries WHERE id = ?").bind(id)
     ]);
     return json({ ok: true });
   }

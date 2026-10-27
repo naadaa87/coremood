@@ -18,7 +18,7 @@ export function clip(v, n) {
 }
 
 // 관리자 인증: 이 저장소에 쓰기 권한이 있는 GitHub 토큰인지 GitHub에 직접 확인합니다.
-// 결과는 D1(auth_cache)에 10분간 보관해 매 요청마다 GitHub를 부르지 않습니다.
+// 결과는 D1(cm_auth_cache)에 10분간 보관해 매 요청마다 GitHub를 부르지 않습니다.
 export async function requireAdmin(context) {
   const { request, env } = context;
   const h = request.headers.get("authorization") || "";
@@ -30,8 +30,8 @@ export async function requireAdmin(context) {
   const now = Date.now();
   if (db) {
     try {
-      await db.prepare("CREATE TABLE IF NOT EXISTS auth_cache (k TEXT PRIMARY KEY, login TEXT, exp INTEGER)").run();
-      const hit = await db.prepare("SELECT login FROM auth_cache WHERE k = ? AND exp > ?").bind(key, now).first();
+      await db.prepare("CREATE TABLE IF NOT EXISTS cm_auth_cache (k TEXT PRIMARY KEY, login TEXT, exp INTEGER)").run();
+      const hit = await db.prepare("SELECT login FROM cm_auth_cache WHERE k = ? AND exp > ?").bind(key, now).first();
       if (hit) return { ok: true, login: hit.login };
     } catch (e) { /* 캐시 실패는 무시 */ }
   }
@@ -46,8 +46,8 @@ export async function requireAdmin(context) {
   const login = (data.owner && data.owner.login) || "admin";
   if (db) {
     try {
-      await db.prepare("INSERT OR REPLACE INTO auth_cache (k, login, exp) VALUES (?, ?, ?)").bind(key, login, now + 600000).run();
-      await db.prepare("DELETE FROM auth_cache WHERE exp < ?").bind(now).run();
+      await db.prepare("INSERT OR REPLACE INTO cm_auth_cache (k, login, exp) VALUES (?, ?, ?)").bind(key, login, now + 600000).run();
+      await db.prepare("DELETE FROM cm_auth_cache WHERE exp < ?").bind(now).run();
     } catch (e) { /* 무시 */ }
   }
   return { ok: true, login };

@@ -1356,6 +1356,7 @@
       "<li><b>Workers &amp; Pages</b> → <b>coremood</b> 프로젝트 → <b>Settings → Bindings → Add → D1 database</b>.</li>" +
       "<li>Variable name에 <code>DB</code>, D1 database에 방금 만든 <code>coremood-db</code>를 고르고 저장합니다.</li>" +
       "<li>Deployments에서 최신 배포를 <b>Retry deployment</b> 합니다. 표는 첫 문의 때 자동으로 만들어지므로 SQL을 따로 실행할 필요가 없습니다.</li></ol>" +
+      '<div class="note warn" style="margin-top:4px"><b>‘maximum number of databases (10)’ 메시지가 나오면</b> 무료 요금제의 D1 개수(10개)를 다 쓴 것입니다. 새로 만들지 말고 2번에서 <b>이미 있는 데이터베이스 하나를 그대로 고르면</b> 됩니다. 코어무드 표는 이름이 <code>cm_</code>로 시작해 다른 사이트의 표와 겹치지 않습니다. 단, 그 데이터베이스를 나중에 지우면 문의 기록도 함께 사라지므로 계속 쓰는 것을 고르세요.</div>' +
       '<div class="su__st" data-st="db"></div></section>' +
       '<section class="panel su" id="su-nt"><h2>' + mark("wait") + ' 2. 새 문의 알림 <small>권장 · 하나 이상</small></h2>' +
       '<p class="small">문의가 들어오면 바로 알 수 있게 합니다. 세 가지 중 편한 것을 하나 이상 고르세요. 모두 Pages 프로젝트의 <b>Settings → Variables and Secrets → Add</b>에서 넣고(비밀 값은 <b>Encrypt</b> 선택), 다시 배포합니다.</p>' +
