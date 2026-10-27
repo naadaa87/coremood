@@ -10,8 +10,10 @@
    "category": "interior",
    "keyword": "상가 바닥재",
    "angle": "업종별로 바닥에 요구되는 조건(물·기름·하중·소음)과 유지보수 관점에서 비교. 특정 제품 추천이나 가격 단정은 피하기",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "commercial-flooring-guide",
+   "publishedAt": "2026-10-27T10:00:00+09:00"
   },
   {
    "id": "q02",

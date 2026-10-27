@@ -1,6 +1,30 @@
 {
- "updated": "2026-10-27T00:31:39.327Z",
+ "updated": "2026-10-27T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "commercial-flooring-guide",
+   "title": "상가 바닥재 고르는 법, 폴리싱 타일·데코타일·에폭시 비교",
+   "date": "2026-10-27T10:00:00+09:00",
+   "updated": "",
+   "category": "interior",
+   "keyword": "상가 바닥재",
+   "tags": [
+    "상가 바닥재",
+    "바닥 마감",
+    "카페",
+    "음식점",
+    "미용실"
+   ],
+   "description": "폴리싱 타일, 데코타일, 에폭시는 보기보다 쓰임이 다릅니다. 물과 기름, 하중, 소음, 유지보수와 원상복구까지 업종별로 상가 바닥재를 고를 때 따져야 할 기준을 정리했습니다.",
+   "cover": "/assets/img/m-mood.webp",
+   "coverAlt": "햇살이 드는 테이블 위에 놓인 뉴트럴 톤 소재 샘플 보드",
+   "og": "/assets/img/og/commercial-flooring-guide.jpg",
+   "draft": false,
+   "minutes": 6,
+   "chars": 3111,
+   "status": "live",
+   "file": "content/posts/commercial-flooring-guide.md"
+  },
   {
    "slug": "office-interior-guide",
    "title": "사무실 인테리어, 직원이 머무르고 싶은 사무실의 조건",
