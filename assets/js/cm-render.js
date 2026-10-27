@@ -330,6 +330,14 @@
     return scored.slice(0, n || 3).map(function (o) { return o.x; });
   }
 
+  /* ---------- search engine verification (data/site.json 의 verify 값으로 덮어씀) ---------- */
+  var VERIFY = { naver: "4eabdaa4de82e69200936758f6e6eb9386dc9ce4", google: "" };
+  function setVerify(v) { if (v && typeof v === "object") VERIFY = { naver: v.naver || "", google: v.google || "" }; }
+  function verifyMeta() {
+    return (VERIFY.naver ? '<meta name="naver-site-verification" content="' + attr(VERIFY.naver) + '">\n' : "") +
+      (VERIFY.google ? '<meta name="google-site-verification" content="' + attr(VERIFY.google) + '">\n' : "");
+  }
+
   /* ---------- partials ---------- */
   function headTag(o) {
     var url = abs(o.path);
@@ -342,6 +350,7 @@
       '<meta name="author" content="' + SITE.full + '">\n' +
       (o.noindex ? '<meta name="robots" content="noindex,follow">\n' : '<meta name="robots" content="index,follow,max-image-preview:large">\n') +
       '<meta name="theme-color" content="#F6F3EE">\n' +
+      (o.verify ? verifyMeta() : "") +
       '<link rel="canonical" href="' + url + '">\n' +
       '<meta property="og:type" content="' + (o.type || "website") + '">\n' +
       '<meta property="og:site_name" content="' + SITE.full + '">\n' +
@@ -697,7 +706,7 @@
       var faq = extractFaq(html || "");
       if (faq.length && !meta.noindex) ld.push(faqLd(faq));
     }
-    return headTag({ title: meta.title, description: meta.description, path: meta.path, image: meta.image, noindex: meta.noindex, ld: ld });
+    return headTag({ title: meta.title, description: meta.description, path: meta.path, image: meta.image, noindex: meta.noindex, verify: key === "index", ld: ld });
   }
   function latestBlock(posts) {
     var list = sortPosts(posts || []).slice(0, 3);
@@ -737,7 +746,7 @@
     renderPost: renderPost, renderJournalIndex: renderJournalIndex, renderCategory: renderCategory,
     renderIndustry: renderIndustry, renderIndustriesIndex: renderIndustriesIndex, renderPage: renderPage,
     renderSitemap: renderSitemap, renderFeed: renderFeed, postsJson: postsJson, injectPartials: injectPartials,
-    staticHead: staticHead, latestBlock: latestBlock, industriesBlock: industriesBlock, extractFaq: extractFaq, orgLd: orgLd
+    staticHead: staticHead, setVerify: setVerify, verifyMeta: verifyMeta, latestBlock: latestBlock, industriesBlock: industriesBlock, extractFaq: extractFaq, orgLd: orgLd
   };
   if (typeof module !== "undefined" && module.exports) module.exports = CM;
   else root.CMRender = CM;

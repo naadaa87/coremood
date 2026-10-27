@@ -19,6 +19,9 @@ const NO_OG = args.includes("--no-og");
 
 const read = (p) => fs.readFileSync(p, "utf8");
 let written = 0, removed = 0;
+
+// 검색엔진 소유확인 태그 (data/site.json → 홈 <head>)
+try { CM.setVerify(JSON.parse(read(P("data/site.json"))).verify); } catch (e) { /* 기본값 사용 */ }
 function write(rel, content) {
   const f = P(rel);
   fs.mkdirSync(path.dirname(f), { recursive: true });

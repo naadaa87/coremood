@@ -173,6 +173,7 @@
       fetch("/data/images.json", { cache: "no-store" }).then(function (r) { return r.json(); }).catch(function () { return getJson("data/images.json", { images: [] }); })
     ]).then(function (r) {
       S.index = r[0]; S.queue = r[1]; S.site = r[2]; S.pages = r[3]; S.images = (r[4] && r[4].images) || [];
+      CM.setVerify(S.site && S.site.verify); // 홈 <head> 를 다시 만들 때 소유확인 태그를 유지
     });
   }
 
@@ -883,6 +884,7 @@
   /* ---------- settings ---------- */
   function settingsView() {
     var n = (S.site && S.site.notice) || {};
+    var vf = (S.site && S.site.verify) || {};
     var recent = livePosts().slice(0, 10).map(function (p) { return SITE.url + "/journal/" + p.slug; });
     var body = '<div class="grid g2" style="align-items:start"><div>' +
       '<div class="panel"><h2>상단 공지 띠</h2><p class="small muted" style="margin-bottom:12px">모든 페이지 맨 위에 한 줄 공지를 띄웁니다. 휴무 안내, 이벤트, 상담 일정 공지에 쓰세요.</p>' +
@@ -892,7 +894,11 @@
       '<div class="row" style="margin-top:14px"><button class="btn" id="n-save">저장</button></div></div>' +
       '<div class="panel"><h2>검색엔진에 바로 알리기 <small>IndexNow · 네이버 · 빙</small></h2><p class="small muted" style="margin-bottom:10px">새 글이나 고친 페이지 주소를 검색엔진에 즉시 알립니다. 글을 저장할 때 자동으로도 보냅니다. 한 줄에 주소 하나.</p>' +
       '<textarea class="ta" id="ix" style="min-height:150px">' + h(recent.join("\n")) + '</textarea><div class="row" style="margin-top:10px"><button class="btn btn--olive" id="ix-go">보내기</button></div></div></div>' +
-      '<div><div class="panel"><h2>검색엔진 소유확인 파일</h2><p class="small muted" style="margin-bottom:12px">네이버 서치어드바이저나 구글 서치 콘솔에서 ‘HTML 파일 업로드’ 방식을 고르면 받는 파일을 여기서 그대로 올릴 수 있습니다.</p>' +
+      '<div><div class="panel"><h2>검색엔진 소유확인 <small>HTML 태그 방식 · 권장</small></h2><p class="small muted" style="margin-bottom:12px">네이버 서치어드바이저나 구글 서치 콘솔에서 ‘HTML 태그’를 고르면 나오는 메타 태그를 그대로 붙여 넣으세요. 홈페이지 &lt;head&gt;에 들어가고, 1~2분 뒤 소유확인 버튼을 누르면 됩니다.</p>' +
+      '<div class="f"><label for="vt-naver">네이버 <small>' + (vf.naver ? "적용 중" : "미적용") + '</small></label><input class="in" id="vt-naver" value="' + h(vf.naver || "") + '" placeholder="&lt;meta name=&quot;naver-site-verification&quot; content=&quot;…&quot; /&gt;"></div>' +
+      '<div class="f"><label for="vt-google">구글 <small>' + (vf.google ? "적용 중" : "미적용") + '</small></label><input class="in" id="vt-google" value="' + h(vf.google || "") + '" placeholder="&lt;meta name=&quot;google-site-verification&quot; content=&quot;…&quot; /&gt;"></div>' +
+      '<div class="row" style="margin-top:12px"><button class="btn" id="vt-save">소유확인 태그 저장</button><a class="btn btn--ghost" href="/" target="_blank" rel="noopener">홈 열기 ↗</a></div></div>' +
+      '<div class="panel"><h2>소유확인 파일 <small>보조 방법</small></h2><p class="small muted" style="margin-bottom:12px">‘HTML 파일 업로드’ 방식용입니다. 호스팅(Cloudflare Pages)이 <code>.html</code> 주소를 확장자 없는 주소로 넘겨 주기 때문에 확인이 실패할 수 있습니다. 가능하면 위의 HTML 태그 방식을 쓰세요.</p>' +
       '<div class="f"><label for="v-name">파일 이름</label><input class="in" id="v-name" placeholder="예: naver1a2b3c....html 또는 google1a2b....html"></div>' +
       '<div class="f"><label for="v-body">파일 내용 <small>받은 파일을 메모장으로 열어 전체 복사</small></label><textarea class="ta" id="v-body" style="min-height:90px"></textarea></div>' +
       '<div class="row" style="margin-top:10px"><button class="btn" id="v-save">사이트에 올리기</button><button class="btn btn--ghost" id="v-file">파일 선택</button></div><div id="v-list" class="tiny" style="margin-top:12px"></div></div>' +
@@ -904,6 +910,20 @@
       busy("저장하는 중");
       commit([{ path: "data/site.json", content: JSON.stringify(S.site, null, 2) + "\n" }], "site: 공지 " + (S.site.notice.enabled ? "설정" : "끄기"))
         .then(function () { busy(); toast("저장했습니다. 1~2분 뒤 반영됩니다."); }).catch(function (e) { busy(); toast("저장하지 못했습니다: " + e.message, true); });
+    });
+    $("#vt-save").addEventListener("click", function () {
+      // 메타 태그 전체를 붙여 넣어도, content 값만 넣어도 됩니다
+      var pick = function (v) { v = (v || "").trim(); var m = /content\s*=\s*["']([^"']+)["']/i.exec(v); return (m ? m[1] : v).replace(/[^A-Za-z0-9_\-]/g, ""); };
+      var next = { naver: pick($("#vt-naver").value), google: pick($("#vt-google").value) };
+      var home = S.pages && S.pages.pages && S.pages.pages.index;
+      if (!home) return toast("홈 페이지 정보를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.", true);
+      busy("저장하는 중");
+      getText("index.html").then(function (r) {
+        S.site = S.site || {}; S.site.verify = next; CM.setVerify(next);
+        var html = CM.injectPartials(r.text, "index", { pageMeta: home });
+        return commit([{ path: "data/site.json", content: JSON.stringify(S.site, null, 2) + "\n" }, { path: "index.html", content: html }], "verify: 검색엔진 소유확인 태그 " + (next.naver || next.google ? "적용" : "삭제"));
+      }).then(function () { busy(); toast("저장했습니다. 1~2분 뒤 홈에 반영되면 소유확인 버튼을 눌러 주세요."); settingsView(); })
+        .catch(function (e) { busy(); toast("저장하지 못했습니다: " + e.message, true); });
     });
     $("#ix-go").addEventListener("click", function () {
       var urls = $("#ix").value.split(/\s+/).map(function (x) { return x.trim(); }).filter(function (x) { return x.indexOf(SITE.url) === 0; });
@@ -951,8 +971,8 @@
       "<li>Variable name에 <code>INQUIRIES</code>, Namespace는 방금 만든 것을 고르고 저장합니다. Production과 Preview 모두 추가하면 좋습니다.</li>" +
       "<li>Deployments에서 최신 배포를 <b>Retry deployment</b> 하면 끝입니다. 사이트 설정의 ‘서버 기능 연결 상태’가 ✓로 바뀝니다.</li></ol>" +
       "<p>선택: 새 문의를 슬랙·디스코드로 받고 싶으면 같은 화면의 Variables에 <code>NOTIFY_WEBHOOK</code> 이름으로 웹훅 주소를 넣습니다.</p>" +
-      "<h3>네이버 서치어드바이저 등록</h3><ol class=\"steps\"><li>searchadvisor.naver.com → 웹마스터 도구 → 사이트 등록에 <code>https://coremood.kr</code> 입력.</li><li>소유확인에서 ‘HTML 파일 업로드’를 고르고 받은 파일을 <b>사이트 설정 → 검색엔진 소유확인 파일</b>로 올린 뒤 확인을 누릅니다.</li><li>요청 → 사이트맵 제출에 <code>https://coremood.kr/sitemap.xml</code>, RSS 제출에 <code>https://coremood.kr/feed.xml</code>을 넣습니다.</li></ol>" +
-      "<h3>구글 서치 콘솔 등록</h3><ol class=\"steps\"><li>search.google.com/search-console → URL 접두어 <code>https://coremood.kr</code>.</li><li>‘HTML 파일’ 확인 방식으로 받은 파일을 같은 방법으로 올립니다.</li><li>Sitemaps 메뉴에서 <code>sitemap.xml</code>을 제출합니다.</li></ol>" +
+      "<h3>네이버 서치어드바이저 등록</h3><ol class=\"steps\"><li>searchadvisor.naver.com → 웹마스터 도구 → 사이트 등록에 <code>https://coremood.kr</code> 입력.</li><li>소유확인에서 ‘HTML 태그’를 고르고 나온 메타 태그를 <b>사이트 설정 → 검색엔진 소유확인</b>의 네이버 칸에 붙여 넣어 저장합니다. 1~2분 뒤 소유확인을 누릅니다. (코어무드는 2026년 10월에 적용 완료)</li><li>요청 → 사이트맵 제출에 <code>https://coremood.kr/sitemap.xml</code>, RSS 제출에 <code>https://coremood.kr/feed.xml</code>을 넣습니다.</li></ol>" +
+      "<h3>구글 서치 콘솔 등록</h3><ol class=\"steps\"><li>search.google.com/search-console → URL 접두어 <code>https://coremood.kr</code>.</li><li>다른 확인 방법 중 ‘HTML 태그’를 골라 나온 메타 태그를 <b>사이트 설정 → 검색엔진 소유확인</b>의 구글 칸에 붙여 넣어 저장합니다.</li><li>Sitemaps 메뉴에서 <code>sitemap.xml</code>을 제출합니다.</li></ol>" +
       "<h3>관리자 화면 보호 (선택)</h3><p>관리자 화면은 토큰 없이는 아무것도 할 수 없지만, 주소 자체를 숨기고 싶다면 Cloudflare Zero Trust → Access에서 <code>coremood.kr/admin*</code>에 이메일 인증을 걸 수 있습니다(무료 범위).</p>" +
       "</div></div>";
     shell("help", "사용 안내", "자주 쓰는 기능과 처음 한 번 해 둘 설정", "", body);
