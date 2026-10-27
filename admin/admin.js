@@ -1352,11 +1352,11 @@
       '<div class="setup">' +
       '<section class="panel su" id="su-db"><h2>' + mark("wait") + ' 1. 상담 문의 저장소 (Cloudflare D1) <small>필수</small></h2>' +
       '<p class="small">홈페이지의 상담 신청·빠른 문의를 저장하는 데이터베이스입니다. 연결 전에는 문의가 방문자의 메일 앱으로 넘어가 놓치기 쉽습니다. 무료 범위로 충분합니다.</p>' +
-      '<ol class="steps"><li>Cloudflare 대시보드 → <b>Storage &amp; Databases → D1 SQL Database</b> → <b>Create</b>. 이름은 <code>coremood-db</code>, 위치는 기본값(또는 Asia-Pacific)으로 만듭니다.</li>' +
-      "<li><b>Workers &amp; Pages</b> → <b>coremood</b> 프로젝트 → <b>Settings → Bindings → Add → D1 database</b>.</li>" +
-      "<li>Variable name에 <code>DB</code>, D1 database에 방금 만든 <code>coremood-db</code>를 고르고 저장합니다.</li>" +
-      "<li>Deployments에서 최신 배포를 <b>Retry deployment</b> 합니다. 표는 첫 문의 때 자동으로 만들어지므로 SQL을 따로 실행할 필요가 없습니다.</li></ol>" +
-      '<div class="note warn" style="margin-top:4px"><b>‘maximum number of databases (10)’ 메시지가 나오면</b> 무료 요금제의 D1 개수(10개)를 다 쓴 것입니다. 새로 만들지 말고 2번에서 <b>이미 있는 데이터베이스 하나를 그대로 고르면</b> 됩니다. 코어무드 표는 이름이 <code>cm_</code>로 시작해 다른 사이트의 표와 겹치지 않습니다. 단, 그 데이터베이스를 나중에 지우면 문의 기록도 함께 사라지므로 계속 쓰는 것을 고르세요.</div>' +
+      '<ol class="steps"><li>여러 홈페이지가 함께 쓰는 공용 D1 데이터베이스 <code>total-db</code>를 씁니다. 새로 만들 필요가 없습니다.</li>' +
+      "<li><b>Compute → Workers &amp; Pages</b> → <b>coremood</b> 프로젝트 → <b>Settings → Bindings → Add → D1 database</b>.</li>" +
+      "<li>Variable name에 <code>DB</code>, D1 database에 <code>total-db</code>를 고르고 저장합니다.</li>" +
+      "<li>Deployments에서 최신 배포를 <b>Retry deployment</b> 합니다. 코어무드 표(<code>cm_inquiries</code>, <code>cm_inquiry_notes</code>, <code>cm_auth_cache</code>)는 첫 요청 때 자동으로 만들어집니다.</li></ol>" +
+      '<div class="note" style="margin-top:4px">total-db는 다른 홈페이지와 함께 쓰는 데이터베이스입니다. 코어무드 표는 모두 <code>cm_</code>로 시작하므로, 다른 사이트는 각자 다른 접두어를 쓰면 서로 겹치지 않습니다. total-db를 지우면 문의 기록도 함께 사라집니다.</div>' +
       '<div class="su__st" data-st="db"></div></section>' +
       '<section class="panel su" id="su-nt"><h2>' + mark("wait") + ' 2. 새 문의 알림 <small>권장 · 하나 이상</small></h2>' +
       '<p class="small">문의가 들어오면 바로 알 수 있게 합니다. 세 가지 중 편한 것을 하나 이상 고르세요. 모두 Pages 프로젝트의 <b>Settings → Variables and Secrets → Add</b>에서 넣고(비밀 값은 <b>Encrypt</b> 선택), 다시 배포합니다.</p>' +
