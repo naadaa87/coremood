@@ -102,6 +102,8 @@
         imgB.alt = btn.dataset.title + " 시공 전";
         imgA.alt = btn.dataset.title + " 시공 후";
         if (meta) meta.textContent = btn.dataset.scope;
+        var more = $("[data-ba-link]", ba);
+        if (more && btn.dataset.link) more.href = btn.dataset.link;
         setX(50);
       });
     });
@@ -246,7 +248,80 @@
     calc();
   }
 
-  /* ---------- contact form -> /api/inquiry (fallback: mailto) ---------- */
+  /* ---------- visitor source (첫 방문 페이지·유입 경로) ---------- */
+  var SRC = (function () {
+    var k = "cm_src", v = null;
+    try { v = JSON.parse(sessionStorage.getItem(k) || "null"); } catch (e) {}
+    if (!v) {
+      var utm = [];
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function (x) { var y = QS.get(x); if (y) utm.push(x.slice(4) + "=" + y); });
+      var ref = document.referrer || "";
+      if (ref && ref.indexOf(location.origin) === 0) ref = "";
+      v = { landing: location.pathname + location.search, ref: ref, utm: utm.join("&") };
+      try { sessionStorage.setItem(k, JSON.stringify(v)); } catch (e) {}
+    }
+    return v;
+  })();
+
+  /* ---------- inquiry (상담 신청 · 빠른 문의 공용) ---------- */
+  var CFG = null;           // data/site.json
+  var TS = { key: "", ready: null };
+  var BIZ_OPTS = ["카페 · 베이커리", "음식점 · 주점", "바 · 라운지", "리테일 · 쇼룸", "오피스", "스터디카페 · 학원", "미용 · 뷰티", "숙박 · 스테이", "파티룸 · 스튜디오", "기타"];
+  function loadTurnstile() {
+    if (!TS.key) return Promise.resolve(false);
+    if (TS.ready) return TS.ready;
+    TS.ready = new Promise(function (res) {
+      var s = document.createElement("script");
+      s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      s.async = true; s.onload = function () { res(true); }; s.onerror = function () { res(false); };
+      document.head.appendChild(s);
+    });
+    return TS.ready;
+  }
+  function mountTurnstile(host) {
+    if (!TS.key || !host || host.dataset.tsId) return;
+    loadTurnstile().then(function (ok) {
+      if (!ok || !window.turnstile || host.dataset.tsId) return;
+      host.dataset.tsId = window.turnstile.render(host, { sitekey: TS.key, theme: "light", size: "flexible", language: "ko" });
+    });
+  }
+  function tsToken(host) {
+    if (!host || !host.dataset.tsId || !window.turnstile) return "";
+    try { return window.turnstile.getResponse(host.dataset.tsId) || ""; } catch (e) { return ""; }
+  }
+  function tsReset(host) { if (host && host.dataset.tsId && window.turnstile) try { window.turnstile.reset(host.dataset.tsId); } catch (e) {} }
+  function mailtoInquiry(data) {
+    var L = [
+      "■ " + (data.type || "상담 신청") + " 내용", "",
+      "성함        : " + data.name, "연락처      : " + data.phone, "이메일      : " + (data.email || "-"),
+      "업종        : " + (data.biz || "-"), "희망 지역   : " + (data.region || "-"),
+      "예상 면적   : " + (data.area ? data.area + "평" : "-"), "희망 사양   : " + (data.grade || "-"),
+      "오픈 예정   : " + (data.open || "-"), "예산 범위   : " + (data.budget || "-"),
+      "진행 상태   : " + (data.stage || "-"), "관심 서비스 : " + ((data.svc || []).join(", ") || "-"),
+      "", "■ 요청 사항", (data.note || "-"), "", "— 코어무드 홈페이지"
+    ].join("\n");
+    var subject = "[" + (data.type || "상담 신청") + "] " + data.name + " · " + (data.biz || "공간 문의");
+    window.location.href = "mailto:spaceblank0100@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(L);
+  }
+  function sendInquiry(data) {
+    data.page = location.pathname + location.search;
+    data.landing = SRC.landing; data.ref = SRC.ref; data.utm = SRC.utm;
+    return fetch("/api/inquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json().catch(function () { return { ok: false, reason: "http-" + r.status }; }); })
+      .catch(function () { return { ok: false, reason: "network" }; })
+      .then(function (res) {
+        if (res && res.ok) {
+          if (typeof window.gtag === "function") window.gtag("event", "generate_lead", { form: data.type });
+          return { ok: true };
+        }
+        if (res && (res.reason === "captcha" || res.reason === "too-many" || res.reason === "required")) return res;
+        mailtoInquiry(data);
+        return { ok: false, mailto: true };
+      });
+  }
+  var FAIL_MSG = { captcha: "자동 입력 방지 확인을 마친 뒤 다시 보내 주세요.", "too-many": "짧은 시간에 여러 번 보내셨습니다. 잠시 뒤 다시 시도하거나 010-2384-9580으로 연락 주세요.", required: "성함과 연락처는 꼭 남겨 주세요." };
+
+  /* ---------- contact form ---------- */
   var form = $("[data-form]");
   if (form) {
     ["biz", "grade", "area"].forEach(function (k) {
@@ -261,6 +336,10 @@
         } else { el.value = v; }
       }
     });
+    var tsHost = document.createElement("div");
+    tsHost.className = "cf-turnstile"; tsHost.hidden = true;
+    var fsub = $(".fsub", form);
+    if (fsub) fsub.parentNode.insertBefore(tsHost, fsub);
     var sending = false;
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -278,57 +357,132 @@
       var agree = form.querySelector('[name="agree"]');
       if (agree && !agree.checked) { say("개인정보 수집·이용에 동의해 주셔야 상담 신청을 보낼 수 있습니다."); agree.focus(); return; }
       var data = {
-        name: name, phone: phone, email: get("email"), biz: get("biz"), region: get("region"),
+        type: "상담 신청", name: name, phone: phone, email: get("email"), biz: get("biz"), region: get("region"),
         area: get("area"), grade: get("grade"), open: get("open"), budget: get("budget"),
-        stage: get("stage"), svc: d.getAll("svc"), note: get("note"), hp: get("website"),
-        page: location.pathname + location.search, ref: document.referrer || ""
+        stage: get("stage"), svc: d.getAll("svc"), note: get("note"), hp: get("website"), cf_token: tsToken(tsHost)
       };
-      var mailto = function () {
-        var L = [
-          "■ 상담 신청 내용", "",
-          "성함        : " + name, "연락처      : " + phone, "이메일      : " + (data.email || "-"),
-          "업종        : " + (data.biz || "-"), "희망 지역   : " + (data.region || "-"),
-          "예상 면적   : " + (data.area ? data.area + "평" : "-"), "희망 사양   : " + (data.grade || "-"),
-          "오픈 예정   : " + (data.open || "-"), "예산 범위   : " + (data.budget || "-"),
-          "진행 상태   : " + (data.stage || "-"), "관심 서비스 : " + (data.svc.join(", ") || "-"),
-          "", "■ 요청 사항", (data.note || "-"), "", "— 코어무드 홈페이지 상담 신청 폼"
-        ].join("\n");
-        var subject = "[상담 신청] " + name + " · " + (data.biz || "공간 문의");
-        window.location.href = "mailto:spaceblank0100@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(L);
-        say("메일 앱이 열립니다. 창이 뜨지 않으면 spaceblank0100@gmail.com 으로 보내 주세요.");
-      };
+      if (TS.key && !data.cf_token) { say(FAIL_MSG.captcha); return; }
       var btn = form.querySelector('[type="submit"]');
       sending = true; if (btn) btn.disabled = true;
       say("보내는 중입니다…");
-      fetch("/api/inquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) })
-        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
-        .then(function (res) {
-          if (res && res.ok) {
-            form.reset();
-            say("상담 신청이 접수되었습니다. 영업일 기준 하루 안에 담당자가 연락드리겠습니다.");
-            if (typeof window.gtag === "function") window.gtag("event", "generate_lead");
-          } else { mailto(); }
-        })
-        .catch(mailto)
-        .then(function () { sending = false; if (btn) btn.disabled = false; });
+      sendInquiry(data).then(function (r) {
+        if (r.ok) { form.reset(); say("상담 신청이 접수되었습니다. 영업일 기준 하루 안에 담당자가 연락드리겠습니다."); }
+        else if (r.mailto) say("메일 앱이 열립니다. 창이 뜨지 않으면 spaceblank0100@gmail.com 으로 보내 주세요.");
+        else say(FAIL_MSG[r.reason] || "접수하지 못했습니다. 010-2384-9580으로 연락 주세요.");
+        tsReset(tsHost);
+        sending = false; if (btn) btn.disabled = false;
+      });
     });
   }
 
-  /* ---------- notice bar (data/site.json) ---------- */
+  /* ---------- quick inquiry (모든 페이지 · 오른쪽 아래 버튼) ---------- */
+  var qm = null;
+  function openQuick(preset) {
+    if (!qm) {
+      qm = document.createElement("div");
+      qm.className = "qm"; qm.hidden = true;
+      qm.setAttribute("role", "dialog"); qm.setAttribute("aria-modal", "true"); qm.setAttribute("aria-labelledby", "qm-t");
+      qm.innerHTML = '<div class="qm__bd" data-qx></div><div class="qm__box"><button class="qm__x" type="button" data-qx aria-label="닫기">✕</button>' +
+        '<p class="qm__t" id="qm-t">빠른 상담 신청<span class="dot">.</span></p><p class="qm__d">연락처와 간단한 내용만 남겨 주시면 담당자가 확인 후 연락드립니다. 자세한 조건은 통화로 여쭙겠습니다.</p>' +
+        '<form class="qm__f" novalidate><div class="qm__row"><input class="inp" name="name" placeholder="성함 *" autocomplete="name" required><input class="inp" name="phone" type="tel" placeholder="연락처 *" autocomplete="tel" required></div>' +
+        '<select class="sel" name="biz"><option value="">업종 선택</option>' + BIZ_OPTS.map(function (o) { return "<option>" + o + "</option>"; }).join("") + "</select>" +
+        '<textarea class="txt" name="note" placeholder="지역, 면적, 오픈 시기 등 아는 만큼 적어 주세요."></textarea>' +
+        '<div class="hp" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></div>' +
+        '<label class="fconsent"><input type="checkbox" name="agree" value="yes"><span>상담 회신을 위한 개인정보 수집·이용에 동의합니다. (필수) <a href="/contact#privacy" style="color:var(--olive-deep);border-bottom:1px solid var(--line-2)">자세히</a></span></label>' +
+        '<div class="cf-turnstile" data-qts hidden></div><button class="btn" type="submit">상담 신청 보내기<span class="btn__ar" aria-hidden="true">→</span></button><p class="qm__msg" role="status" aria-live="polite"></p></form></div>';
+      document.body.appendChild(qm);
+      $$("[data-qx]", qm).forEach(function (x) { x.addEventListener("click", closeQuick); });
+      var f = $("form", qm), m = $(".qm__msg", qm), ts = $("[data-qts]", qm), busy = false;
+      f.addEventListener("submit", function (e) {
+        e.preventDefault(); if (busy) return;
+        var g = function (n) { var el = f.querySelector('[name="' + n + '"]'); return el ? (el.value || "").trim() : ""; };
+        if (!g("name") || !g("phone")) { m.textContent = FAIL_MSG.required; return; }
+        if (!f.querySelector('[name="agree"]').checked) { m.textContent = "개인정보 수집·이용에 동의해 주세요."; return; }
+        var data = { type: "빠른 문의", name: g("name"), phone: g("phone"), biz: g("biz"), note: g("note"), hp: g("website"), cf_token: tsToken(ts), svc: [] };
+        if (TS.key && !data.cf_token) { m.textContent = FAIL_MSG.captcha; return; }
+        busy = true; m.textContent = "보내는 중입니다…";
+        sendInquiry(data).then(function (r) {
+          busy = false; tsReset(ts);
+          if (r.ok) {
+            f.hidden = true;
+            var ok = document.createElement("div"); ok.className = "qm__ok";
+            ok.innerHTML = "<strong>접수되었습니다.</strong><p class=\"small\">영업일 기준 하루 안에 연락드리겠습니다.<br>급하시면 <a href=\"tel:01023849580\">010-2384-9580</a>으로 전화 주세요.</p>";
+            f.parentNode.appendChild(ok);
+          } else if (r.mailto) m.textContent = "메일 앱이 열립니다. 창이 뜨지 않으면 010-2384-9580으로 연락 주세요.";
+          else m.textContent = FAIL_MSG[r.reason] || "접수하지 못했습니다. 010-2384-9580으로 연락 주세요.";
+        });
+      });
+      if (TS.key) { ts.hidden = false; mountTurnstile(ts); }
+    }
+    if (preset && preset.biz) { var sb = $('[name="biz"]', qm); if (sb) sb.value = preset.biz; }
+    qm.hidden = false;
+    document.documentElement.style.overflow = "hidden";
+    setTimeout(function () { var n = $('[name="name"]', qm); if (n) n.focus(); }, 30);
+  }
+  function closeQuick() { if (qm) { qm.hidden = true; document.documentElement.style.overflow = ""; } }
+  window.addEventListener("keydown", function (e) { if (e.key === "Escape") closeQuick(); });
+
+  /* ---------- site config: notice · floating buttons · analytics · spam guard ---------- */
   var nb = $("[data-notice]");
-  if (nb && window.fetch) {
+  var page = document.body.getAttribute("data-page") || "";
+  if (window.fetch) {
     fetch("/data/site.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (cfg) {
-      var n = cfg && cfg.notice;
-      if (!n || !n.enabled || !n.text) return;
-      nb.textContent = n.text;
-      if (n.link) {
-        var a = document.createElement("a");
-        a.href = n.link; a.textContent = n.linkText || "자세히 보기";
-        nb.appendChild(a);
+      CFG = cfg || {};
+      var n = CFG.notice;
+      if (nb && n && n.enabled && n.text) {
+        nb.textContent = n.text;
+        if (n.link) { var a = document.createElement("a"); a.href = n.link; a.textContent = n.linkText || "자세히 보기"; nb.appendChild(a); }
+        nb.hidden = false;
       }
-      nb.hidden = false;
+      TS.key = (CFG.turnstile && CFG.turnstile.siteKey) || "";
+      if (TS.key && form) { var h = $(".cf-turnstile", form); if (h) { h.hidden = false; mountTurnstile(h); } }
+      // 오른쪽 아래 버튼
+      var q = CFG.quick || {}, k = CFG.kakao || {};
+      var showQ = q.enabled !== false && page !== "contact";
+      var showK = !!(k.url && /^https:\/\//.test(k.url));
+      if (showQ || showK) {
+        var fab = document.createElement("div"); fab.className = "fab";
+        if (showK) fab.insertAdjacentHTML("beforeend", '<a class="fab__b fab__b--k" href="' + k.url.replace(/"/g, "") + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.4.3.7.6.5l4.3-2.8c.5.1.9.1 1.4.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>' + ((k.label || "카카오톡 상담").replace(/[<>]/g, "")) + "</a>");
+        if (showQ) fab.insertAdjacentHTML("beforeend", '<button class="fab__b fab__b--q" type="button">빠른 상담 신청</button>');
+        document.body.appendChild(fab);
+        var qb = $(".fab__b--q", fab);
+        if (qb) qb.addEventListener("click", function () { openQuick(); });
+      }
+      // 방문 분석 (설정한 경우에만)
+      var an = CFG.analytics || {};
+      if (an.ga4 && /^G-[A-Z0-9]+$/i.test(an.ga4)) {
+        var g = document.createElement("script"); g.async = true; g.src = "https://www.googletagmanager.com/gtag/js?id=" + an.ga4; document.head.appendChild(g);
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        window.gtag("js", new Date()); window.gtag("config", an.ga4);
+      }
+      if (an.naver && /^[a-z0-9]+$/i.test(an.naver)) {
+        var w = document.createElement("script"); w.async = true; w.src = "https://wcs.naver.net/wcslog.js";
+        w.onload = function () { try { window.wcs_add = window.wcs_add || {}; window.wcs_add.wa = an.naver; if (window.wcs) window.wcs_do(); } catch (e) {} };
+        document.head.appendChild(w);
+      }
     }).catch(function () {});
   }
+  $$("[data-quick]").forEach(function (b) { b.addEventListener("click", function (e) { e.preventDefault(); openQuick({ biz: b.dataset.quick }); }); });
+
+  /* ---------- lightbox (시공 사례 사진) ---------- */
+  var lb = null;
+  $$("[data-lightbox]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (!lb) {
+        lb = document.createElement("div"); lb.className = "lbx"; lb.hidden = true;
+        lb.innerHTML = '<button class="lbx__x" type="button" aria-label="닫기">✕</button><img alt=""><p class="lbx__cap"></p>';
+        document.body.appendChild(lb);
+        lb.addEventListener("click", function (ev) { if (ev.target.tagName !== "IMG") { lb.hidden = true; document.documentElement.style.overflow = ""; } });
+        window.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && lb) { lb.hidden = true; document.documentElement.style.overflow = ""; } });
+      }
+      var im = $("img", a);
+      $("img", lb).src = a.getAttribute("href"); $("img", lb).alt = im ? im.alt : "";
+      $(".lbx__cap", lb).textContent = im ? im.alt : "";
+      lb.hidden = false; document.documentElement.style.overflow = "hidden";
+    });
+  });
 
   /* ---------- journal: search + more ---------- */
   var jl = $("[data-journal]");

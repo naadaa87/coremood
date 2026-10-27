@@ -27,6 +27,10 @@ function knownRoutes() {
     const plan = JSON.parse(fs.readFileSync(path.join(ROOT, "content/plan.json"), "utf8"));
     (plan.posts || []).forEach((p) => set.add("/journal/" + p.slug));
   } catch (e) { /* plan 없음 */ }
+  try {
+    const cs = JSON.parse(fs.readFileSync(path.join(ROOT, "data/cases.json"), "utf8"));
+    (cs.cases || []).filter((c) => !c.draft).forEach((c) => set.add("/projects/" + c.slug));
+  } catch (e) { /* 사례 없음 */ }
   return set;
 }
 

@@ -1,0 +1,531 @@
+{
+ "_note": "시공 사례 원본. 관리자 > 시공 사례에서 편집합니다. featured=true 인 사례가 홈·프로젝트 페이지의 전후 비교 슬라이더에 나옵니다.",
+ "cases": [
+  {
+   "slug": "sinchon-hair-salon",
+   "key": "salon",
+   "title": "신촌 미용실",
+   "biz": "미용실",
+   "industry": "salon",
+   "estimateBiz": "beauty",
+   "region": "서울 신촌",
+   "scope": [
+    "철거",
+    "목공",
+    "전기",
+    "금속",
+    "바닥",
+    "설비",
+    "도장",
+    "필름",
+    "에폭시"
+   ],
+   "summary": "기둥과 배관이 그대로 드러난 빈 공간을 유리 파티션으로 나눈 밝은 미용실로 바꿨습니다. 설비 경로를 먼저 잡고 에폭시 바닥까지 9개 공정을 진행했습니다.",
+   "story": "## 현장 조건\n\n처음 본 자리는 기존 마감을 걷어 낸 빈 공간이었습니다. 기둥 몇 개가 한가운데 서 있었고, 천장에는 오래된 배관이 그대로 드러나 있었습니다. 벽도 군데군데 마감이 떨어져 있어 철거 뒤 바탕부터 다시 잡아야 했습니다.\n\n미용실은 샴푸대가 들어가는 자리에 따라 바닥 배관과 배수 경로가 정해집니다. 그래서 평면을 그릴 때 시술석보다 샴푸 공간과 설비 경로를 먼저 맞췄습니다.\n\n## 진행한 작업\n\n입구에서 안쪽으로 이어지는 복도는 우드 톤 바닥으로 만들고, 양옆을 유리 파티션으로 나눠 개별 공간을 구성했습니다. 유리로 나누면 공간은 분리되지만 빛은 막히지 않아 안쪽 방까지 밝게 유지됩니다.\n\n창가 쪽 넓은 홀은 광택이 있는 에폭시 바닥으로 마감하고 창을 따라 좌석을 놓았습니다. 천장은 트랙 조명으로 정리하고, 대기 테이블 위에는 펜던트 조명을 달아 머무는 자리의 분위기를 따로 만들었습니다. 기둥은 감추기보다 흰색으로 정리해 공간의 일부로 남겼습니다.\n",
+   "before": "/assets/img/ba-salon-before.webp",
+   "after": "/assets/img/ba-salon-after.webp",
+   "gallery": [
+    {
+     "src": "/assets/img/cases/salon-before-1.webp",
+     "kind": "before",
+     "alt": "신촌 미용실 시공 전 현장 사진 1"
+    },
+    {
+     "src": "/assets/img/cases/salon-before-2.webp",
+     "kind": "before",
+     "alt": "신촌 미용실 시공 전 현장 사진 2"
+    },
+    {
+     "src": "/assets/img/cases/salon-before-3.webp",
+     "kind": "before",
+     "alt": "신촌 미용실 시공 전 현장 사진 3"
+    },
+    {
+     "src": "/assets/img/cases/salon-after-1.webp",
+     "kind": "after",
+     "alt": "신촌 미용실 시공 후 모습 1"
+    },
+    {
+     "src": "/assets/img/cases/salon-after-2.webp",
+     "kind": "after",
+     "alt": "신촌 미용실 시공 후 모습 2"
+    },
+    {
+     "src": "/assets/img/cases/salon-after-3.webp",
+     "kind": "after",
+     "alt": "신촌 미용실 시공 후 모습 3"
+    }
+   ],
+   "featured": true,
+   "order": 1,
+   "draft": false,
+   "updated": "2026-10-27T12:00:00+09:00"
+  },
+  {
+   "slug": "incheon-cafe",
+   "key": "cafe",
+   "title": "인천 카페",
+   "biz": "카페",
+   "industry": "cafe",
+   "estimateBiz": "cafe",
+   "region": "인천",
+   "scope": [
+    "철거",
+    "목공",
+    "전기",
+    "바닥",
+    "설비",
+    "도장",
+    "필름",
+    "타일",
+    "간판"
+   ],
+   "summary": "천장 배관과 콘크리트 바닥이 드러난 상가를 원목 구조물과 테라스 정원이 있는 카페로 바꿨습니다. 실내와 외부 테라스, 간판까지 함께 진행했습니다.",
+   "story": "## 현장 조건\n\n통창이 길게 이어진 공간이었고, 천장에는 배관이 드러나 있었으며 바닥은 콘크리트 그대로였습니다. 바깥으로는 넓은 테라스가 붙어 있었는데 손을 대지 않은 맨바닥 상태였습니다.\n\n이 테라스를 어떻게 쓰느냐가 카페의 성격을 정하는 가장 큰 조건이라고 봤습니다. 실내만 정리하면 평범한 매장이 되지만, 테라스까지 손님이 머무는 자리로 만들면 이 자리에서만 가능한 경험이 생깁니다.\n\n## 진행한 작업\n\n실내는 원목 프레임과 선반으로 공간을 나누고, 통창 쪽에는 바깥을 보며 앉는 바 좌석을 두었습니다. 바닥은 빛이 반사되는 마감으로 정리해 창으로 들어온 햇빛이 실내 깊숙이 퍼지게 했고, 천장은 어두운 색으로 정리해 시선이 아래쪽 원목 구조로 모이게 했습니다.\n\n테라스에는 인조 잔디와 산책로, 화분, 줄 조명을 더해 해가 진 뒤에도 머물 수 있는 정원으로 만들었습니다. 카운터는 원목으로 마감하고 위쪽에 메뉴 보드를, 앞쪽에 디저트 쇼케이스를 두어 주문하는 자리에서 메뉴가 한눈에 보이도록 했습니다.\n",
+   "before": "/assets/img/ba-cafe-before.webp",
+   "after": "/assets/img/ba-cafe-after.webp",
+   "gallery": [
+    {
+     "src": "/assets/img/cases/cafe-before-1.webp",
+     "kind": "before",
+     "alt": "인천 카페 시공 전 현장 사진 1"
+    },
+    {
+     "src": "/assets/img/cases/cafe-before-2.webp",
+     "kind": "before",
+     "alt": "인천 카페 시공 전 현장 사진 2"
+    },
+    {
+     "src": "/assets/img/cases/cafe-before-3.webp",
+     "kind": "before",
+     "alt": "인천 카페 시공 전 현장 사진 3"
+    },
+    {
+     "src": "/assets/img/cases/cafe-after-1.webp",
+     "kind": "after",
+     "alt": "인천 카페 시공 후 모습 1"
+    },
+    {
+     "src": "/assets/img/cases/cafe-after-2.webp",
+     "kind": "after",
+     "alt": "인천 카페 시공 후 모습 2"
+    },
+    {
+     "src": "/assets/img/cases/cafe-after-3.webp",
+     "kind": "after",
+     "alt": "인천 카페 시공 후 모습 3"
+    }
+   ],
+   "featured": true,
+   "order": 2,
+   "draft": false,
+   "updated": "2026-10-27T12:00:00+09:00"
+  },
+  {
+   "slug": "hongdae-party-room",
+   "key": "party-hongdae",
+   "title": "홍대 파티룸",
+   "biz": "파티룸",
+   "industry": "partyroom",
+   "estimateBiz": "party",
+   "region": "서울 홍대",
+   "scope": [
+    "철거",
+    "목공",
+    "전기",
+    "바닥",
+    "설비",
+    "도장",
+    "조명",
+    "금속"
+   ],
+   "summary": "길쭉한 빈 공간을 딥 그린과 골드 톤의 파티룸으로 바꿨습니다. 창밖 가로수가 보이는 발코니까지 좌석으로 쓸 수 있게 구성했습니다.",
+   "story": "## 현장 조건\n\n폭보다 길이가 긴 공간이었고 천장은 콘크리트가 드러나 있었습니다. 대신 긴 벽을 따라 창이 이어져 있었고, 창 너머로 가로수가 바로 보였습니다.\n\n파티룸은 예약 전에 사진으로 먼저 선택받는 공간입니다. 그래서 이 창 풍경을 사진의 배경으로 쓰는 것에서 출발했습니다. 어느 자리에서 찍어도 창밖 나무가 함께 담기도록 가구 배치를 잡았습니다.\n\n## 진행한 작업\n\n벽은 짙은 녹색으로 칠하고 금색 조명과 소품으로 포인트를 줬습니다. 공간 가운데에는 여럿이 둘러앉는 긴 테이블을 두고, 벨벳 소파와 벤치는 창가 쪽으로 배치했습니다. 아치형 거울은 사진을 찍는 자리를 하나 더 만드는 역할입니다.\n\n발코니에는 인조 잔디를 깔고 난간을 따라 바 테이블을 길게 두었습니다. 실내와 바깥을 오가며 쓸 수 있어, 같은 면적이라도 손님이 체감하는 공간이 넓어집니다.\n",
+   "before": "/assets/img/ba-party-hongdae-before.webp",
+   "after": "/assets/img/ba-party-hongdae-after.webp",
+   "gallery": [
+    {
+     "src": "/assets/img/cases/party-hongdae-before-1.webp",
+     "kind": "before",
+     "alt": "홍대 파티룸 시공 전 현장 사진 1"
+    },
+    {
+     "src": "/assets/img/cases/party-hongdae-before-2.webp",
+     "kind": "before",
+     "alt": "홍대 파티룸 시공 전 현장 사진 2"
+    },
+    {
+     "src": "/assets/img/cases/party-hongdae-before-3.webp",
+     "kind": "before",
+     "alt": "홍대 파티룸 시공 전 현장 사진 3"
+    },
+    {
+     "src": "/assets/img/cases/party-hongdae-after-1.webp",
+     "kind": "after",
+     "alt": "홍대 파티룸 시공 후 모습 1"
+    },
+    {
+     "src": "/assets/img/cases/party-hongdae-after-2.webp",
+     "kind": "after",
+     "alt": "홍대 파티룸 시공 후 모습 2"
+    },
+    {
+     "src": "/assets/img/cases/party-hongdae-after-3.webp",
+     "kind": "after",
+     "alt": "홍대 파티룸 시공 후 모습 3"
+    }
+   ],
+   "featured": true,
+   "order": 3,
+   "draft": false,
+   "updated": "2026-10-27T12:00:00+09:00"
+  },
+  {
+   "slug": "gyeongju-party-room",
+   "key": "party-gyeongju",
+   "title": "경주 파티룸",
+   "biz": "파티룸",
+   "industry": "partyroom",
+   "estimateBiz": "party",
+   "region": "경주",
+   "scope": [
+    "철거",
+    "목공",
+    "전기",
+    "바닥",
+    "설비",
+    "도장",
+    "필름",
+    "싱크"
+   ],
+   "summary": "골조만 남은 공간을 파스텔 색감과 샹들리에가 어우러진 파티룸으로 바꿨습니다. 라운지, 다이닝, 사진 찍는 자리가 한 공간 안에서 이어지도록 구성했습니다.",
+   "story": "## 현장 조건\n\n철거가 끝난 상태라 골조와 소방 배관이 드러나 있었고 바닥도 고르지 않았습니다. 코너를 따라 큰 창이 나 있어 자연광은 충분한 자리였습니다.\n\n넓은 면적을 한 가지 분위기로 채우면 사진이 다 비슷하게 나옵니다. 그래서 손님이 공간 안에서 자리를 옮기며 쓸 수 있도록 구역을 나누는 방향을 잡았습니다.\n\n## 진행한 작업\n\n창가 쪽에는 컬러 소파와 러그로 라운지를 만들고, 안쪽에는 여럿이 함께 앉는 다이닝 테이블을 두었습니다. 벽 한쪽은 아치 형태로 구성하고 색을 달리해, 그 앞에 곡선 소파를 놓았습니다. 사진 찍는 자리를 의도적으로 만든 것입니다.\n\n천장에는 큰 샹들리에를 달아 어느 각도에서 찍어도 공간의 중심이 보이게 했습니다. 싱크 공정을 포함해 간단한 음식 준비가 가능하도록 설비도 갖췄습니다.\n",
+   "before": "/assets/img/ba-party-gyeongju-before.webp",
+   "after": "/assets/img/ba-party-gyeongju-after.webp",
+   "gallery": [
+    {
+     "src": "/assets/img/cases/party-gyeongju-before-1.webp",
+     "kind": "before",
+     "alt": "경주 파티룸 시공 전 현장 사진 1"
+    },
+    {
+     "src": "/assets/img/cases/party-gyeongju-before-2.webp",
+     "kind": "before",
+     "alt": "경주 파티룸 시공 전 현장 사진 2"
+    },
+    {
+     "src": "/assets/img/cases/party-gyeongju-before-3.webp",
+     "kind": "before",
+     "alt": "경주 파티룸 시공 전 현장 사진 3"
+    },
+    {
+     "src": "/assets/img/cases/party-gyeongju-after-1.webp",
+     "kind": "after",
+     "alt": "경주 파티룸 시공 후 모습 1"
+    },
+    {
+     "src": "/assets/img/cases/party-gyeongju-after-2.webp",
+     "kind": "after",
+     "alt": "경주 파티룸 시공 후 모습 2"
+    },
+    {
+     "src": "/assets/img/cases/party-gyeongju-after-3.webp",
+     "kind": "after",
+     "alt": "경주 파티룸 시공 후 모습 3"
+    }
+   ],
+   "featured": true,
+   "order": 4,
+   "draft": false,
+   "updated": "2026-10-27T12:00:00+09:00"
+  },
+  {
+   "slug": "seodaemun-study-cafe",
+   "key": "study",
+   "title": "서대문 스터디카페",
+   "biz": "스터디카페",
+   "industry": "studycafe",
+   "estimateBiz": "study",
+   "region": "서울 서대문",
+   "scope": [
+    "철거",
+    "목공",
+    "전기",
+    "바닥",
+    "설비",
+    "도장",
+    "필름",
+    "타일"
+   ],
+   "summary": "이전 업종의 마감과 설비 배관이 남아 있던 공간을 창가 1인석, 부스석, 라운지가 나뉜 스터디카페로 바꿨습니다.",
+   "story": "## 현장 조건\n\n이전 업종의 마감이 남아 있었고, 천장에는 냉난방과 설비 배관이 복잡하게 지나가고 있었습니다. 한쪽 벽이 통창이라 채광은 좋았지만, 스터디카페에서는 이 빛이 오히려 눈부심이 될 수 있습니다. 그래서 좌석 방향부터 정했습니다.\n\n스터디카페는 손님마다 원하는 자리가 다릅니다. 창가에서 탁 트인 느낌을 원하는 손님도 있고, 사방이 막힌 자리에서 오래 집중하고 싶은 손님도 있습니다. 한 공간 안에 성격이 다른 좌석을 나눠 두는 것이 이번 설계의 중심이었습니다.\n\n## 진행한 작업\n\n창을 따라 칸막이가 있는 1인 좌석을 길게 배치하고, 자리마다 펜던트 조명을 달아 낮과 밤의 조도 차이를 줄였습니다. 안쪽에는 어두운 벽과 개별 조명을 갖춘 부스형 좌석을 만들어 오래 집중하는 손님이 고를 수 있게 했습니다.\n\n다른 구역에는 원목 박스 구조의 좌석과 여럿이 앉는 테이블을 두어, 조용히 공부하는 자리와 잠깐 쉬는 자리가 섞이지 않도록 나눴습니다.\n",
+   "before": "/assets/img/ba-study-before.webp",
+   "after": "/assets/img/ba-study-after.webp",
+   "gallery": [
+    {
+     "src": "/assets/img/cases/study-before-2.webp",
+     "kind": "before",
+     "alt": "서대문 스터디카페 시공 전 현장 사진 2"
+    },
+    {
+     "src": "/assets/img/cases/study-before-3.webp",
+     "kind": "before",
+     "alt": "서대문 스터디카페 시공 전 현장 사진 3"
+    },
+    {
+     "src": "/assets/img/cases/study-after-1.webp",
+     "kind": "after",
+     "alt": "서대문 스터디카페 시공 후 모습 1"
+    },
+    {
+     "src": "/assets/img/cases/study-after-2.webp",
+     "kind": "after",
+     "alt": "서대문 스터디카페 시공 후 모습 2"
+    },
+    {
+     "src": "/assets/img/cases/study-after-3.webp",
+     "kind": "after",
+     "alt": "서대문 스터디카페 시공 후 모습 3"
+    }
+   ],
+   "featured": true,
+   "order": 5,
+   "draft": false,
+   "updated": "2026-10-27T12:00:00+09:00"
+  },
+  {
+   "slug": "cheonan-stay-remodeling",
+   "key": "stay",
+   "title": "천안 숙박시설",
+   "biz": "숙박",
+   "industry": "stay",
+   "estimateBiz": "stay",
+   "region": "천안",
+   "scope": [
+    "철거",
+    "목공",
+    "ALC",
+    "전기",
+    "방음",
+    "바닥",
+    "설비",
+    "도장",
+    "소방",
+    "샷시",
+    "화장실"
+   ],
+   "summary": "넓은 사무 공간 한 층을 개별 객실로 나눠 숙박 공간으로 바꿨습니다. 경량 벽체와 방음, 화장실, 샷시까지 11개 공정을 진행했습니다.",
+   "story": "## 현장 조건\n\n형광등과 걸레받이가 남아 있는 전형적인 사무 공간이었습니다. 큰 홀 하나에 작은 방 몇 개가 붙어 있는 구조라, 객실을 만들려면 벽을 새로 세우고 방마다 화장실과 설비를 넣어야 했습니다.\n\n사무 공간을 객실로 바꾸는 공사는 건축물 용도, 소방, 피난 기준처럼 관할 기관 확인이 필요한 항목이 먼저입니다. 코어무드는 이런 항목을 공사 계획 단계에서 별도 확인 절차로 정리한 뒤 설계를 확정합니다.\n\n## 진행한 작업\n\nALC 블록으로 객실 벽을 세우고 객실 사이에는 방음 공정을 더했습니다. 숙박 공간에서는 옆방 소음이 체감 품질을 크게 좌우하기 때문입니다. 각 객실에는 화장실을 새로 만들고 바닥과 벽 타일, 세면대, 거울을 정리했습니다.\n\n객실 안쪽은 헤링본 무늬의 우드 톤 바닥과 원목 가구로 따뜻하게 마감하고, 창에는 암막 커튼을 달았습니다. 일부 객실에는 식탁을 두어 여럿이 함께 머무는 손님도 편하게 쓸 수 있도록 구성했습니다.\n",
+   "before": "/assets/img/ba-stay-before.webp",
+   "after": "/assets/img/ba-stay-after.webp",
+   "gallery": [
+    {
+     "src": "/assets/img/cases/stay-before-1.webp",
+     "kind": "before",
+     "alt": "천안 숙박시설 시공 전 현장 사진 1"
+    },
+    {
+     "src": "/assets/img/cases/stay-before-2.webp",
+     "kind": "before",
+     "alt": "천안 숙박시설 시공 전 현장 사진 2"
+    },
+    {
+     "src": "/assets/img/cases/stay-before-3.webp",
+     "kind": "before",
+     "alt": "천안 숙박시설 시공 전 현장 사진 3"
+    },
+    {
+     "src": "/assets/img/cases/stay-after-1.webp",
+     "kind": "after",
+     "alt": "천안 숙박시설 시공 후 모습 1"
+    },
+    {
+     "src": "/assets/img/cases/stay-after-2.webp",
+     "kind": "after",
+     "alt": "천안 숙박시설 시공 후 모습 2"
+    },
+    {
+     "src": "/assets/img/cases/stay-after-3.webp",
+     "kind": "after",
+     "alt": "천안 숙박시설 시공 후 모습 3"
+    }
+   ],
+   "featured": true,
+   "order": 6,
+   "draft": false,
+   "updated": "2026-10-27T12:00:00+09:00"
+  },
+  {
+   "slug": "hwaseong-billiard-hall",
+   "key": "billiard",
+   "title": "화성 당구장",
+   "biz": "당구장",
+   "industry": "",
+   "estimateBiz": "",
+   "region": "화성",
+   "scope": [
+    "철거",
+    "목공",
+    "전기",
+    "바닥",
+    "설비",
+    "도장",
+    "흡연실",
+    "제조실"
+   ],
+   "summary": "흰 벽의 빈 공간을 어두운 톤과 테이블 조명으로 집중도를 높인 당구장으로 바꿨습니다. 대기 좌석과 음료 제조실, 흡연실까지 함께 구성했습니다.",
+   "story": "## 현장 조건\n\n창이 한쪽으로 길게 난 넓은 빈 공간이었습니다. 벽과 천장이 모두 밝은 색이라 그대로 두면 테이블 위 조명이 공간 전체로 퍼져, 경기에 집중하기 어려운 조건이었습니다.\n\n당구장은 테이블 배치가 곧 동선입니다. 큐를 쓰는 범위와 손님이 지나다니는 길이 겹치지 않도록 테이블 위치를 가장 먼저 정했습니다.\n\n## 진행한 작업\n\n천장과 벽을 어두운 색으로 정리하고, 당구대마다 위쪽에 사각 조명을 달아 빛이 테이블 위에 모이게 했습니다. 바닥은 밝은 톤으로 마감해 어두운 벽과 대비를 주고 통로가 잘 보이게 했습니다.\n\n한쪽 벽을 따라 대기 손님이 앉을 수 있는 벤치를 길게 두고, 맞은편에는 음료를 준비하는 제조실과 카운터를 배치했습니다. 흡연실은 별도 공간으로 분리했으며, 흡연실처럼 설치 기준이 따로 있는 시설은 관할 기관 확인이 필요한 별도 확인 항목으로 다뤘습니다.\n",
+   "before": "/assets/img/ba-billiard-before.webp",
+   "after": "/assets/img/ba-billiard-after.webp",
+   "gallery": [
+    {
+     "src": "/assets/img/cases/billiard-before-1.webp",
+     "kind": "before",
+     "alt": "화성 당구장 시공 전 현장 사진 1"
+    },
+    {
+     "src": "/assets/img/cases/billiard-before-2.webp",
+     "kind": "before",
+     "alt": "화성 당구장 시공 전 현장 사진 2"
+    },
+    {
+     "src": "/assets/img/cases/billiard-before-3.webp",
+     "kind": "before",
+     "alt": "화성 당구장 시공 전 현장 사진 3"
+    },
+    {
+     "src": "/assets/img/cases/billiard-after-1.webp",
+     "kind": "after",
+     "alt": "화성 당구장 시공 후 모습 1"
+    },
+    {
+     "src": "/assets/img/cases/billiard-after-2.webp",
+     "kind": "after",
+     "alt": "화성 당구장 시공 후 모습 2"
+    },
+    {
+     "src": "/assets/img/cases/billiard-after-3.webp",
+     "kind": "after",
+     "alt": "화성 당구장 시공 후 모습 3"
+    }
+   ],
+   "featured": true,
+   "order": 7,
+   "draft": false,
+   "updated": "2026-10-27T12:00:00+09:00"
+  },
+  {
+   "slug": "chungmuro-restaurant",
+   "key": "dining",
+   "title": "충무로 음식점",
+   "biz": "음식점",
+   "industry": "restaurant",
+   "estimateBiz": "dining",
+   "region": "서울 충무로",
+   "scope": [
+    "철거",
+    "목공",
+    "전기",
+    "바닥",
+    "설비",
+    "도장",
+    "필름",
+    "타일",
+    "간판"
+   ],
+   "summary": "이전 매장의 마감을 걷어 내고 곡선형 바 카운터와 긴 단체석을 갖춘 음식점으로 바꿨습니다. 바 안쪽이 그대로 매장의 배경이 되도록 구성했습니다.",
+   "story": "## 현장 조건\n\n이전 매장의 벽지와 집기가 남아 있었고, 바닥 마감도 일부 걷혀 있었습니다. 공간 가운데에 기둥이 있어 테이블과 동선을 어떻게 놓을지가 첫 번째 과제였습니다.\n\n음식점은 배기와 가스처럼 관할 기관 확인이 필요한 별도 확인 항목이 많습니다. 그래서 테이블 배치보다 주방 설비가 지나갈 경로를 먼저 보고 평면을 정했습니다.\n\n## 진행한 작업\n\n홀 한쪽에 곡선형 바 카운터를 만들고 카운터 아래에 간접 조명을 넣어, 어두운 매장 안에서도 카운터의 윤곽이 또렷하게 드러나게 했습니다. 카운터 뒤 위쪽에는 병과 소품을 올리는 선반을 짜 넣어 바 안쪽이 그대로 매장의 배경이 되게 했습니다.\n\n홀에는 원목 상판의 긴 테이블을 이어 두어 단체 손님도 받을 수 있게 하고, 벽면에는 스크린을 두어 경기나 영상을 함께 볼 수 있는 구성으로 만들었습니다.\n",
+   "before": "/assets/img/ba-dining-before.webp",
+   "after": "/assets/img/ba-dining-after.webp",
+   "gallery": [
+    {
+     "src": "/assets/img/cases/dining-before-1.webp",
+     "kind": "before",
+     "alt": "충무로 음식점 시공 전 현장 사진 1"
+    },
+    {
+     "src": "/assets/img/cases/dining-before-2.webp",
+     "kind": "before",
+     "alt": "충무로 음식점 시공 전 현장 사진 2"
+    },
+    {
+     "src": "/assets/img/cases/dining-before-3.webp",
+     "kind": "before",
+     "alt": "충무로 음식점 시공 전 현장 사진 3"
+    },
+    {
+     "src": "/assets/img/cases/dining-after-1.webp",
+     "kind": "after",
+     "alt": "충무로 음식점 시공 후 모습 1"
+    },
+    {
+     "src": "/assets/img/cases/dining-after-2.webp",
+     "kind": "after",
+     "alt": "충무로 음식점 시공 후 모습 2"
+    }
+   ],
+   "featured": true,
+   "order": 8,
+   "draft": false,
+   "updated": "2026-10-27T12:00:00+09:00"
+  },
+  {
+   "slug": "gangnam-studio",
+   "key": "studio",
+   "title": "강남 스튜디오",
+   "biz": "스튜디오",
+   "industry": "studio",
+   "estimateBiz": "party",
+   "region": "서울 강남",
+   "scope": [
+    "목공",
+    "전기",
+    "바닥",
+    "설비",
+    "타일",
+    "싱크",
+    "화장실"
+   ],
+   "summary": "낡은 화장실과 바닥을 새로 정리해 촬영과 소규모 모임에 쓰는 화이트 톤 스튜디오로 바꿨습니다. 싱크와 화장실을 갖춰 대관 공간으로 쓰기 편하게 구성했습니다.",
+   "story": "## 현장 조건\n\n공사가 시작될 무렵 이 공간에는 오래된 녹색 타일 화장실과 세면대가 그대로 남아 있었습니다. 스튜디오는 손님이 소품과 음식을 가져와 몇 시간씩 머무는 경우가 많아, 물을 쓰는 공간을 제대로 갖추는 것이 중요했습니다.\n\n또 촬영과 모임이라는 두 가지 쓰임을 모두 받으려면, 배경이 되는 벽과 바닥이 어떤 소품과도 어울려야 했습니다.\n\n## 진행한 작업\n\n벽과 바닥을 밝은 톤으로 통일해 어떤 소품을 가져와도 배경이 튀지 않게 했습니다. 공간 안쪽에는 싱크와 수납을 갖춘 작은 주방 공간을 만들고, 화장실은 타일부터 새로 시공했습니다.\n\n커튼으로 공간을 나눌 수 있게 해 촬영 중에는 대기 공간을 따로 두고, 모임 때는 넓은 한 공간으로 쓸 수 있게 했습니다. 사진처럼 꽃 장식과 소품을 더하면 생일 파티나 촬영 세팅으로 바로 쓸 수 있습니다.\n",
+   "before": "/assets/img/ba-studio-before.webp",
+   "after": "/assets/img/ba-studio-after.webp",
+   "gallery": [
+    {
+     "src": "/assets/img/cases/studio-before-1.webp",
+     "kind": "before",
+     "alt": "강남 스튜디오 시공 전 현장 사진 1"
+    },
+    {
+     "src": "/assets/img/cases/studio-before-2.webp",
+     "kind": "before",
+     "alt": "강남 스튜디오 시공 전 현장 사진 2"
+    },
+    {
+     "src": "/assets/img/cases/studio-before-3.webp",
+     "kind": "before",
+     "alt": "강남 스튜디오 시공 전 현장 사진 3"
+    },
+    {
+     "src": "/assets/img/cases/studio-after-1.webp",
+     "kind": "after",
+     "alt": "강남 스튜디오 시공 후 모습 1"
+    },
+    {
+     "src": "/assets/img/cases/studio-after-2.webp",
+     "kind": "after",
+     "alt": "강남 스튜디오 시공 후 모습 2"
+    },
+    {
+     "src": "/assets/img/cases/studio-after-3.webp",
+     "kind": "after",
+     "alt": "강남 스튜디오 시공 후 모습 3"
+    }
+   ],
+   "featured": true,
+   "order": 9,
+   "draft": false,
+   "updated": "2026-10-27T12:00:00+09:00"
+  }
+ ]
+}

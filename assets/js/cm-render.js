@@ -6,7 +6,7 @@
   "use strict";
 
   /* ---------- site constants ---------- */
-  var ASSET_V = "20261026"; // CSS·JS 를 고치면 이 값을 바꿔 브라우저 캐시를 갱신합니다
+  var ASSET_V = "20261027"; // CSS·JS 를 고치면 이 값을 바꿔 브라우저 캐시를 갱신합니다
   var SITE = {
     url: "https://coremood.kr",
     name: "코어무드",
@@ -568,15 +568,106 @@
 
   /* ---------- industry pages ---------- */
   function industryOf(slug) { for (var i = 0; i < INDUSTRIES.length; i++) if (INDUSTRIES[i].slug === slug) return INDUSTRIES[i]; return null; }
-  function baBlock(key) {
+  /* ---------- cases (시공 사례) ---------- */
+  function caseUrl(c) { return "/projects/" + c.slug; }
+  function liveCases(ctx) {
+    return ((ctx && ctx.cases) || []).filter(function (c) { return !c.draft; })
+      .slice().sort(function (a, b) { return (a.order || 99) - (b.order || 99); });
+  }
+  function findCase(ctx, key) {
+    if (!key) return null;
+    var l = liveCases(ctx);
+    for (var i = 0; i < l.length; i++) if (l[i].key === key || l[i].slug === key) return l[i];
+    return null;
+  }
+  function caseLabel(c) { return c.biz + " · " + c.region; }
+  function scopeText(c) { return (c.scope || []).join(" · "); }
+  function baStage(before, after, label, lazy) {
+    return '<div class="ba__stage" tabindex="0" role="slider" aria-label="시공 전후 비교 슬라이더" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">\n' +
+      '        <div class="ba__before"><img src="' + attr(before) + '" alt="' + attr(label) + ' 시공 전" width="798" height="532"' + (lazy === false ? "" : ' loading="lazy"') + "></div>\n" +
+      '        <div class="ba__after"><img src="' + attr(after) + '" alt="' + attr(label) + ' 시공 후" width="798" height="532"' + (lazy === false ? "" : ' loading="lazy"') + "></div>\n" +
+      '        <span class="ba__tag ba__tag--b">Before</span><span class="ba__tag ba__tag--a">After</span>\n        <div class="ba__handle"><span class="ba__knob" aria-hidden="true">◀ ▶</span></div>\n      </div>';
+  }
+  // 홈·프로젝트 페이지의 전후 비교 슬라이더 (featured 사례)
+  function baSlider(ctx) {
+    var list = liveCases(ctx).filter(function (c) { return c.featured !== false; });
+    if (!list.length) return "";
+    var f = list[0];
+    return '    <div class="ba" data-ba>\n  <div>\n    ' + baStage(f.before, f.after, caseLabel(f)) + "\n" +
+      '    <p class="tiny ba__note">공정 범위 · <span data-ba-meta>' + esc(scopeText(f)) + '</span> <a class="ba__more" data-ba-link href="' + caseUrl(f) + '">이 사례 자세히 보기 →</a></p>\n  </div>\n' +
+      '  <div class="ba__list">' + list.map(function (c, i) {
+        return '<button class="ba__btn" type="button" aria-pressed="' + (i ? "false" : "true") + '" data-before="' + attr(c.before) + '" data-after="' + attr(c.after) + '" data-title="' + attr(caseLabel(c)) + '" data-scope="' + attr(scopeText(c)) + '" data-link="' + caseUrl(c) + '">' +
+          '<span class="ba__btn-n">' + (i < 9 ? "0" : "") + (i + 1) + '</span><span><span class="ba__btn-t">' + esc(c.biz) + '</span><span class="ba__btn-m">' + esc(c.region) + "</span></span></button>";
+      }).join("") + "</div>\n</div>";
+  }
+  function caseCard(c) {
+    return '<a class="ccard" href="' + caseUrl(c) + '"><figure class="ccard__fig"><img src="' + attr(c.after) + '" alt="' + attr(c.title) + ' 시공 후" loading="lazy" decoding="async"><span class="ccard__ba"><img src="' + attr(c.before) + '" alt="" loading="lazy" decoding="async"><i>Before</i></span></figure>' +
+      '<span class="ccard__k">' + esc(c.biz) + " · " + esc(c.region) + '</span><strong class="ccard__t">' + esc(c.title) + ' 인테리어</strong><span class="ccard__d">' + esc(c.summary) + '</span><span class="ccard__m">공정 ' + (c.scope || []).length + "개 · " + esc((c.scope || []).slice(0, 4).join(" · ")) + ((c.scope || []).length > 4 ? " 외" : "") + "</span></a>";
+  }
+  function casesBlock(ctx) {
+    var list = liveCases(ctx);
+    if (!list.length) return "";
+    return '    <div class="cgrid">' + list.map(caseCard).join("") + "</div>\n" +
+      '    <div class="tblwrap" style="margin-top:clamp(40px,5vw,64px)">\n      <table class="tbl">\n        <thead><tr><th>업종</th><th>지역</th><th>공정 범위</th><th></th></tr></thead>\n        <tbody>' +
+      list.map(function (c) { return "<tr><td>" + esc(c.biz) + "</td><td>" + esc(c.region) + "</td><td>" + esc(scopeText(c)) + '</td><td><a class="tlink" href="' + caseUrl(c) + '">보기</a></td></tr>'; }).join("") +
+      "</tbody>\n      </table>\n    </div>";
+  }
+  function baBlock(key, ctx) {
+    var c = findCase(ctx, key);
+    if (c) {
+      return '<section class="sec sec--sand sec--tight">\n  <div class="wrap">\n    <div class="jsec-h"><h2 class="h2">실제 시공 현장<span class="dot">.</span></h2><a class="tlink" href="' + caseUrl(c) + '">' + esc(c.title) + ' 사례 자세히 보기<span aria-hidden="true">→</span></a></div>\n' +
+        '    <div class="ba ba--single" data-ba><div>\n      ' + baStage(c.before, c.after, caseLabel(c)) + "\n" +
+        '      <p class="tiny ba__note">' + esc(caseLabel(c)) + " · 공정 범위 · " + esc(scopeText(c)) + "</p>\n    </div></div>\n  </div>\n</section>\n";
+    }
     var b = BA[key];
     if (!b) return "";
-    return '<section class="sec sec--sand sec--tight">\n  <div class="wrap">\n    <div class="jsec-h"><h2 class="h2">실제 시공 현장<span class="dot">.</span></h2><a class="tlink" href="/portfolio#before-after">시공 사례 더 보기<span aria-hidden="true">→</span></a></div>\n' +
-      '    <div class="ba ba--single" data-ba><div>\n      <div class="ba__stage" tabindex="0" role="slider" aria-label="시공 전후 비교 슬라이더" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">\n' +
-      '        <div class="ba__before"><img src="/assets/img/ba-' + b[1] + '-before.webp" alt="' + b[0] + ' 시공 전" width="798" height="532" loading="lazy"></div>\n' +
-      '        <div class="ba__after"><img src="/assets/img/ba-' + b[1] + '-after.webp" alt="' + b[0] + ' 시공 후" width="798" height="532" loading="lazy"></div>\n' +
-      '        <span class="ba__tag ba__tag--b">Before</span><span class="ba__tag ba__tag--a">After</span>\n        <div class="ba__handle"><span class="ba__knob" aria-hidden="true">◀ ▶</span></div>\n      </div>\n' +
+    return '<section class="sec sec--sand sec--tight">\n  <div class="wrap">\n    <div class="jsec-h"><h2 class="h2">실제 시공 현장<span class="dot">.</span></h2><a class="tlink" href="/portfolio#cases">시공 사례 더 보기<span aria-hidden="true">→</span></a></div>\n' +
+      '    <div class="ba ba--single" data-ba><div>\n      ' + baStage("/assets/img/ba-" + b[1] + "-before.webp", "/assets/img/ba-" + b[1] + "-after.webp", b[0]) + "\n" +
       '      <p class="tiny ba__note">' + b[0] + " · 공정 범위 · " + b[2] + "</p>\n    </div></div>\n  </div>\n</section>\n";
+  }
+  function renderCase(c, ctx) {
+    var path = caseUrl(c);
+    var ind = c.industry ? industryOf(c.industry) : null;
+    var r = md(c.story || "");
+    var others = liveCases(ctx).filter(function (x) { return x.slug !== c.slug; });
+    var tags = [c.biz, c.biz + " 인테리어"].concat(ind ? ind.tags : []);
+    var rel = postsForTags(tags, ctx.posts || [], 3);
+    var title = c.title + " 인테리어 시공 사례";
+    var desc = c.summary;
+    var gb = (c.gallery || []).filter(function (g) { return g.kind === "before"; });
+    var ga = (c.gallery || []).filter(function (g) { return g.kind !== "before"; });
+    var gal = function (list, label) {
+      if (!list.length) return "";
+      return '<div class="cgal"><span class="cgal__k">' + label + '</span><div class="cgal__g">' + list.map(function (g) {
+        return '<a class="cgal__i" href="' + attr(g.src) + '" data-lightbox><img src="' + attr(g.src) + '" alt="' + attr(g.alt || c.title) + '" loading="lazy" decoding="async"></a>';
+      }).join("") + "</div></div>";
+    };
+    var ld = [
+      { "@context": "https://schema.org", "@type": "CreativeWork", name: title, headline: title, description: desc, url: abs(path), image: [abs(c.after), abs(c.before)].concat((c.gallery || []).map(function (g) { return abs(g.src); })), about: c.biz + " 인테리어", locationCreated: { "@type": "Place", name: c.region }, creator: { "@id": SITE.url + "/#org", "@type": "Organization", name: SITE.full }, inLanguage: "ko-KR" },
+      crumbLd([["홈", "/"], ["프로젝트", "/portfolio"], [c.title, path]])
+    ];
+    return headTag({ title: c.title + " 인테리어 — " + c.biz + " 시공 전후 사례 | 코어무드", ogTitle: title, description: desc, path: path, image: c.after, keywords: [c.region + " " + c.biz + " 인테리어", c.biz + " 인테리어", c.biz + " 시공 사례", "상가 인테리어"].join(", "), ld: ld }) +
+      '<body data-page="portfolio" class="has-mobcta">\n<!--@header-->\n' + header("portfolio") + "\n<!--/@header-->\n<main id=\"main\">\n" +
+      '<section class="phero chero">\n  <div class="wrap">\n    ' + crumbs([["홈", "/"], ["프로젝트", "/portfolio"], [c.title, path]]) +
+      '\n    <span class="phero__en">Project · ' + esc(c.biz) + "</span>\n" +
+      '    <h1 class="d1">' + esc(c.title) + ' 인테리어<span class="dot">.</span></h1>\n' +
+      '    <p class="lead phero__d">' + esc(desc) + "</p>\n" +
+      '    <dl class="tblock chero__meta"><div><dt>업종</dt><dd>' + esc(c.biz) + "</dd></div><div><dt>지역</dt><dd>" + esc(c.region) + "</dd></div><div><dt>공정</dt><dd>" + (c.scope || []).length + "개 공종</dd></div><div><dt>진행</dt><dd>설계 · 시공</dd></div></dl>\n" +
+      "  </div>\n</section>\n" +
+      '<section class="sec sec--tight">\n  <div class="wrap">\n    <div class="ba ba--single ba--case" data-ba><div>\n      ' + baStage(c.before, c.after, caseLabel(c), false) +
+      '\n      <p class="tiny ba__note">손잡이를 좌우로 움직이면 시공 전후를 비교할 수 있습니다.</p>\n    </div></div>\n  </div>\n</section>\n' +
+      '<section class="sec sec--tight" style="padding-top:0">\n<div class="wrap jbody">\n  <aside class="jside"><div class="cside"><span class="jtoc__t">Scope</span><div class="flow__tags">' +
+      (c.scope || []).map(function (s) { return '<span class="tag">' + esc(s) + "</span>"; }).join("") + "</div>" +
+      (ind ? '<a class="tlink" href="/industries/' + ind.slug + '">' + esc(ind.name) + ' 인테리어 기준<span aria-hidden="true">→</span></a>' : "") +
+      (c.estimateBiz ? '<a class="tlink" href="/estimate?biz=' + attr(c.estimateBiz) + '">' + esc(c.biz) + ' 개략 공사비 보기<span aria-hidden="true">→</span></a>' : "") +
+      '</div></aside>\n  <div class="prose">\n' + r.html + "\n" +
+      gal(gb, "Before · 시공 전") + gal(ga, "After · 시공 후") +
+      '<div class="jnote" style="margin-top:2.4em"><strong class="jnote__t">비슷한 공간을 준비하고 계신다면</strong><p>현장 사진이나 후보 자리 주소만 있어도 어떤 공정이 필요할지 먼저 짚어 드립니다. <a href="/contact?biz=' + attr(c.estimateBiz || "") + '">상담 신청</a>에서 이 사례를 보고 연락했다고 남겨 주세요.</p></div>\n' +
+      "  </div>\n</div>\n</section>\n" +
+      (rel.length ? '<section class="sec sec--tight">\n  <div class="wrap">\n    <div class="jsec-h"><h2 class="h2">' + esc(c.biz) + ' 준비에 도움이 되는 글<span class="dot">.</span></h2><a class="tlink" href="/journal/">저널 전체 보기<span aria-hidden="true">→</span></a></div>\n    <div class="jgrid">' + rel.map(function (p) { return card(p); }).join("") + "</div>\n  </div>\n</section>\n" : "") +
+      (others.length ? '<section class="sec sec--sand sec--tight">\n  <div class="wrap">\n    <div class="jsec-h"><h2 class="h2">다른 시공 사례<span class="dot">.</span></h2><a class="tlink" href="/portfolio#cases">전체 사례 보기<span aria-hidden="true">→</span></a></div>\n    <div class="cgrid cgrid--sm">' + others.slice(0, 3).map(caseCard).join("") + "</div>\n  </div>\n</section>\n" : "") +
+      ctaBlock("우리 공간도 이렇게 바뀔 수 있을지 궁금하시다면", "현장 조건은 자리마다 다릅니다. 공간 사진과 업종만 알려 주셔도 필요한 공정과 대략의 범위를 먼저 짚어 드립니다. 상담과 방향 제안까지는 비용이 들지 않습니다.") +
+      "\n</main>\n<!--@footer-->\n" + footer() + "\n<!--/@footer-->\n" + tail();
   }
   function renderIndustry(ind, body, ctx) {
     var r = md(body);
@@ -602,7 +693,7 @@
       '      <figure class="ihero__fig"><img src="' + attr(ind.hero || meta.img) + '" alt="' + attr(ind.heroAlt || ind.title) + '" decoding="async" fetchpriority="high"></figure>\n' +
       "    </div>\n  </div>\n</section>\n" +
       '<section class="sec sec--tight">\n<div class="wrap jbody">\n  <aside class="jside">' + tocHtml + "</aside>\n  <div class=\"prose\">\n" + r.html + "\n  </div>\n</div>\n</section>\n" +
-      baBlock(ind.ba) +
+      baBlock(ind.ba, ctx) +
       (rel.length ? '<section class="sec sec--tight">\n  <div class="wrap">\n    <div class="jsec-h"><h2 class="h2">' + esc(meta.short || ind.title) + ' 준비에 도움이 되는 글<span class="dot">.</span></h2><a class="tlink" href="/journal/">저널 전체 보기<span aria-hidden="true">→</span></a></div>\n    <div class="jgrid">' + rel.map(function (p) { return card(p); }).join("") + "</div>\n  </div>\n</section>\n" : "") +
       '<section class="sec sec--sand sec--tight">\n  <div class="wrap">\n    <div class="jsec-h"><h2 class="h2">다른 업종 보기<span class="dot">.</span></h2><a class="tlink" href="/industries/">업종별 인테리어 전체<span aria-hidden="true">→</span></a></div>\n    <div class="ilinks">' +
       others.map(function (x) { return '<a href="/industries/' + x.slug + '" class="ilink"><span>' + x.name + '</span><span aria-hidden="true">→</span></a>'; }).join("") + "</div>\n  </div>\n</section>\n" +
@@ -665,6 +756,7 @@
     INDUSTRIES.forEach(function (x) { rows.push(u("/industries/" + x.slug, ctx.industryLastmod || today, "monthly", "0.8")); });
     CAT_ORDER.forEach(function (k) { rows.push(u("/journal/category/" + k, lastPost, "weekly", "0.6")); });
     posts.forEach(function (p) { rows.push(u(postUrl(p), isoDate(p.updated || p.date), "monthly", "0.7")); });
+    liveCases(ctx).forEach(function (c) { rows.push(u(caseUrl(c), isoDate(c.updated || ctx.casesLastmod || (ctx.now || Date.now())), "monthly", "0.7")); });
     return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + rows.join("\n") + "\n</urlset>\n";
   }
   function xmlEsc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
@@ -733,6 +825,10 @@
       .replace(/<!--@footer-->[\s\S]*?<!--\/@footer-->/, "<!--@footer-->\n" + footer() + "\n<!--/@footer-->")
       .replace(/<!--@industries-->[\s\S]*?<!--\/@industries-->/, "<!--@industries-->\n" + industriesBlock() + "\n<!--/@industries-->");
     if (ctx.posts) html = html.replace(/<!--@latest-->[\s\S]*?<!--\/@latest-->/, "<!--@latest-->\n" + latestBlock(ctx.posts) + "\n<!--/@latest-->");
+    if (ctx.cases) {
+      html = html.replace(/<!--@ba-->[\s\S]*?<!--\/@ba-->/, "<!--@ba-->\n" + baSlider(ctx) + "\n<!--/@ba-->")
+        .replace(/<!--@cases-->[\s\S]*?<!--\/@cases-->/, "<!--@cases-->\n" + casesBlock(ctx) + "\n<!--/@cases-->");
+    }
     if (ctx.pageMeta) html = html.replace(/^[\s\S]*?<\/head>\n?/, staticHead(cur, ctx.pageMeta, html));
     html = html.replace(/src="\/assets\/js\/main\.js(\?v=[^"]*)?"/, 'src="/assets/js/main.js?v=' + ASSET_V + '"');
     return html;
@@ -746,7 +842,7 @@
     renderPost: renderPost, renderJournalIndex: renderJournalIndex, renderCategory: renderCategory,
     renderIndustry: renderIndustry, renderIndustriesIndex: renderIndustriesIndex, renderPage: renderPage,
     renderSitemap: renderSitemap, renderFeed: renderFeed, postsJson: postsJson, injectPartials: injectPartials,
-    staticHead: staticHead, setVerify: setVerify, verifyMeta: verifyMeta, latestBlock: latestBlock, industriesBlock: industriesBlock, extractFaq: extractFaq, orgLd: orgLd
+    staticHead: staticHead, setVerify: setVerify, renderCase: renderCase, caseUrl: caseUrl, liveCases: liveCases, baSlider: baSlider, casesBlock: casesBlock, verifyMeta: verifyMeta, latestBlock: latestBlock, industriesBlock: industriesBlock, extractFaq: extractFaq, orgLd: orgLd
   };
   if (typeof module !== "undefined" && module.exports) module.exports = CM;
   else root.CMRender = CM;

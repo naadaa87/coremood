@@ -66,7 +66,18 @@ allPosts.forEach((p) => {
 if (pyOk) write("content/og-keys.json", JSON.stringify(ogKeys, null, 1) + "\n");
 
 const live = allPosts.filter((p) => CM.isLive(p.meta, NOW));
-const ctx = { posts: live.map((p) => p.meta), now: NOW };
+let cases = [];
+try { cases = JSON.parse(read(P("data/cases.json"))).cases || []; } catch (e) { console.warn("  data/cases.json 을 읽지 못했습니다:", e.message); }
+const ctx = { posts: live.map((p) => p.meta), cases, now: NOW };
+
+/* ---------- cases (시공 사례) ---------- */
+const liveCaseSet = new Set(CM.liveCases(ctx).map((c) => c.slug));
+CM.liveCases(ctx).forEach((c) => write("projects/" + c.slug + ".html", CM.renderCase(c, ctx)));
+if (fs.existsSync(P("projects"))) {
+  fs.readdirSync(P("projects")).filter((f) => f.endsWith(".html")).forEach((f) => {
+    if (!liveCaseSet.has(f.replace(/\.html$/, ""))) { fs.unlinkSync(P("projects", f)); removed++; }
+  });
+}
 
 // 개별 글
 const liveSet = new Set(live.map((p) => p.meta.slug));
@@ -103,7 +114,7 @@ Object.entries(pageMeta).forEach(([key, meta]) => {
   const f = P(meta.file);
   if (!fs.existsSync(f)) return;
   const html = read(f);
-  write(meta.file, CM.injectPartials(html, key, { posts: ctx.posts, pageMeta: meta }));
+  write(meta.file, CM.injectPartials(html, key, { posts: ctx.posts, cases: ctx.cases, pageMeta: meta }));
 });
 
 /* ---------- sitemap / rss / json ---------- */
@@ -122,4 +133,4 @@ write("content/index.json", JSON.stringify(index, null, 1) + "\n");
 
 const sched = allPosts.filter((p) => status(p.meta) === "scheduled").length;
 const drafts = allPosts.filter((p) => p.meta.draft).length;
-console.log(`빌드 완료 · 공개 글 ${live.length} · 예약 ${sched} · 임시저장 ${drafts} · 업종 ${inds.length} · 페이지 ${pages.length} · 변경 파일 ${written} · 삭제 ${removed}`);
+console.log(`빌드 완료 · 시공 사례 ${liveCaseSet.size} · 공개 글 ${live.length} · 예약 ${sched} · 임시저장 ${drafts} · 업종 ${inds.length} · 페이지 ${pages.length} · 변경 파일 ${written} · 삭제 ${removed}`);

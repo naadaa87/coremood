@@ -32,7 +32,8 @@
   - 수치·통계·고객 사례를 지어내지 않습니다. 금액은 견적 안내 기준만, 기간은 조건을 붙인 일반 범위만.
   - 인허가·소방·전기 용량 등은 "별도 확인" 항목으로 안내합니다.
   - 최신 정보가 필요한 주제(플랫폼 기능, 제도 변화 등)는 웹 검색으로 확인하되 문장을 옮겨 쓰지 않고, 확실하지 않으면 일반 원칙으로 씁니다.
-- 내부 링크 3~5개. **이미 존재하는** 경로만 씁니다: `/industries/<slug>`, `/journal/<slug>`(data/posts.json 에 있는 글), `/services`, `/estimate`, `/process`, `/portfolio`, `/faq`, `/contact`.
+- 내부 링크 3~5개. **이미 존재하는** 경로만 씁니다: `/industries/<slug>`, `/journal/<slug>`(data/posts.json 에 있는 글), `/projects/<slug>`(data/cases.json 의 시공 사례), `/services`, `/estimate`, `/process`, `/portfolio`, `/faq`, `/contact`.
+- 업종이 맞는 실제 시공 사례가 있으면 본문에서 한 번 자연스럽게 연결합니다(예: 미용실 글 → `/projects/sinchon-hair-salon`). 사례에 적힌 사실(업종·지역·공정 범위) 외의 내용은 지어내지 않습니다.
 
 ## 4. 점검과 빌드
 

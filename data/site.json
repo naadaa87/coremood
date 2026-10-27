@@ -8,5 +8,19 @@
   "verify": {
     "naver": "4eabdaa4de82e69200936758f6e6eb9386dc9ce4",
     "google": ""
+  },
+  "quick": {
+    "enabled": true
+  },
+  "kakao": {
+    "url": "",
+    "label": ""
+  },
+  "analytics": {
+    "ga4": "",
+    "naver": ""
+  },
+  "turnstile": {
+    "siteKey": ""
   }
 }
