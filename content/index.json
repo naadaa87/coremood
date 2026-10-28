@@ -1,6 +1,30 @@
 {
- "updated": "2026-10-27T03:00:38.721Z",
+ "updated": "2026-10-28T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "menu-board-design-guide",
+   "title": "메뉴판 디자인, 주문이 빨라지는 메뉴판의 조건",
+   "date": "2026-10-28T10:00:00+09:00",
+   "updated": "",
+   "category": "branding",
+   "keyword": "메뉴판 디자인",
+   "tags": [
+    "메뉴판 디자인",
+    "메뉴판",
+    "카페",
+    "음식점",
+    "브랜딩"
+   ],
+   "description": "카운터 앞 줄이 길어지는 이유는 메뉴 수보다 정보 순서에 있는 경우가 많습니다. 벽 메뉴판과 테이블 메뉴판의 역할 나누기, 읽히는 거리와 조명까지 메뉴판 디자인을 정할 때 볼 기준을 정리했습니다.",
+   "cover": "/assets/img/ba-cafe-after.webp",
+   "coverAlt": "통창 앞 바 좌석과 원목 구조물이 있는 카페 내부",
+   "og": "/assets/img/og/menu-board-design-guide.jpg",
+   "draft": false,
+   "minutes": 6,
+   "chars": 3092,
+   "status": "live",
+   "file": "content/posts/menu-board-design-guide.md"
+  },
   {
    "slug": "commercial-flooring-guide",
    "title": "상가 바닥재 고르는 법, 폴리싱 타일·데코타일·에폭시 비교",
