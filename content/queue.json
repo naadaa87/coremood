@@ -32,8 +32,10 @@
    "category": "marketing",
    "keyword": "네이버 플레이스 사진",
    "angle": "외관-대표 메뉴/공간-좌석-디테일 순서, 업종별 차이, 계절마다 바꿀 사진",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "naver-place-photo-order",
+   "publishedAt": "2026-10-29T10:00:00+09:00"
   },
   {
    "id": "q04",

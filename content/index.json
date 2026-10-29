@@ -1,6 +1,30 @@
 {
- "updated": "2026-10-28T01:00:00.000Z",
+ "updated": "2026-10-29T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "naver-place-photo-order",
+   "title": "네이버 플레이스 사진, 대표 사진 순서를 정하는 기준",
+   "date": "2026-10-29T10:00:00+09:00",
+   "updated": "",
+   "category": "marketing",
+   "keyword": "네이버 플레이스 사진",
+   "tags": [
+    "네이버 플레이스",
+    "매장 사진",
+    "카페",
+    "미용실",
+    "파티룸"
+   ],
+   "description": "네이버 플레이스 사진은 몇 장을 올리느냐보다 앞쪽 몇 장을 어떤 순서로 두느냐가 손님의 판단에 영향을 줍니다. 업종별로 첫 장을 고르는 기준, 계절과 메뉴에 맞춰 바꿀 사진, 점검 순서를 정리했습니다.",
+   "cover": "/assets/img/s-marketing.webp",
+   "coverAlt": "매장 마케팅과 운영 연계 작업 장면",
+   "og": "/assets/img/og/naver-place-photo-order.jpg",
+   "draft": false,
+   "minutes": 6,
+   "chars": 2667,
+   "status": "live",
+   "file": "content/posts/naver-place-photo-order.md"
+  },
   {
    "slug": "menu-board-design-guide",
    "title": "메뉴판 디자인, 주문이 빨라지는 메뉴판의 조건",
