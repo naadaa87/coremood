@@ -1,6 +1,29 @@
 {
- "updated": "2026-10-29T01:00:00.000Z",
+ "updated": "2026-10-30T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "bakery-startup-interior-layout",
+   "title": "베이커리 창업 인테리어, 오븐 위치와 진열대 동선부터 정합니다",
+   "date": "2026-10-30T10:00:00+09:00",
+   "updated": "",
+   "category": "startup",
+   "keyword": "베이커리 창업",
+   "tags": [
+    "베이커리 창업",
+    "베이커리 인테리어",
+    "카페",
+    "매장 동선"
+   ],
+   "description": "베이커리 창업 인테리어는 오븐을 어디에 두느냐에서 거의 모든 배치가 정해집니다. 생산 동선과 판매 동선을 나누는 기준, 진열대와 조명, 계약 전에 별도로 확인할 배기·전기 항목을 정리했습니다.",
+   "cover": "/assets/img/p-bakery-w.webp",
+   "coverAlt": "웜 오크와 라임워시로 마감한 베이커리 카페 스타일 디렉션",
+   "og": "/assets/img/og/bakery-startup-interior-layout.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3331,
+   "status": "live",
+   "file": "content/posts/bakery-startup-interior-layout.md"
+  },
   {
    "slug": "naver-place-photo-order",
    "title": "네이버 플레이스 사진, 대표 사진 순서를 정하는 기준",

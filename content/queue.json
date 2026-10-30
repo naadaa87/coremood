@@ -43,8 +43,10 @@
    "category": "startup",
    "keyword": "베이커리 창업",
    "angle": "생산 동선과 판매 동선 분리, 오븐 배기·전기 용량은 별도 확인, 진열 조명",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "bakery-startup-interior-layout",
+   "publishedAt": "2026-10-30T10:00:00+09:00"
   },
   {
    "id": "q05",
