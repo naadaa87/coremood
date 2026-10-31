@@ -54,8 +54,10 @@
    "category": "business",
    "keyword": "2호점 출점",
    "angle": "1호점 운영 데이터로 고칠 점 찾기, 상권이 다를 때 바꿔야 할 요소, 브랜드 매뉴얼 글과 연결",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "second-store-what-to-keep",
+   "publishedAt": "2026-10-31T10:00:00+09:00"
   },
   {
    "id": "q06",

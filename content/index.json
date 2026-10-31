@@ -1,6 +1,30 @@
 {
- "updated": "2026-10-30T01:00:00.000Z",
+ "updated": "2026-10-31T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "second-store-what-to-keep",
+   "title": "2호점 출점, 1호점 공간에서 가져갈 것과 버릴 것",
+   "date": "2026-10-31T10:00:00+09:00",
+   "updated": "",
+   "category": "business",
+   "keyword": "2호점 출점",
+   "tags": [
+    "2호점 출점",
+    "매장 확장",
+    "카페",
+    "음식점",
+    "미용실"
+   ],
+   "description": "2호점 출점 때 1호점 공간을 그대로 복사하면 좋은 점과 함께 불편도 따라옵니다. 운영 기록으로 고칠 점을 찾는 법, 상권이 다를 때 바꿔야 할 요소, 끝까지 지켜야 할 기준을 정리했습니다.",
+   "cover": "/assets/img/p-roastery-w.webp",
+   "coverAlt": "블랙 스틸과 다크 우드의 커피 로스터리 스타일 디렉션",
+   "og": "/assets/img/og/second-store-what-to-keep.jpg",
+   "draft": false,
+   "minutes": 6,
+   "chars": 2853,
+   "status": "live",
+   "file": "content/posts/second-store-what-to-keep.md"
+  },
   {
    "slug": "bakery-startup-interior-layout",
    "title": "베이커리 창업 인테리어, 오븐 위치와 진열대 동선부터 정합니다",
