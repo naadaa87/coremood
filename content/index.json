@@ -1,6 +1,29 @@
 {
- "updated": "2026-10-31T01:00:00.000Z",
+ "updated": "2026-11-01T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "cafe-interior-cost-20-pyeong",
+   "title": "카페 인테리어 비용, 20평 기준으로 돈이 드는 곳",
+   "date": "2026-11-01T10:00:00+09:00",
+   "updated": "",
+   "category": "interior",
+   "keyword": "카페 인테리어 비용",
+   "tags": [
+    "카페 인테리어 비용",
+    "카페",
+    "카페 창업",
+    "인테리어 견적"
+   ],
+   "description": "20평 카페를 기준으로 사양별 개략 공사비가 어디서 출발하는지, 같은 예산 안에서 돈이 몰리는 구역과 금액을 움직이는 현장 조건이 무엇인지 정리했습니다. 견적을 받기 전에 예산의 무게를 어디에 둘지 정할 수 있습니다.",
+   "cover": "/assets/img/p-cafe-w.webp",
+   "coverAlt": "스톤 바닥과 브론즈 톤 조명이 어우러진 라운지형 카페 스타일 디렉션",
+   "og": "/assets/img/og/cafe-interior-cost-20-pyeong.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3260,
+   "status": "live",
+   "file": "content/posts/cafe-interior-cost-20-pyeong.md"
+  },
   {
    "slug": "second-store-what-to-keep",
    "title": "2호점 출점, 1호점 공간에서 가져갈 것과 버릴 것",

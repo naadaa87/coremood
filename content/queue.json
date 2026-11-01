@@ -65,8 +65,10 @@
    "category": "interior",
    "keyword": "카페 인테리어 비용",
    "angle": "견적 안내 기준(스탠다드 170 × 카페 1.00)으로 개략 범위 설명 + 별도 항목. 수치는 견적 안내 기준만",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "cafe-interior-cost-20-pyeong",
+   "publishedAt": "2026-11-01T10:00:00+09:00"
   },
   {
    "id": "q07",
