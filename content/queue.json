@@ -76,8 +76,10 @@
    "category": "branding",
    "keyword": "매장 컬러",
    "angle": "로고 컬러를 벽 전체에 칠하면 생기는 문제, 면적 비율, 조명 아래에서 색이 바뀌는 문제",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "store-brand-color-guide",
+   "publishedAt": "2026-11-02T10:00:00+09:00"
   },
   {
    "id": "q08",

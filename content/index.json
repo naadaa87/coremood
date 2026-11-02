@@ -1,6 +1,30 @@
 {
- "updated": "2026-11-01T01:00:00.000Z",
+ "updated": "2026-11-02T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "store-brand-color-guide",
+   "title": "매장 컬러 정하기, 브랜드 컬러를 공간에 옮길 때",
+   "date": "2026-11-02T10:00:00+09:00",
+   "updated": "",
+   "category": "branding",
+   "keyword": "매장 컬러",
+   "tags": [
+    "매장 컬러",
+    "브랜드 컬러",
+    "공간 브랜딩",
+    "카페",
+    "미용실"
+   ],
+   "description": "로고 컬러를 벽에 그대로 칠하면 왜 다른 색처럼 보이는지, 면적 비율과 조명, 소재에 따라 매장 컬러를 어떻게 나눠 정하는지 정리했습니다. 도장 전에 현장에서 확인할 항목도 담았습니다.",
+   "cover": "/assets/img/p-showroom-w.webp",
+   "coverAlt": "트래버틴과 웜 미니멀 톤으로 마감한 리빙 쇼룸 스타일 디렉션",
+   "og": "/assets/img/og/store-brand-color-guide.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3214,
+   "status": "live",
+   "file": "content/posts/store-brand-color-guide.md"
+  },
   {
    "slug": "cafe-interior-cost-20-pyeong",
    "title": "카페 인테리어 비용, 20평 기준으로 돈이 드는 곳",
