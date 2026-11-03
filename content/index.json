@@ -1,6 +1,30 @@
 {
- "updated": "2026-11-02T01:00:00.000Z",
+ "updated": "2026-11-03T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "store-photo-shot-list",
+   "title": "매장 사진 촬영 가이드, 오픈 전 찍어야 할 컷 목록",
+   "date": "2026-11-03T10:00:00+09:00",
+   "updated": "",
+   "category": "marketing",
+   "keyword": "매장 사진 촬영",
+   "tags": [
+    "매장 사진",
+    "촬영",
+    "카페",
+    "파티룸",
+    "미용실"
+   ],
+   "description": "오픈 전 매장 사진 촬영은 하루 안에 끝내야 하는 경우가 많습니다. 시간대별로 찍을 컷, 사람이 있는 컷과 없는 컷, 플레이스·인스타그램·예약 채널에 맞춰 남겨 둘 비율을 컷 목록으로 정리했습니다.",
+   "cover": "/assets/img/s-content.webp",
+   "coverAlt": "공간 촬영과 콘텐츠 제작 장면",
+   "og": "/assets/img/og/store-photo-shot-list.jpg",
+   "draft": false,
+   "minutes": 6,
+   "chars": 3119,
+   "status": "live",
+   "file": "content/posts/store-photo-shot-list.md"
+  },
   {
    "slug": "store-brand-color-guide",
    "title": "매장 컬러 정하기, 브랜드 컬러를 공간에 옮길 때",

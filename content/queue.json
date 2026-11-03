@@ -87,8 +87,10 @@
    "category": "marketing",
    "keyword": "매장 사진 촬영",
    "angle": "시간대(자연광/야간), 각도, 사람 있는 컷과 없는 컷, 플레이스·인스타·예약 채널용 비율",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "store-photo-shot-list",
+   "publishedAt": "2026-11-03T10:00:00+09:00"
   },
   {
    "id": "q09",
