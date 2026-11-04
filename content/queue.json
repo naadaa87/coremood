@@ -98,8 +98,10 @@
    "category": "startup",
    "keyword": "상권 분석",
    "angle": "점심·저녁·주말 동선을 직접 걸어 보는 방법, 건너편 정류장, 주차, 경쟁 매장 체류 시간 관찰",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "commercial-area-walking-route-analysis",
+   "publishedAt": "2026-11-04T10:00:00+09:00"
   },
   {
    "id": "q10",

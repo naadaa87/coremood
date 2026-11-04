@@ -32,5 +32,6 @@
  "second-store-what-to-keep": "2호점 출점, 1호점 공간에서 가져갈 것과 버릴 것|business|/assets/img/p-roastery-w.webp",
  "cafe-interior-cost-20-pyeong": "카페 인테리어 비용, 20평 기준으로 돈이 드는 곳|interior|/assets/img/p-cafe-w.webp",
  "store-brand-color-guide": "매장 컬러 정하기, 브랜드 컬러를 공간에 옮길 때|branding|/assets/img/p-showroom-w.webp",
- "store-photo-shot-list": "매장 사진 촬영 가이드, 오픈 전 찍어야 할 컷 목록|marketing|/assets/img/s-content.webp"
+ "store-photo-shot-list": "매장 사진 촬영 가이드, 오픈 전 찍어야 할 컷 목록|marketing|/assets/img/s-content.webp",
+ "commercial-area-walking-route-analysis": "상권 분석, 유동인구 숫자보다 먼저 걸어 봐야 할 동선|startup|/assets/img/s-plan.webp"
 }
