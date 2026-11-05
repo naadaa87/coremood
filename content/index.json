@@ -1,6 +1,29 @@
 {
- "updated": "2026-11-04T01:00:00.000Z",
+ "updated": "2026-11-05T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "unmanned-study-cafe-complaint-design",
+   "title": "무인 스터디카페 운영, 민원을 줄이는 공간 설계",
+   "date": "2026-11-05T10:00:00+09:00",
+   "updated": "",
+   "category": "business",
+   "keyword": "무인 스터디카페",
+   "tags": [
+    "무인 스터디카페",
+    "스터디카페",
+    "스터디카페 창업",
+    "무인 매장"
+   ],
+   "description": "무인 스터디카페의 민원은 대부분 소음, 냉난방, 출입, 청소 네 갈래에서 나옵니다. 운영자가 현장에 없어도 다툼이 덜 생기도록 공간을 나누고 장비를 배치하는 기준을 정리했습니다.",
+   "cover": "/assets/img/ba-study-after.webp",
+   "coverAlt": "창가를 따라 칸막이 좌석과 펜던트 조명이 줄지어 놓인 스터디카페",
+   "og": "/assets/img/og/unmanned-study-cafe-complaint-design.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3265,
+   "status": "live",
+   "file": "content/posts/unmanned-study-cafe-complaint-design.md"
+  },
   {
    "slug": "commercial-area-walking-route-analysis",
    "title": "상권 분석, 유동인구 숫자보다 먼저 걸어 봐야 할 동선",

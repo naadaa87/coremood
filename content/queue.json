@@ -109,8 +109,10 @@
    "category": "business",
    "keyword": "무인 스터디카페",
    "angle": "소음 민원, 출입 관리, 냉난방 민원, 청소 동선. CCTV·개인정보 기준은 별도 확인",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "unmanned-study-cafe-complaint-design",
+   "publishedAt": "2026-11-05T10:00:00+09:00"
   },
   {
    "id": "q11",
