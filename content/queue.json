@@ -120,8 +120,10 @@
    "category": "interior",
    "keyword": "상가 냉난방기",
    "angle": "천장형/스탠드형 선택, 실외기 위치와 건물 규약, 전기 용량은 별도 확인, 좌석과 바람 방향",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "commercial-hvac-selection-layout",
+   "publishedAt": "2026-11-06T10:00:00+09:00"
   },
   {
    "id": "q12",

@@ -1,6 +1,30 @@
 {
- "updated": "2026-11-05T01:00:00.000Z",
+ "updated": "2026-11-06T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "commercial-hvac-selection-layout",
+   "title": "상가 냉난방기 선택과 배치, 공사 전에 정해야 할 것",
+   "date": "2026-11-06T10:00:00+09:00",
+   "updated": "",
+   "category": "interior",
+   "keyword": "상가 냉난방기",
+   "tags": [
+    "상가 냉난방기",
+    "시스템 에어컨",
+    "상가 인테리어",
+    "카페",
+    "음식점"
+   ],
+   "description": "상가 냉난방기는 마감 전에 기종, 위치, 실외기 자리, 전기 여건까지 정해 두어야 합니다. 천장형과 스탠드형을 고르는 기준과 좌석·바람 방향을 함께 보는 배치 방법을 정리했습니다.",
+   "cover": "/assets/img/s-interior.webp",
+   "coverAlt": "인테리어 시공 현장",
+   "og": "/assets/img/og/commercial-hvac-selection-layout.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3211,
+   "status": "live",
+   "file": "content/posts/commercial-hvac-selection-layout.md"
+  },
   {
    "slug": "unmanned-study-cafe-complaint-design",
    "title": "무인 스터디카페 운영, 민원을 줄이는 공간 설계",
