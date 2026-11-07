@@ -1,6 +1,30 @@
 {
- "updated": "2026-11-06T01:00:00.000Z",
+ "updated": "2026-11-07T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "store-goods-uniform-branding",
+   "title": "매장 굿즈와 유니폼, 공간 밖으로 브랜드를 가져가는 방법",
+   "date": "2026-11-07T10:00:00+09:00",
+   "updated": "",
+   "category": "branding",
+   "keyword": "매장 굿즈",
+   "tags": [
+    "매장 굿즈",
+    "유니폼",
+    "포장재",
+    "공간 브랜딩",
+    "카페"
+   ],
+   "description": "작은 매장이 굿즈와 유니폼, 컵과 쇼핑백으로 브랜드를 매장 밖까지 이어 가려면 무엇부터 정해야 하는지 정리했습니다. 만들 것과 미룰 것을 가르는 기준, 사진에 남는 방식, 발주 전 확인할 항목을 담았습니다.",
+   "cover": "/assets/img/m-brand.webp",
+   "coverAlt": "명함과 인쇄물을 가지런히 놓은 브랜딩 플랫레이",
+   "og": "/assets/img/og/store-goods-uniform-branding.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3190,
+   "status": "live",
+   "file": "content/posts/store-goods-uniform-branding.md"
+  },
   {
    "slug": "commercial-hvac-selection-layout",
    "title": "상가 냉난방기 선택과 배치, 공사 전에 정해야 할 것",

@@ -131,8 +131,10 @@
    "category": "branding",
    "keyword": "매장 굿즈",
    "angle": "작은 매장이 할 수 있는 범위, 포장재·컵·쇼핑백이 사진에 남는 방식",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "store-goods-uniform-branding",
+   "publishedAt": "2026-11-07T10:00:00+09:00"
   },
   {
    "id": "q13",

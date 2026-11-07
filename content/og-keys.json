@@ -35,5 +35,6 @@
  "store-photo-shot-list": "매장 사진 촬영 가이드, 오픈 전 찍어야 할 컷 목록|marketing|/assets/img/s-content.webp",
  "commercial-area-walking-route-analysis": "상권 분석, 유동인구 숫자보다 먼저 걸어 봐야 할 동선|startup|/assets/img/s-plan.webp",
  "unmanned-study-cafe-complaint-design": "무인 스터디카페 운영, 민원을 줄이는 공간 설계|business|/assets/img/ba-study-after.webp",
- "commercial-hvac-selection-layout": "상가 냉난방기 선택과 배치, 공사 전에 정해야 할 것|interior|/assets/img/s-interior.webp"
+ "commercial-hvac-selection-layout": "상가 냉난방기 선택과 배치, 공사 전에 정해야 할 것|interior|/assets/img/s-interior.webp",
+ "store-goods-uniform-branding": "매장 굿즈와 유니폼, 공간 밖으로 브랜드를 가져가는 방법|branding|/assets/img/m-brand.webp"
 }
