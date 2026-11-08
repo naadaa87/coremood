@@ -142,8 +142,10 @@
    "category": "marketing",
    "keyword": "블로그 체험단",
    "angle": "광고 표기 기준 준수(별도 확인), 공간이 준비되지 않았을 때의 역효과, 체험단 이후 리뷰 흐름",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "blog-review-campaign-timing",
+   "publishedAt": "2026-11-08T10:00:00+09:00"
   },
   {
    "id": "q14",

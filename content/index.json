@@ -1,6 +1,30 @@
 {
- "updated": "2026-11-07T01:00:00.000Z",
+ "updated": "2026-11-08T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "blog-review-campaign-timing",
+   "title": "블로그 체험단, 오픈 초기에 써도 되는 경우와 아닌 경우",
+   "date": "2026-11-08T10:00:00+09:00",
+   "updated": "",
+   "category": "marketing",
+   "keyword": "블로그 체험단",
+   "tags": [
+    "블로그 체험단",
+    "오픈 마케팅",
+    "리뷰",
+    "음식점",
+    "카페"
+   ],
+   "description": "블로그 체험단을 오픈 초기에 돌려도 되는 매장과 미뤄야 하는 매장을 나누는 기준, 광고 표시처럼 별도 확인할 항목, 체험단 이후 일반 손님 리뷰로 이어지게 하는 방법을 정리했습니다.",
+   "cover": "/assets/img/ba-dining-after.webp",
+   "coverAlt": "간접 조명이 들어간 곡선형 바 카운터와 술병 진열장이 보이는 음식점 내부",
+   "og": "/assets/img/og/blog-review-campaign-timing.jpg",
+   "draft": false,
+   "minutes": 6,
+   "chars": 3083,
+   "status": "live",
+   "file": "content/posts/blog-review-campaign-timing.md"
+  },
   {
    "slug": "store-goods-uniform-branding",
    "title": "매장 굿즈와 유니폼, 공간 밖으로 브랜드를 가져가는 방법",
