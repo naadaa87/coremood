@@ -153,8 +153,10 @@
    "category": "startup",
    "keyword": "네일샵 인테리어",
    "angle": "시술석 간격, 환기·냄새, 조명 연색성, 대기 공간, 위생 동선",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "nail-shop-interior-seating-ventilation",
+   "publishedAt": "2026-11-09T10:00:00+09:00"
   },
   {
    "id": "q15",

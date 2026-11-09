@@ -1,6 +1,29 @@
 {
- "updated": "2026-11-08T01:00:00.000Z",
+ "updated": "2026-11-09T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "nail-shop-interior-seating-ventilation",
+   "title": "네일샵 인테리어, 작은 면적에서 좌석과 환기 잡기",
+   "date": "2026-11-09T10:00:00+09:00",
+   "updated": "",
+   "category": "startup",
+   "keyword": "네일샵 인테리어",
+   "tags": [
+    "네일샵 인테리어",
+    "네일샵",
+    "뷰티",
+    "미용실"
+   ],
+   "description": "10평 안팎의 작은 네일샵에서 시술석 간격, 젤과 아세톤 냄새를 빼는 환기, 색이 정확하게 보이는 조명, 대기 공간과 위생 동선을 어떤 순서로 정해야 하는지 정리했습니다. 계약 전과 공사 전에 확인할 기준입니다.",
+   "cover": "/assets/img/p-dressing-w.webp",
+   "coverAlt": "브론즈 톤 벽과 벨벳 의자로 마감한 뷰티 드레싱룸 스타일 디렉션",
+   "og": "/assets/img/og/nail-shop-interior-seating-ventilation.jpg",
+   "draft": false,
+   "minutes": 6,
+   "chars": 2923,
+   "status": "live",
+   "file": "content/posts/nail-shop-interior-seating-ventilation.md"
+  },
   {
    "slug": "blog-review-campaign-timing",
    "title": "블로그 체험단, 오픈 초기에 써도 되는 경우와 아닌 경우",
