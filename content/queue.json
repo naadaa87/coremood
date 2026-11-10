@@ -164,8 +164,10 @@
    "category": "business",
    "keyword": "사무실 이전",
    "angle": "일정표 형식, 통신·IT 이전, 업무 공백 최소화, 원상복구와 연결",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "office-relocation-checklist",
+   "publishedAt": "2026-11-10T10:00:00+09:00"
   },
   {
    "id": "q16",
