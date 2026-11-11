@@ -175,8 +175,10 @@
    "category": "interior",
    "keyword": "상가 화장실 인테리어",
    "angle": "건물 공용 화장실과 매장 내 화장실 차이, 급배수 위치, 조명과 거울, 청소 편의",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "commercial-restroom-interior-guide",
+   "publishedAt": "2026-11-11T10:00:00+09:00"
   },
   {
    "id": "q17",
