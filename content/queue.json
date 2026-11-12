@@ -186,8 +186,10 @@
    "category": "branding",
    "keyword": "브랜드 스토리",
    "angle": "벽에 긴 문장을 쓰지 않고 소재·동선·디테일로 전달하는 방법",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "brand-story-show-not-tell-store",
+   "publishedAt": "2026-11-12T10:00:00+09:00"
   },
   {
    "id": "q18",

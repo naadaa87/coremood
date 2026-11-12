@@ -1,6 +1,30 @@
 {
- "updated": "2026-11-11T01:00:00.000Z",
+ "updated": "2026-11-12T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "brand-story-show-not-tell-store",
+   "title": "브랜드 스토리, 매장에서 말하지 않고 보여 주는 법",
+   "date": "2026-11-12T10:00:00+09:00",
+   "updated": "",
+   "category": "branding",
+   "keyword": "브랜드 스토리",
+   "tags": [
+    "브랜드 스토리",
+    "공간 브랜딩",
+    "카페",
+    "음식점",
+    "숙박"
+   ],
+   "description": "브랜드 스토리를 벽에 긴 문장으로 쓰지 않고 소재, 동선, 작은 디테일로 손님에게 전하는 방법을 정리했습니다. 이야기를 장면으로 바꾸는 순서와 공사 전에 확인할 항목을 담았습니다.",
+   "cover": "/assets/img/p-roastery-w.webp",
+   "coverAlt": "블랙 스틸과 다크 우드로 마감한 커피 로스터리 공간",
+   "og": "/assets/img/og/brand-story-show-not-tell-store.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3218,
+   "status": "live",
+   "file": "content/posts/brand-story-show-not-tell-store.md"
+  },
   {
    "slug": "commercial-restroom-interior-guide",
    "title": "상가 화장실 인테리어, 리뷰에 남는 작은 공간 다루는 법",
