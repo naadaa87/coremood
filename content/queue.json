@@ -197,8 +197,10 @@
    "category": "marketing",
    "keyword": "리뷰 답글",
    "angle": "불만 리뷰 대응 원칙, 복붙 답글의 문제, 운영자 목소리 정하기",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "review-reply-writing-guide",
+   "publishedAt": "2026-11-13T10:00:00+09:00"
   },
   {
    "id": "q19",

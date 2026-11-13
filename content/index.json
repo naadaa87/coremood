@@ -1,6 +1,30 @@
 {
- "updated": "2026-11-12T01:00:00.000Z",
+ "updated": "2026-11-13T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "review-reply-writing-guide",
+   "title": "리뷰 답글 쓰는 법, 불만 리뷰에도 다시 오게 만드는 문장",
+   "date": "2026-11-13T10:00:00+09:00",
+   "updated": "",
+   "category": "marketing",
+   "keyword": "리뷰 답글",
+   "tags": [
+    "리뷰 답글",
+    "리뷰 관리",
+    "플레이스",
+    "미용실",
+    "파티룸"
+   ],
+   "description": "칭찬 리뷰와 불만 리뷰에 답글을 쓰는 원칙, 복사해 붙인 답글이 손해인 이유, 운영자 목소리를 정하는 방법을 정리했습니다. 답글이 다음 손님의 판단 자료가 되도록 쓰는 기준을 알려 드립니다.",
+   "cover": "/assets/img/s-marketing.webp",
+   "coverAlt": "매장 마케팅과 운영 자료를 펼쳐 놓고 작업하는 테이블",
+   "og": "/assets/img/og/review-reply-writing-guide.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3239,
+   "status": "live",
+   "file": "content/posts/review-reply-writing-guide.md"
+  },
   {
    "slug": "brand-story-show-not-tell-store",
    "title": "브랜드 스토리, 매장에서 말하지 않고 보여 주는 법",
