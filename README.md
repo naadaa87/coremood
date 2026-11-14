@@ -32,7 +32,7 @@ GitHub 토큰(이 저장소 Contents 읽기·쓰기 권한)으로 로그인합�
 ```
 방문자 ──(상담 신청 폼 / 빠른 상담 / 견적 계산 후 문의)──▶ /api/inquiry  (Pages Functions)
                                                          ├─ 스팸 검사: 숨김 칸, 같은 곳 10분 5건 제한, Turnstile(선택)
-                                                         ├─ 저장: Cloudflare D1 공용 DB total-db (바인딩 DB, cm_ 표 자동 생성)
+                                                         ├─ 저장: Cloudflare D1 전용 DB coremood-db (바인딩 DB, cm_ 표 자동 생성)
                                                          └─ 알림: 이메일(Resend) · 텔레그램 · 슬랙/디스코드 웹후크 (선택)
 관리자 ──▶ /api/admin/inquiries (GitHub 토큰 확인 후 조회·수정·등록·삭제)
 ```
@@ -43,14 +43,14 @@ D1이 연결되기 전에는 문의가 방문자의 메일 앱으로 넘어갑�
 
 | 순서 | 위치 | 값 |
 |---|---|---|
-| 1. D1 연결 | Compute → Workers & Pages → coremood → Settings → Bindings → Add → D1 database | 변수 `DB` → 공용 DB `total-db` |
+| 1. D1 연결 | Compute → Workers & Pages → coremood → Settings → Bindings (Production·Preview) | 변수 `DB` → 전용 DB `coremood-db` |
 | 2. 알림(선택) | Settings → Variables and Secrets → Add (Encrypt) | `RESEND_API_KEY` 또는 `TELEGRAM_BOT_TOKEN`+`TELEGRAM_CHAT_ID` 또는 `NOTIFY_WEBHOOK` |
 | 3. 스팸 방지(선택) | Turnstile → Add widget (coremood.kr, Managed) | Secret → 변수 `TURNSTILE_SECRET`, Site Key → 관리자 사이트 설정 |
 | 4. 재배포 | Deployments → 최신 배포 → Retry deployment | 바인딩·변수는 재배포 후 적용 |
 | 5. 방문 분석(선택) | Workers & Pages → coremood → Metrics → Web Analytics → Enable | |
 | 6. 관리자 잠금(선택) | Zero Trust → Access → Applications → Self-hosted | `coremood.kr/admin`, 대표 메일만 허용 |
 
-`total-db`는 여러 홈페이지가 함께 쓰는 공용 D1 데이터베이스입니다(ID 5bcf38aa-f078-4adb-a3d2-1de3e5793722). 코어무드 표는 `cm_inquiries`, `cm_inquiry_notes`, `cm_auth_cache`로 모두 `cm_` 접두어를 쓰며, 다른 사이트는 각자 다른 접두어를 써서 겹치지 않게 합니다.
+`coremood-db`는 코어무드 전용 D1 데이터베이스입니다(ID df58fe1f-cbfd-4727-909c-4e076c8b225f, Asia Pacific, 2026-11 생성). 2026년 10~11월에는 공용 DB `total-db`를 연결해 두었으나 코어무드 표가 만들어지기 전이었으므로 옮길 데이터는 없었습니다. 표 이름은 `cm_inquiries`, `cm_inquiry_notes`, `cm_auth_cache`입니다.
 
 선택 변수: `NOTIFY_EMAIL`(받는 주소, 기본 spaceblank0100@gmail.com), `NOTIFY_FROM`(보내는 주소, Resend 도메인 인증 후).
 

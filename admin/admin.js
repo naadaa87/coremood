@@ -1352,11 +1352,11 @@
       '<div class="setup">' +
       '<section class="panel su" id="su-db"><h2>' + mark("wait") + ' 1. 상담 문의 저장소 (Cloudflare D1) <small>필수</small></h2>' +
       '<p class="small">홈페이지의 상담 신청·빠른 문의를 저장하는 데이터베이스입니다. 연결 전에는 문의가 방문자의 메일 앱으로 넘어가 놓치기 쉽습니다. 무료 범위로 충분합니다.</p>' +
-      '<ol class="steps"><li>여러 홈페이지가 함께 쓰는 공용 D1 데이터베이스 <code>total-db</code>를 씁니다. 새로 만들 필요가 없습니다.</li>' +
-      "<li><b>Compute → Workers &amp; Pages</b> → <b>coremood</b> 프로젝트 → <b>Settings → Bindings → Add → D1 database</b>.</li>" +
-      "<li>Variable name에 <code>DB</code>, D1 database에 <code>total-db</code>를 고르고 저장합니다.</li>" +
-      "<li>Deployments에서 최신 배포를 <b>Retry deployment</b> 합니다. 코어무드 표(<code>cm_inquiries</code>, <code>cm_inquiry_notes</code>, <code>cm_auth_cache</code>)는 첫 요청 때 자동으로 만들어집니다.</li></ol>" +
-      '<div class="note" style="margin-top:4px">total-db는 다른 홈페이지와 함께 쓰는 데이터베이스입니다. 코어무드 표는 모두 <code>cm_</code>로 시작하므로, 다른 사이트는 각자 다른 접두어를 쓰면 서로 겹치지 않습니다. total-db를 지우면 문의 기록도 함께 사라집니다.</div>' +
+      '<ol class="steps"><li>코어무드 전용 D1 데이터베이스 <code>coremood-db</code>를 씁니다 (위치: Asia Pacific, 2026-11 생성).</li>' +
+      "<li><b>Compute → Workers &amp; Pages</b> → <b>coremood</b> → <b>Settings → Bindings</b>에서 Production과 Preview 모두 <code>DB</code> → <code>coremood-db</code>로 연결되어 있는지 확인합니다.</li>" +
+      "<li>연결을 바꾼 뒤에는 Deployments에서 최신 배포를 <b>Retry deployment</b> 하거나 새 커밋으로 다시 배포해야 반영됩니다.</li>" +
+      "<li>코어무드 표(<code>cm_inquiries</code>, <code>cm_inquiry_notes</code>, <code>cm_auth_cache</code>)는 첫 요청 때 자동으로 만들어집니다. SQL을 따로 실행할 필요가 없습니다.</li></ol>" +
+      '<div class="note" style="margin-top:4px">coremood-db를 지우면 상담 문의 기록이 모두 사라집니다. 백업이 필요하면 D1의 Time Travel(시점 복구) 기능을 쓸 수 있습니다.</div>' +
       '<div class="su__st" data-st="db"></div></section>' +
       '<section class="panel su" id="su-nt"><h2>' + mark("wait") + ' 2. 새 문의 알림 <small>권장 · 하나 이상</small></h2>' +
       '<p class="small">문의가 들어오면 바로 알 수 있게 합니다. 세 가지 중 편한 것을 하나 이상 고르세요. 모두 Pages 프로젝트의 <b>Settings → Variables and Secrets → Add</b>에서 넣고(비밀 값은 <b>Encrypt</b> 선택), 다시 배포합니다.</p>' +
