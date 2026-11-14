@@ -208,8 +208,10 @@
    "category": "startup",
    "keyword": "프랜차이즈 인테리어",
    "angle": "본사 지정 범위와 자율 범위, 개인 매장의 자유와 부담, 판단 기준",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "franchise-vs-independent-store-interior",
+   "publishedAt": "2026-11-14T10:00:00+09:00"
   },
   {
    "id": "q20",
