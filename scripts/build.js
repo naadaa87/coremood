@@ -68,7 +68,9 @@ if (pyOk) write("content/og-keys.json", JSON.stringify(ogKeys, null, 1) + "\n");
 const live = allPosts.filter((p) => CM.isLive(p.meta, NOW));
 let cases = [];
 try { cases = JSON.parse(read(P("data/cases.json"))).cases || []; } catch (e) { console.warn("  data/cases.json 을 읽지 못했습니다:", e.message); }
-const ctx = { posts: live.map((p) => p.meta), cases, now: NOW };
+let archive = null;
+try { archive = JSON.parse(read(P("data/archive.json"))); } catch (e) { console.warn("  data/archive.json 을 읽지 못했습니다:", e.message); }
+const ctx = { posts: live.map((p) => p.meta), cases, archive, now: NOW };
 
 /* ---------- cases (시공 사례) ---------- */
 const liveCaseSet = new Set(CM.liveCases(ctx).map((c) => c.slug));
@@ -114,7 +116,7 @@ Object.entries(pageMeta).forEach(([key, meta]) => {
   const f = P(meta.file);
   if (!fs.existsSync(f)) return;
   const html = read(f);
-  write(meta.file, CM.injectPartials(html, key, { posts: ctx.posts, cases: ctx.cases, pageMeta: meta }));
+  write(meta.file, CM.injectPartials(html, key, { posts: ctx.posts, cases: ctx.cases, archive: ctx.archive, pageMeta: meta }));
 });
 
 /* ---------- sitemap / rss / json ---------- */
@@ -133,4 +135,4 @@ write("content/index.json", JSON.stringify(index, null, 1) + "\n");
 
 const sched = allPosts.filter((p) => status(p.meta) === "scheduled").length;
 const drafts = allPosts.filter((p) => p.meta.draft).length;
-console.log(`빌드 완료 · 시공 사례 ${liveCaseSet.size} · 공개 글 ${live.length} · 예약 ${sched} · 임시저장 ${drafts} · 업종 ${inds.length} · 페이지 ${pages.length} · 변경 파일 ${written} · 삭제 ${removed}`);
+console.log(`빌드 완료 · 시공 사례 ${liveCaseSet.size} · 레퍼런스 ${archive ? CM.archiveStats(ctx).refs : 0} · 공개 글 ${live.length} · 예약 ${sched} · 임시저장 ${drafts} · 업종 ${inds.length} · 페이지 ${pages.length} · 변경 파일 ${written} · 삭제 ${removed}`);

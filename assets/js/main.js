@@ -465,6 +465,131 @@
   }
   $$("[data-quick]").forEach(function (b) { b.addEventListener("click", function (e) { e.preventDefault(); openQuick({ biz: b.dataset.quick }); }); });
 
+  /* ---------- 톤앤매너 아카이브 (프로젝트 페이지) ---------- */
+  var arc = $("[data-archive]");
+  if (arc) {
+    var aEsc = function (t) { return String(t || "").replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+    var aCards = $$(".acard", arc), aMore = $("[data-arc-more]", arc);
+    var AD = [];
+    try { AD = JSON.parse(($("#arc-data") || {}).textContent || "[]"); } catch (e) { AD = []; }
+    var byKey = {};
+    AD.forEach(function (x) { byKey[x.k] = x; });
+    var LIMIT = 12, fam = "all", expanded = false;
+    var paint = function () {
+      var shown = 0, match = 0;
+      aCards.forEach(function (c) {
+        var ok = fam === "all" || c.dataset.fam === fam;
+        if (ok) match++;
+        var vis = ok && (expanded || fam !== "all" || match <= LIMIT);
+        c.hidden = !vis;
+        if (vis) shown++;
+      });
+      if (aMore) {
+        aMore.hidden = match - shown <= 0;
+        var rest = $("[data-arc-rest]", aMore);
+        if (rest) rest.textContent = match - shown;
+      }
+    };
+    $$(".chip", arc).forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        fam = chip.dataset.fam;
+        $$(".chip", arc).forEach(function (o) { o.setAttribute("aria-pressed", o === chip ? "true" : "false"); });
+        paint();
+      });
+    });
+    if (aMore) $("button", aMore).addEventListener("click", function () { expanded = true; paint(); });
+    paint();
+
+    var abox = $("#arcbox");
+    if (abox && AD.length) {
+      var cur = null, idx = 0, shots = [], backTo = null;
+      var aImg = $("[data-arc-img]", abox), aTag = $("[data-arc-tag]", abox), aCnt = $("[data-arc-cnt]", abox), aTh = $("[data-arc-thumbs]", abox);
+      var show = function (i) {
+        idx = (i + shots.length) % shots.length;
+        var p = shots[idx];
+        aImg.src = p.src;
+        aImg.alt = cur.tone + " · " + cur.meta + (p.before ? " 작업 전" : "");
+        aTag.textContent = cur.before ? (p.before ? "Before" : "After") : "";
+        aTag.classList.toggle("is-after", !p.before);
+        aCnt.textContent = (idx + 1) + " / " + shots.length;
+        var tb = $$("button", aTh);
+        tb.forEach(function (b, j) { b.setAttribute("aria-current", j === idx ? "true" : "false"); });
+        if (tb[idx]) aTh.scrollLeft = tb[idx].offsetLeft - aTh.clientWidth / 2 + tb[idx].clientWidth / 2;
+        var nx = shots[(idx + 1) % shots.length];
+        if (nx) { var pre = new Image(); pre.src = nx.src; }
+      };
+      var open = function (key, from) {
+        cur = byKey[key];
+        if (!cur) return;
+        if (from) backTo = from;
+        shots = cur.photos.map(function (s) { return { src: s }; });
+        if (cur.before) shots.push({ src: cur.before, before: true });
+        aTh.innerHTML = shots.map(function (p, j) {
+          return '<button type="button" aria-label="' + (j + 1) + '번째 사진' + (p.before ? " (작업 전)" : "") + '"><img src="' + aEsc(p.src) + '" alt="" loading="lazy"></button>';
+        }).join("");
+        $$("button", aTh).forEach(function (b, j) { b.addEventListener("click", function () { show(j); }); });
+        $("[data-arc-k]", abox).textContent = "No." + cur.no + (cur.fam ? " · " + cur.fam : "");
+        $("[data-arc-t]", abox).textContent = cur.tone;
+        $("[data-arc-en]", abox).textContent = cur.en + (cur.meta ? " — " + cur.meta : "");
+        $("[data-arc-pal]", abox).innerHTML = (cur.palette || []).map(function (c) { return '<span><i style="background:' + aEsc(c) + '"></i>' + aEsc(c) + "</span>"; }).join("");
+        $("[data-arc-note]", abox).textContent = cur.note;
+        $("[data-arc-items]", abox).innerHTML = (cur.items || []).map(function (t) { return '<span class="tag">' + aEsc(t) + "</span>"; }).join("");
+        var lk = $("[data-arc-link]", abox);
+        if (cur.link) { lk.href = cur.link; lk.hidden = false; } else { lk.hidden = true; }
+        $("[data-arc-cta]", abox).href = "/contact?biz=" + (cur.biz || "party");
+        show(0);
+        abox.hidden = false;
+        document.documentElement.style.overflow = "hidden";
+        $(".arcbox__b", abox).scrollTop = 0;
+        abox.querySelector(".arcbox__box").scrollTop = 0;
+        $(".arcbox__x", abox).focus();
+        try { history.replaceState(null, "", location.pathname + "?ref=" + cur.k + "#archive"); } catch (e) {}
+      };
+      var close = function () {
+        abox.hidden = true;
+        document.documentElement.style.overflow = "";
+        try { history.replaceState(null, "", location.pathname + "#archive"); } catch (e) {}
+        if (backTo) backTo.focus();
+      };
+      aCards.forEach(function (c) { c.addEventListener("click", function () { open(c.dataset.arc, c); }); });
+      $$("[data-arc-close]", abox).forEach(function (b) { b.addEventListener("click", close); });
+      $("[data-arc-prev]", abox).addEventListener("click", function () { show(idx - 1); });
+      $("[data-arc-next]", abox).addEventListener("click", function () { show(idx + 1); });
+      $$("[data-arc-step]", abox).forEach(function (b) {
+        b.addEventListener("click", function () {
+          var keys = aCards.filter(function (c) { return fam === "all" || c.dataset.fam === fam; }).map(function (c) { return c.dataset.arc; });
+          if (!keys.length) return;
+          var at = keys.indexOf(cur.k), step = parseInt(b.dataset.arcStep, 10);
+          var nk = keys[((at < 0 ? 0 : at + step) + keys.length) % keys.length];
+          var card = $('.acard[data-arc="' + nk + '"]', arc);
+          if (card) backTo = card;
+          open(nk);
+        });
+      });
+      window.addEventListener("keydown", function (e) {
+        if (abox.hidden) return;
+        if (e.key === "Escape") close();
+        else if (e.key === "ArrowLeft") show(idx - 1);
+        else if (e.key === "ArrowRight") show(idx + 1);
+      });
+      var tx = null;
+      var stage = $(".arcbox__stage", abox);
+      stage.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; }, { passive: true });
+      stage.addEventListener("touchend", function (e) {
+        if (tx === null) return;
+        var dx = e.changedTouches[0].clientX - tx;
+        tx = null;
+        if (Math.abs(dx) > 40) show(idx + (dx < 0 ? 1 : -1));
+      });
+      var ref = new URLSearchParams(location.search).get("ref");
+      if (ref && byKey[ref]) {
+        var rc = $('.acard[data-arc="' + ref + '"]', arc);
+        if (rc && rc.hidden) { expanded = true; paint(); }
+        open(ref, rc);
+      }
+    }
+  }
+
   /* ---------- lightbox (시공 사례 사진) ---------- */
   var lb = null;
   $$("[data-lightbox]").forEach(function (a) {

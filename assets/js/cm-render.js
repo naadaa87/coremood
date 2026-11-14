@@ -6,7 +6,7 @@
   "use strict";
 
   /* ---------- site constants ---------- */
-  var ASSET_V = "20261027"; // CSS·JS 를 고치면 이 값을 바꿔 브라우저 캐시를 갱신합니다
+  var ASSET_V = "20261114"; // CSS·JS 를 고치면 이 값을 바꿔 브라우저 캐시를 갱신합니다
   var SITE = {
     url: "https://coremood.kr",
     name: "코어무드",
@@ -612,6 +612,96 @@
       list.map(function (c) { return "<tr><td>" + esc(c.biz) + "</td><td>" + esc(c.region) + "</td><td>" + esc(scopeText(c)) + '</td><td><a class="tlink" href="' + caseUrl(c) + '">보기</a></td></tr>'; }).join("") +
       "</tbody>\n      </table>\n    </div>";
   }
+  /* ---------- archive (톤앤매너 아카이브, data/archive.json) ---------- */
+  function archiveItems(ctx) {
+    return ((ctx && ctx.archive && ctx.archive.items) || []).filter(function (x) { return !x.draft && x.photos && x.photos.length; });
+  }
+  function archiveFams(ctx) {
+    var list = archiveItems(ctx);
+    return ((ctx && ctx.archive && ctx.archive.families) || []).filter(function (f) { return list.some(function (x) { return x.family === f.key; }); });
+  }
+  function arcNo(x) { return (x.no < 10 ? "0" : "") + x.no; }
+  function arcMeta(x) { return [x.space, x.region].filter(Boolean).join(" · "); }
+  function arcAlt(x) { return x.tone + " 톤앤매너로 완성한 " + x.space.split(" · ")[0] + (x.region ? " (" + x.region + ")" : ""); }
+  function swatches(p) {
+    return '<span class="sw" aria-hidden="true">' + (p || []).map(function (c) { return '<i style="background:' + attr(c) + '"></i>'; }).join("") + "</span>";
+  }
+  function archiveStats(ctx) {
+    var list = archiveItems(ctx);
+    return {
+      refs: list.length,
+      fams: archiveFams(ctx).length,
+      photos: list.reduce(function (s, x) { return s + x.photos.length + (x.before ? 1 : 0); }, 0)
+    };
+  }
+  function archiveCard(x) {
+    return '<button class="acard" type="button" data-arc="' + attr(x.key) + '" data-fam="' + attr(x.family) + '">' +
+      '<span class="acard__fig"><img src="' + attr(x.thumb || x.photos[0].src) + '" alt="' + attr(arcAlt(x)) + '" width="560" height="420" loading="lazy" decoding="async">' +
+      '<span class="acard__no">No.' + arcNo(x) + "</span>" + (x.before ? '<span class="acard__ba">Before · After</span>' : "") +
+      '<span class="acard__view">사진 ' + (x.photos.length + (x.before ? 1 : 0)) + "장 보기</span></span>" +
+      '<span class="acard__b">' + swatches(x.palette) + '<span class="acard__t">' + esc(x.tone) + '</span><span class="acard__en">' + esc(x.en) + "</span>" +
+      '<span class="acard__d">' + esc(x.note) + '</span><span class="acard__m">' + esc(arcMeta(x)) + "</span></span></button>";
+  }
+  // 프로젝트 페이지: 필터 + 카드 + 사진 보기 창
+  function archiveBlock(ctx) {
+    var list = archiveItems(ctx);
+    if (!list.length) return "";
+    var st = archiveStats(ctx);
+    var fams = archiveFams(ctx);
+    var famName = {};
+    fams.forEach(function (f) { famName[f.key] = f.name; });
+    var data = list.map(function (x) {
+      return { k: x.key, no: arcNo(x), tone: x.tone, en: x.en, meta: arcMeta(x), fam: famName[x.family] || "", palette: x.palette || [], note: x.note, items: x.items || [], photos: x.photos.map(function (p) { return p.src; }), before: x.before ? x.before.src : "", link: x.link || "", biz: /스테이/.test(x.space) ? "stay" : "party" };
+    });
+    var ld = { "@context": "https://schema.org", "@type": "ImageGallery", name: "코어무드 톤앤매너 아카이브", description: "코어무드가 기획부터 가구 스타일링까지 직접 완성한 공간을 톤앤매너별로 정리한 레퍼런스", url: SITE.url + "/portfolio#archive", creator: { "@id": SITE.url + "/#org" },
+      image: list.map(function (x) { return { "@type": "ImageObject", contentUrl: abs(x.photos[0].src), name: x.tone + " · " + arcMeta(x), description: x.note }; }) };
+    return '    <div class="arc" data-archive>\n' +
+      '      <dl class="arc__stat"><div><dt>Reference</dt><dd>' + st.refs + '<small>건</small></dd></div><div><dt>Tone &amp; Manner</dt><dd>' + st.fams + '<small>가지 계열</small></dd></div><div><dt>Photos</dt><dd>' + st.photos + '<small>장</small></dd></div><div><dt>Projects</dt><dd>340<small>개 이상 누적</small></dd></div></dl>\n' +
+      '      <div class="filters" role="group" aria-label="톤앤매너 계열 필터"><button class="chip" type="button" data-fam="all" aria-pressed="true">전체 <small>' + list.length + "</small></button>" +
+      fams.map(function (f) {
+        var n = list.filter(function (x) { return x.family === f.key; }).length;
+        return '<button class="chip" type="button" data-fam="' + attr(f.key) + '" aria-pressed="false">' + esc(f.name) + " <small>" + n + "</small></button>";
+      }).join("") + "</div>\n" +
+      '      <div class="agrid" data-agrid>' + list.map(archiveCard).join("") + "</div>\n" +
+      '      <div class="arc__more" data-arc-more hidden><button class="btn btn--ghost" type="button">레퍼런스 <span data-arc-rest></span>건 더 보기</button></div>\n' +
+      '      <script type="application/json" id="arc-data">' + JSON.stringify(data).replace(/</g, "\\u003c") + "</script>\n" +
+      '      <script type="application/ld+json">' + JSON.stringify(ld).replace(/</g, "\\u003c") + "</script>\n" +
+      "    </div>\n" +
+      '    <div class="arcbox" id="arcbox" role="dialog" aria-modal="true" aria-label="톤앤매너 레퍼런스 사진" hidden>\n' +
+      '      <div class="arcbox__bd" data-arc-close></div>\n' +
+      '      <div class="arcbox__box">\n' +
+      '        <button class="arcbox__x" type="button" aria-label="닫기" data-arc-close>✕</button>\n' +
+      '        <div class="arcbox__media">\n' +
+      '          <div class="arcbox__stage"><img data-arc-img alt=""><span class="arcbox__tag" data-arc-tag></span>' +
+      '<button class="arcbox__nav arcbox__nav--p" type="button" aria-label="이전 사진" data-arc-prev>‹</button><button class="arcbox__nav arcbox__nav--n" type="button" aria-label="다음 사진" data-arc-next>›</button><span class="arcbox__cnt" data-arc-cnt></span></div>\n' +
+      '          <div class="arcbox__thumbs" data-arc-thumbs></div>\n' +
+      "        </div>\n" +
+      '        <div class="arcbox__b">\n' +
+      '          <span class="arcbox__k" data-arc-k></span>\n' +
+      '          <h3 class="h2 arcbox__t" data-arc-t></h3>\n' +
+      '          <span class="arcbox__en" data-arc-en></span>\n' +
+      '          <div class="arcbox__pal" data-arc-pal></div>\n' +
+      '          <p class="arcbox__note" data-arc-note></p>\n' +
+      '          <span class="label">Styling</span>\n' +
+      '          <div class="flow__tags" data-arc-items></div>\n' +
+      '          <div class="btns arcbox__btns"><a href="/contact" class="btn" data-arc-cta>이 분위기로 상담하기<span class="btn__ar" aria-hidden="true">→</span></a><a href="#" class="btn btn--ghost" data-arc-link hidden>시공 사례 보기</a></div>\n' +
+      '          <div class="arcbox__step"><button type="button" class="tlink" data-arc-step="-1">← 이전 레퍼런스</button><button type="button" class="tlink" data-arc-step="1">다음 레퍼런스 →</button></div>\n' +
+      "        </div>\n      </div>\n    </div>";
+  }
+  // 홈: 사진 모자이크 (home: true 표시한 레퍼런스, 없으면 앞에서부터)
+  function archiveHome(ctx) {
+    var list = archiveItems(ctx);
+    if (!list.length) return "";
+    var pick = list.filter(function (x) { return x.home; });
+    if (pick.length < 6) pick = list.slice(0, 12);
+    pick = pick.slice(0, 12);
+    var st = archiveStats(ctx);
+    return '    <div class="amosaic">' + pick.map(function (x, i) {
+      return '<a class="amosaic__i amosaic__i--' + (i + 1) + '" href="/portfolio?ref=' + attr(x.key) + '#archive"><img src="' + attr(i < 2 ? x.photos[0].src : x.thumb || x.photos[0].src) + '" alt="' + attr(arcAlt(x)) + '" loading="lazy" decoding="async">' +
+        '<span class="amosaic__c">' + swatches((x.palette || []).slice(0, 3)) + "<span>" + esc(x.tone) + "</span></span></a>";
+    }).join("") + "</div>\n" +
+      '    <div class="amosaic__foot"><p class="small">10여 년간 340개 이상 프로젝트 가운데 톤앤매너별 레퍼런스 ' + st.refs + "건, 공간 사진 " + st.photos + '장을 정리해 두었습니다.</p><a href="/portfolio#archive" class="tlink">톤앤매너 아카이브 전체 보기<span aria-hidden="true">→</span></a></div>';
+  }
   function baBlock(key, ctx) {
     var c = findCase(ctx, key);
     if (c) {
@@ -803,14 +893,14 @@
   function latestBlock(posts) {
     var list = sortPosts(posts || []).slice(0, 3);
     if (!list.length) return "";
-    return '<section class="sec sec--sand">\n  <div class="wrap">\n    <div class="shead rv">\n  <span class="shead__idx">08</span>\n  <div class="shead__body">\n    <span class="shead__en">Journal</span>\n' +
+    return '<section class="sec sec--sand">\n  <div class="wrap">\n    <div class="shead rv">\n  <span class="shead__idx">09</span>\n  <div class="shead__body">\n    <span class="shead__en">Journal</span>\n' +
       '    <h2 class="h2 shead__t">매일 아침, 현장의 기준을<br>한 편씩 정리합니다<span class="dot">.</span></h2>\n' +
       '    <p class="lead shead__d">브랜딩, 인테리어, 마케팅, 창업. 견적서를 받기 전과 계약서에 도장을 찍기 전에 읽어 두시면 좋은 글들입니다.</p>\n  </div>\n</div>\n' +
       '    <div class="jgrid">' + list.map(function (p) { return card(p); }).join("") + "</div>\n" +
       '    <div style="margin-top:2.6em"><a href="/journal/" class="tlink">저널 전체 보기<span aria-hidden="true">→</span></a></div>\n  </div>\n</section>';
   }
   function industriesBlock() {
-    return '<section class="sec">\n  <div class="wrap">\n    <div class="shead rv">\n  <span class="shead__idx">07</span>\n  <div class="shead__body">\n    <span class="shead__en">Industries</span>\n' +
+    return '<section class="sec">\n  <div class="wrap">\n    <div class="shead rv">\n  <span class="shead__idx">08</span>\n  <div class="shead__body">\n    <span class="shead__en">Industries</span>\n' +
       '    <h2 class="h2 shead__t">업종마다 먼저 봐야 할 것이<br>따로 있습니다<span class="dot">.</span></h2>\n' +
       '    <p class="lead shead__d">카페는 주문과 픽업의 흐름이, 미용실은 샴푸대 배관이, 숙박은 객실 회전과 방음이 먼저입니다. 업종별로 정리한 설계 기준과 비용 구조를 확인해 보세요.</p>\n  </div>\n</div>\n' +
       '    <div class="ilinks ilinks--home">' + INDUSTRIES.map(function (x) {
@@ -829,6 +919,10 @@
       html = html.replace(/<!--@ba-->[\s\S]*?<!--\/@ba-->/, "<!--@ba-->\n" + baSlider(ctx) + "\n<!--/@ba-->")
         .replace(/<!--@cases-->[\s\S]*?<!--\/@cases-->/, "<!--@cases-->\n" + casesBlock(ctx) + "\n<!--/@cases-->");
     }
+    if (ctx.archive) {
+      html = html.replace(/<!--@archive-->[\s\S]*?<!--\/@archive-->/, function () { return "<!--@archive-->\n" + archiveBlock(ctx) + "\n<!--/@archive-->"; })
+        .replace(/<!--@archive-home-->[\s\S]*?<!--\/@archive-home-->/, function () { return "<!--@archive-home-->\n" + archiveHome(ctx) + "\n<!--/@archive-home-->"; });
+    }
     if (ctx.pageMeta) html = html.replace(/^[\s\S]*?<\/head>\n?/, staticHead(cur, ctx.pageMeta, html));
     html = html.replace(/src="\/assets\/js\/main\.js(\?v=[^"]*)?"/, 'src="/assets/js/main.js?v=' + ASSET_V + '"');
     return html;
@@ -842,7 +936,7 @@
     renderPost: renderPost, renderJournalIndex: renderJournalIndex, renderCategory: renderCategory,
     renderIndustry: renderIndustry, renderIndustriesIndex: renderIndustriesIndex, renderPage: renderPage,
     renderSitemap: renderSitemap, renderFeed: renderFeed, postsJson: postsJson, injectPartials: injectPartials,
-    staticHead: staticHead, setVerify: setVerify, renderCase: renderCase, caseUrl: caseUrl, liveCases: liveCases, baSlider: baSlider, casesBlock: casesBlock, verifyMeta: verifyMeta, latestBlock: latestBlock, industriesBlock: industriesBlock, extractFaq: extractFaq, orgLd: orgLd
+    staticHead: staticHead, setVerify: setVerify, renderCase: renderCase, caseUrl: caseUrl, liveCases: liveCases, baSlider: baSlider, casesBlock: casesBlock, verifyMeta: verifyMeta, latestBlock: latestBlock, archiveBlock: archiveBlock, archiveHome: archiveHome, archiveStats: archiveStats, industriesBlock: industriesBlock, extractFaq: extractFaq, orgLd: orgLd
   };
   if (typeof module !== "undefined" && module.exports) module.exports = CM;
   else root.CMRender = CM;

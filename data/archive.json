@@ -1,0 +1,2197 @@
+{
+ "_note": "톤앤매너 아카이브 원본입니다. 프로젝트 페이지(/portfolio#archive)와 홈 화면에 표시됩니다. 업체명·브랜드명은 넣지 않고, 지역은 필요할 때만 적습니다. 수정 후 node scripts/build.js 를 실행하면 페이지에 반영됩니다.",
+ "families": [
+  {
+   "key": "green",
+   "name": "그린 · 보태니컬"
+  },
+  {
+   "key": "classic",
+   "name": "골드 · 클래식"
+  },
+  {
+   "key": "white",
+   "name": "화이트 · 플라워"
+  },
+  {
+   "key": "natural",
+   "name": "우드 · 내추럴"
+  },
+  {
+   "key": "color",
+   "name": "컬러 포인트"
+  },
+  {
+   "key": "dark",
+   "name": "블랙 · 인더스트리얼"
+  },
+  {
+   "key": "out",
+   "name": "휴양 · 테라스"
+  }
+ ],
+ "items": [
+  {
+   "no": 1,
+   "key": "r01",
+   "tone": "화이트 & 그린 + 골드",
+   "en": "White & Green + Gold",
+   "space": "파티룸",
+   "region": "서울 홍대",
+   "family": "green",
+   "palette": [
+    "#F3EFE6",
+    "#1E4A3B",
+    "#3F7A62",
+    "#C8A55E"
+   ],
+   "note": "짙은 녹색 벨벳과 골드 프레임을 같은 비중으로 맞추고, 바닥과 테이블은 밝은 대리석 톤으로 눌러 무게를 덜었습니다. 창밖 가로수가 그대로 배경이 되도록 커튼은 얇은 화이트 시어로 골랐고, 옥상에는 파고라와 그릴을 두었습니다.",
+   "items": [
+    "벨벳 소파 · 벤치",
+    "골드 프레임 체어",
+    "대리석 패턴 테이블",
+    "크리스털 샹들리에",
+    "옥상 파고라"
+   ],
+   "thumb": "/assets/img/archive/r01-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r01-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r01-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r01-3.webp",
+     "w": 1200,
+     "h": 900
+    },
+    {
+     "src": "/assets/img/archive/r01-4.webp",
+     "w": 1200,
+     "h": 900
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r01-b.webp",
+    "w": 747,
+    "h": 560
+   },
+   "link": "/projects/hongdae-party-room",
+   "home": true
+  },
+  {
+   "no": 2,
+   "key": "r02",
+   "tone": "화이트 & 그린 + 골드",
+   "en": "White & Green + Gold",
+   "space": "파티룸",
+   "family": "green",
+   "palette": [
+    "#F5F1E8",
+    "#1F5A45",
+    "#E59A7B",
+    "#C9A45C"
+   ],
+   "note": "한쪽 벽 전체에 열대 식물 벽화를 그리고, 그 앞에 초록 벨벳 소파와 골드 다리 의자를 맞췄습니다. 벽화 속 코랄과 그린을 쿠션과 러그에서 한 번 더 받아 그림이 공간에서 따로 놀지 않게 했습니다.",
+   "items": [
+    "보태니컬 벽화",
+    "곡선형 벨벳 소파",
+    "골드 다리 체어",
+    "타원 대리석 테이블"
+   ],
+   "thumb": "/assets/img/archive/r02-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r02-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r02-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r02-3.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r02-b.webp",
+    "w": 495,
+    "h": 371
+   }
+  },
+  {
+   "no": 3,
+   "key": "r03",
+   "tone": "화이트 & 골드 + 포인트 컬러",
+   "en": "White & Gold + Point Color",
+   "space": "파티룸",
+   "family": "classic",
+   "palette": [
+    "#FAF7F1",
+    "#D9B97A",
+    "#E8A9A0",
+    "#E4DED3"
+   ],
+   "note": "흰 벽에 금색 몰딩 프레임을 둘러 클래식한 틀을 만들고, 의자와 벤치만 핑크로 바꿔 색을 더했습니다. 벽난로 장식장과 아치 거울 앞은 사진 찍는 자리로 따로 비워 두었습니다.",
+   "items": [
+    "골드 몰딩 프레임",
+    "핑크 벨벳 체어",
+    "대리석 테이블",
+    "아치 전신 거울",
+    "벽난로 장식장"
+   ],
+   "thumb": "/assets/img/archive/r03-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r03-1.webp",
+     "w": 1200,
+     "h": 900
+    },
+    {
+     "src": "/assets/img/archive/r03-2.webp",
+     "w": 1200,
+     "h": 900
+    }
+   ]
+  },
+  {
+   "no": 4,
+   "key": "r04",
+   "tone": "화이트 & 골드 + 포인트 컬러",
+   "en": "White & Gold + Point Color",
+   "space": "파티룸",
+   "family": "color",
+   "palette": [
+    "#FBF8F2",
+    "#F2B8A2",
+    "#4E7A9E",
+    "#C9A45C"
+   ],
+   "note": "창가에 아치형 화분 벽을 세워 실내에 작은 정원을 들였습니다. 흰 바탕 위에 피치 핑크와 블루 벨벳을 나눠 쓰고, 조명은 둥근 유리 펜던트로 통일했습니다.",
+   "items": [
+    "아치형 플랜터 벽",
+    "부클레 라운지 체어",
+    "블루 벨벳 소파",
+    "유리 볼 펜던트",
+    "좌식 매트 존"
+   ],
+   "thumb": "/assets/img/archive/r04-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r04-1.webp",
+     "w": 747,
+     "h": 435
+    },
+    {
+     "src": "/assets/img/archive/r04-2.webp",
+     "w": 747,
+     "h": 421
+    },
+    {
+     "src": "/assets/img/archive/r04-3.webp",
+     "w": 747,
+     "h": 421
+    },
+    {
+     "src": "/assets/img/archive/r04-4.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r04-5.webp",
+     "w": 747,
+     "h": 435
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r04-b.webp",
+    "w": 747,
+    "h": 560
+   }
+  },
+  {
+   "no": 5,
+   "key": "r05",
+   "tone": "블랙 & 그레이 + 그린",
+   "en": "Black & Gray + Green",
+   "space": "파티룸",
+   "family": "dark",
+   "palette": [
+    "#2B2B2B",
+    "#8A8580",
+    "#A4532E",
+    "#4F6B3A"
+   ],
+   "note": "노출 천장과 콘크리트 기둥은 그대로 두고, 고재 느낌의 긴 원목 테이블과 오렌지 가죽 소파로 온도를 올렸습니다. 큰 창 너머 숲이 그린 역할을 하도록 창 앞은 낮은 가구로만 채웠습니다.",
+   "items": [
+    "고재 원목 롱테이블",
+    "가죽 소파",
+    "산업용 펜던트",
+    "벽돌 포인트 벽"
+   ],
+   "thumb": "/assets/img/archive/r05-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r05-1.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r05-2.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r05-3.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r05-4.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r05-5.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r05-6.webp",
+     "w": 747,
+     "h": 561
+    }
+   ],
+   "home": true
+  },
+  {
+   "no": 6,
+   "key": "r06",
+   "tone": "우드 & 골드 + 데코",
+   "en": "Wood & Gold + Deco",
+   "space": "파티룸",
+   "family": "classic",
+   "palette": [
+    "#7A4A2A",
+    "#C89B5B",
+    "#D4AF6A",
+    "#8E2F2F"
+   ],
+   "note": "오래된 원목 벽판을 걷어 내지 않고 살렸습니다. 페르시안 러그, 금색 샹들리에, 아치 거울과 콘솔을 더해 낡은 느낌을 빈티지한 분위기로 바꿨습니다.",
+   "items": [
+    "기존 원목 벽판 보존",
+    "페르시안 러그",
+    "골드 샹들리에",
+    "아치 거울 · 콘솔",
+    "대리석 사이드 테이블"
+   ],
+   "thumb": "/assets/img/archive/r06-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r06-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r06-2.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r06-b.webp",
+    "w": 495,
+    "h": 371
+   }
+  },
+  {
+   "no": 7,
+   "key": "r07",
+   "tone": "우드 & 골드 + 데코",
+   "en": "Wood & Gold + Deco",
+   "space": "파티룸",
+   "family": "classic",
+   "palette": [
+    "#8B5A2B",
+    "#E8D5B5",
+    "#C9A45C",
+    "#6E9B3A"
+   ],
+   "note": "목조 천장과 창살 문이 남아 있던 공간에 빈티지 체어와 원목 원형 테이블을 놓았습니다. 빛이 잘 드는 창가는 비워 두어 바깥 잔디 테라스까지 시선이 이어집니다.",
+   "items": [
+    "목조 천장 보존",
+    "빈티지 우드 체어",
+    "골드 샹들리에",
+    "잔디 테라스"
+   ],
+   "thumb": "/assets/img/archive/r07-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r07-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r07-2.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r07-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r07-4.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r07-5.webp",
+     "w": 495,
+     "h": 371
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r07-b.webp",
+    "w": 747,
+    "h": 560
+   }
+  },
+  {
+   "no": 8,
+   "key": "r08",
+   "tone": "베이지 & 화이트 + 골드",
+   "en": "Beige & White + Gold",
+   "space": "파티룸",
+   "family": "classic",
+   "palette": [
+    "#F1E6D6",
+    "#FFFFFF",
+    "#D8B56A",
+    "#B89A7A"
+   ],
+   "note": "벽과 천장을 같은 베이지로 감싸 공간 전체가 한 덩어리로 보이게 했습니다. 부클레 라운지 체어, 금색 쿠션, 꽃잎 모양 샹들리에로 부드러운 질감을 겹쳤습니다.",
+   "items": [
+    "톤온톤 베이지 마감",
+    "부클레 라운지 체어",
+    "골드 쿠션",
+    "꽃잎 샹들리에",
+    "타원 다이닝 테이블"
+   ],
+   "thumb": "/assets/img/archive/r08-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r08-1.webp",
+     "w": 1200,
+     "h": 900
+    },
+    {
+     "src": "/assets/img/archive/r08-2.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r08-3.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r08-4.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r08-5.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r08-b.webp",
+    "w": 495,
+    "h": 371
+   },
+   "home": true
+  },
+  {
+   "no": 9,
+   "key": "r09",
+   "tone": "컬러풀 & 골드",
+   "en": "Colorful & Gold",
+   "space": "파티룸",
+   "region": "경주",
+   "family": "color",
+   "palette": [
+    "#F6A98A",
+    "#6E86A8",
+    "#2F6B57",
+    "#D4AF6A"
+   ],
+   "note": "골조만 남은 공간을 파스텔 소파와 무지갯빛 러그로 채웠습니다. 색이 많아도 산만해 보이지 않도록 금색 샹들리에와 의자 프레임으로 전체를 한 번 묶었습니다.",
+   "items": [
+    "파스텔 소파",
+    "레인보우 러그",
+    "아치 포인트 벽",
+    "골드 샹들리에",
+    "곡선형 라운지 체어"
+   ],
+   "thumb": "/assets/img/archive/r09-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r09-1.webp",
+     "w": 1200,
+     "h": 900
+    },
+    {
+     "src": "/assets/img/archive/r09-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r09-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r09-4.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r09-5.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r09-b.webp",
+    "w": 747,
+    "h": 560
+   },
+   "link": "/projects/gyeongju-party-room",
+   "home": true
+  },
+  {
+   "no": 10,
+   "key": "r10",
+   "tone": "화이트 & 블랙 + 그린",
+   "en": "White & Black + Green",
+   "space": "파티룸",
+   "family": "dark",
+   "palette": [
+    "#F2F0EC",
+    "#1E1E1E",
+    "#8E9AA6",
+    "#4E7A3E"
+   ],
+   "note": "바닥 전체를 대리석 무늬 에폭시로 마감해 공간의 첫인상을 바닥에서 만들었습니다. 원목 롱테이블과 라탄 소품, 큰 화분을 곳곳에 두어 차가운 바닥과 균형을 맞췄습니다.",
+   "items": [
+    "마블 에폭시 바닥",
+    "원목 롱테이블",
+    "라탄 소품",
+    "구 조명",
+    "바 카운터"
+   ],
+   "thumb": "/assets/img/archive/r10-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r10-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r10-2.webp",
+     "w": 1200,
+     "h": 900
+    },
+    {
+     "src": "/assets/img/archive/r10-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r10-4.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r10-b.webp",
+    "w": 747,
+    "h": 420
+   }
+  },
+  {
+   "no": 11,
+   "key": "r11",
+   "tone": "베이지 & 골드 · 보헤미안",
+   "en": "Beige & Gold (Bohemian)",
+   "space": "파티룸",
+   "family": "classic",
+   "palette": [
+    "#E9C98F",
+    "#C9853B",
+    "#7A4E2D",
+    "#6B8E5A"
+   ],
+   "note": "모로코풍 랜턴과 라탄 부채 장식, 썬버스트 거울로 벽을 채우고 아치 니치를 만들었습니다. 러그와 푸프, 선인장 화분까지 모래색 계열로 맞춰 따뜻한 휴양지 분위기를 냈습니다.",
+   "items": [
+    "아치 니치 벽",
+    "모로칸 랜턴",
+    "라탄 부채 장식",
+    "썬버스트 거울",
+    "니트 푸프"
+   ],
+   "thumb": "/assets/img/archive/r11-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r11-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r11-2.webp",
+     "w": 1200,
+     "h": 900
+    },
+    {
+     "src": "/assets/img/archive/r11-3.webp",
+     "w": 1200,
+     "h": 900
+    },
+    {
+     "src": "/assets/img/archive/r11-4.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r11-5.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r11-6.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r11-b.webp",
+    "w": 747,
+    "h": 504
+   },
+   "home": true
+  },
+  {
+   "no": 12,
+   "key": "r12",
+   "tone": "블랙 & 그레이 + 그린",
+   "en": "Black & Gray + Green",
+   "space": "파티룸",
+   "family": "dark",
+   "palette": [
+    "#3A3A3A",
+    "#8C8378",
+    "#C9A45C",
+    "#5E7D3A"
+   ],
+   "note": "회색 스투코 벽과 검은 아치 문으로 무게를 잡고, 벽등의 따뜻한 빛과 큰 잎 식물로 분위기를 풀었습니다. 가죽 소파 쪽은 조명을 낮춰 라운지처럼 쓰게 했습니다.",
+   "items": [
+    "스투코 질감 벽",
+    "블랙 아치 도어",
+    "가죽 소파",
+    "행잉 플랜트",
+    "미러볼"
+   ],
+   "thumb": "/assets/img/archive/r12-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r12-1.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r12-2.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r12-3.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r12-4.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r12-b.webp",
+    "w": 495,
+    "h": 371
+   }
+  },
+  {
+   "no": 13,
+   "key": "r13",
+   "tone": "블랙 & 그레이 + 그린",
+   "en": "Black & Gray + Green",
+   "space": "파티룸",
+   "family": "dark",
+   "palette": [
+    "#8A7F72",
+    "#1F1F1F",
+    "#F3EFE8",
+    "#5B7F3A"
+   ],
+   "note": "체스터필드 가죽 소파를 마주 보게 놓고 지브라 러그와 유리 테이블로 라운지를 만들었습니다. 창 너머 잔디 테라스도 실내와 같은 검은 가구로 맞춰 이어 붙였습니다.",
+   "items": [
+    "체스터필드 소파",
+    "지브라 러그",
+    "유리 커피 테이블",
+    "링 펜던트",
+    "잔디 테라스"
+   ],
+   "thumb": "/assets/img/archive/r13-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r13-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r13-2.webp",
+     "w": 748,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r13-b.webp",
+    "w": 748,
+    "h": 560
+   }
+  },
+  {
+   "no": 14,
+   "key": "r14",
+   "tone": "블랙 & 그레이 + 그린",
+   "en": "Black & Gray + Green",
+   "space": "파티룸",
+   "family": "dark",
+   "palette": [
+    "#8C7B68",
+    "#2C2C2C",
+    "#6BA33E",
+    "#C9A45C"
+   ],
+   "note": "실내 바닥 일부에 인조 잔디를 깔아 캠핑 테이블 자리를 따로 만들었습니다. 나머지는 검은 다이닝 테이블과 금속 의자로 정리해 두 구역의 성격을 나눴습니다.",
+   "items": [
+    "실내 잔디 존",
+    "캠핑 테이블",
+    "블랙 다이닝 테이블",
+    "금속 체어",
+    "링 조명"
+   ],
+   "thumb": "/assets/img/archive/r14-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r14-1.webp",
+     "w": 748,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r14-2.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r14-b.webp",
+    "w": 747,
+    "h": 560
+   }
+  },
+  {
+   "no": 15,
+   "key": "r15",
+   "tone": "민트 그린 & 골드",
+   "en": "Mint Green & Gold",
+   "space": "파티룸",
+   "family": "green",
+   "palette": [
+    "#2FB89A",
+    "#F4F4F0",
+    "#D4AF6A",
+    "#6E8B7A"
+   ],
+   "note": "벽과 천장을 같은 민트 그린으로 칠해 넓은 공간을 한 가지 색으로 묶었습니다. 금색 테이블 프레임과 크리스털 샹들리에를 더해 단체 모임에 맞는 화사한 분위기를 만들었습니다.",
+   "items": [
+    "민트 그린 전면 도장",
+    "골드 프레임 테이블",
+    "크리스털 샹들리에",
+    "날개 장식 오브제"
+   ],
+   "thumb": "/assets/img/archive/r15-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r15-1.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r15-2.webp",
+     "w": 900,
+     "h": 676
+    },
+    {
+     "src": "/assets/img/archive/r15-3.webp",
+     "w": 900,
+     "h": 675
+    }
+   ]
+  },
+  {
+   "no": 16,
+   "key": "r16",
+   "tone": "화이트 & 그린 + 골드",
+   "en": "White & Green + Gold",
+   "space": "파티룸 · 2개 룸",
+   "family": "green",
+   "palette": [
+    "#F7F5F0",
+    "#1F5A46",
+    "#C9A45C",
+    "#6B4F3A"
+   ],
+   "note": "약 45평 공간을 두 개의 룸으로 나눠 분위기를 달리했습니다. 한쪽은 흰 벽에 딥 그린 하부 벽과 벨벳 체어를, 다른 쪽은 헤링본 바닥과 블랙 테이블로 차분하게 잡았습니다.",
+   "items": [
+    "2분할 룸 구성",
+    "딥 그린 웨인스코팅",
+    "벨벳 체어",
+    "헤링본 바닥",
+    "아치 포토존"
+   ],
+   "thumb": "/assets/img/archive/r16-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r16-1.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r16-2.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r16-3.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r16-4.webp",
+     "w": 747,
+     "h": 561
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r16-b.webp",
+    "w": 495,
+    "h": 371
+   }
+  },
+  {
+   "no": 17,
+   "key": "r17",
+   "tone": "다크 그린 & 브라운 레더",
+   "en": "Dark Green & Brown Leather",
+   "space": "파티룸",
+   "family": "green",
+   "palette": [
+    "#2F4A44",
+    "#7A4A2E",
+    "#6BA33E",
+    "#D9A35A"
+   ],
+   "note": "원래 연두색이던 벽을 짙은 그린 그레이로 다시 칠하고 브라운 가죽 소파와 캠핑 의자를 들였습니다. 벽 아래 화단에 조명을 넣어 바닥을 은은하게 밝혔습니다.",
+   "items": [
+    "다크 그린 도장",
+    "브라운 가죽 소파",
+    "실내 잔디",
+    "화단 간접 조명",
+    "아치 개구부"
+   ],
+   "thumb": "/assets/img/archive/r17-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r17-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r17-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r17-3.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r17-b.webp",
+    "w": 495,
+    "h": 371
+   }
+  },
+  {
+   "no": 18,
+   "key": "r18",
+   "tone": "블랙 & 다크 그린 + 우드",
+   "en": "Black & Dark Green + Wood",
+   "space": "파티룸 · 루프톱",
+   "family": "dark",
+   "palette": [
+    "#1F2E2A",
+    "#6B3F2A",
+    "#2B2B2B",
+    "#6BA33E"
+   ],
+   "note": "긴 원목 다이닝과 바 테이블, 포켓볼 테이블을 한 층에 나눠 놓고 벽은 짙은 그린으로 눌렀습니다. 옥상은 파고라와 선베드, 잔디로 꾸며 실내와 다른 시간대를 쓸 수 있게 했습니다.",
+   "items": [
+    "원목 롱 다이닝",
+    "바 테이블",
+    "포켓볼 테이블",
+    "루프톱 파고라",
+    "선베드"
+   ],
+   "thumb": "/assets/img/archive/r18-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r18-1.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r18-2.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r18-3.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r18-4.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r18-5.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r18-6.webp",
+     "w": 900,
+     "h": 675
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r18-b.webp",
+    "w": 495,
+    "h": 371
+   },
+   "home": true
+  },
+  {
+   "no": 19,
+   "key": "r19",
+   "tone": "화이트 & 플라워 + 골드",
+   "en": "White & Flower + Gold",
+   "space": "파티룸",
+   "family": "white",
+   "palette": [
+    "#FAF8F4",
+    "#E9B8A8",
+    "#D4AF6A",
+    "#6E8B4E"
+   ],
+   "note": "흰 벽을 따라 조화 꽃 선반과 간접 조명을 길게 둘러 벽 자체를 장식으로 썼습니다. 야자수 화분, 라운드 테이블, 대리석 무늬 러그로 밝고 가벼운 톤을 유지했습니다.",
+   "items": [
+    "플라워 월 선반",
+    "라인 간접 조명",
+    "라운드 다이닝 테이블",
+    "부클레 라운지 체어",
+    "야자수 화분"
+   ],
+   "thumb": "/assets/img/archive/r19-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r19-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r19-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r19-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r19-4.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r19-b.webp",
+    "w": 495,
+    "h": 371
+   }
+  },
+  {
+   "no": 20,
+   "key": "r20",
+   "tone": "화이트 & 플라워 + 골드",
+   "en": "White & Flower + Gold",
+   "space": "파티룸",
+   "family": "white",
+   "palette": [
+    "#F8F6F1",
+    "#E7C4C8",
+    "#7DA05A",
+    "#C9A45C"
+   ],
+   "note": "천장에 꽃 덩굴 장식을 늘어뜨리고 레이스 테이블보로 긴 테이블을 꾸몄습니다. 실외 테라스는 데이지 오브제와 잔디로 이어 안팎의 분위기를 같게 맞췄습니다.",
+   "items": [
+    "행잉 플라워 장식",
+    "레이스 테이블보",
+    "클래식 체어",
+    "데이지 오브제",
+    "잔디 테라스"
+   ],
+   "thumb": "/assets/img/archive/r20-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r20-1.webp",
+     "w": 960,
+     "h": 720
+    },
+    {
+     "src": "/assets/img/archive/r20-2.webp",
+     "w": 960,
+     "h": 720
+    },
+    {
+     "src": "/assets/img/archive/r20-3.webp",
+     "w": 960,
+     "h": 720
+    },
+    {
+     "src": "/assets/img/archive/r20-4.webp",
+     "w": 960,
+     "h": 720
+    },
+    {
+     "src": "/assets/img/archive/r20-5.webp",
+     "w": 960,
+     "h": 720
+    }
+   ]
+  },
+  {
+   "no": 21,
+   "key": "r21",
+   "tone": "빈티지 & 앤티크",
+   "en": "Vintage & Antique",
+   "space": "파티룸",
+   "family": "classic",
+   "palette": [
+    "#3B2A20",
+    "#8B5A3C",
+    "#2F5D63",
+    "#C7B299"
+   ],
+   "note": "어두운 콘크리트 바닥 위에 앤티크 가죽 의자와 칠판 벽을 두어 오래된 살롱 같은 분위기를 만들었습니다.",
+   "items": [
+    "앤티크 가죽 체어",
+    "칠판 포인트 벽",
+    "빈티지 조명"
+   ],
+   "thumb": "/assets/img/archive/r21-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r21-1.webp",
+     "w": 1200,
+     "h": 900
+    }
+   ]
+  },
+  {
+   "no": 22,
+   "key": "r22",
+   "tone": "빈티지 & 블랙 + 그린",
+   "en": "Vintage & Black + Green",
+   "space": "파티룸",
+   "family": "classic",
+   "palette": [
+    "#2A2A2A",
+    "#6B3F2A",
+    "#4E7A3E",
+    "#E1A23B"
+   ],
+   "note": "스테인드글라스 램프와 긴 원목 테이블을 가운데 두고, 창가는 그린 월과 잔디로 둘렀습니다. 검은 가죽 소파 자리는 따로 떼어 조용히 쉴 수 있게 했습니다.",
+   "items": [
+    "스테인드글라스 램프",
+    "원목 롱테이블",
+    "그린 월",
+    "가죽 소파",
+    "잔디 테라스"
+   ],
+   "thumb": "/assets/img/archive/r22-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r22-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r22-2.webp",
+     "w": 1200,
+     "h": 730
+    },
+    {
+     "src": "/assets/img/archive/r22-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r22-4.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r22-5.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "home": true
+  },
+  {
+   "no": 23,
+   "key": "r23",
+   "tone": "블랙 & 그레이 + 그린",
+   "en": "Black & Gray + Green",
+   "space": "파티룸 · 루프톱",
+   "family": "dark",
+   "palette": [
+    "#8C8378",
+    "#D9CFC0",
+    "#2B2B2B",
+    "#5E7D3A"
+   ],
+   "note": "회벽 질감의 벽에 좌식 소파와 대리석 테이블을 낮게 놓아 오래 머물기 편한 공간으로 꾸몄습니다. 옥상에는 잔디를 깔고 긴 테이블을 놓아 단체 바비큐 자리로 썼습니다.",
+   "items": [
+    "좌식 소파",
+    "대리석 좌식 테이블",
+    "원형 벽등",
+    "우드 블라인드",
+    "옥상 잔디"
+   ],
+   "thumb": "/assets/img/archive/r23-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r23-1.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r23-2.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r23-3.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r23-4.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r23-5.webp",
+     "w": 495,
+     "h": 372
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r23-b.webp",
+    "w": 495,
+    "h": 371
+   }
+  },
+  {
+   "no": 24,
+   "key": "r24",
+   "tone": "화이트 & 우드 + 그린",
+   "en": "White & Wood + Green",
+   "space": "파티룸 · 루프톱",
+   "family": "natural",
+   "palette": [
+    "#F7F4EE",
+    "#B9875A",
+    "#6E9B4A",
+    "#E7B35A"
+   ],
+   "note": "흰 벽 아래쪽에 줄무늬 웨인스코팅을 넣고 원목 가구와 초록 쿠션으로 편한 거실처럼 꾸몄습니다. 추상화 액자와 노란 조명이 차분한 바탕 위에서 포인트가 됩니다.",
+   "items": [
+    "원목 다이닝 세트",
+    "패브릭 소파",
+    "추상화 액자",
+    "플랜터 박스",
+    "루프톱 파고라"
+   ],
+   "thumb": "/assets/img/archive/r24-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r24-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r24-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r24-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r24-4.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r24-5.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r24-6.webp",
+     "w": 747,
+     "h": 560
+    }
+   ]
+  },
+  {
+   "no": 25,
+   "key": "r25",
+   "tone": "화이트 & 우드 + 그린",
+   "en": "White & Wood + Green",
+   "space": "파티룸",
+   "family": "natural",
+   "palette": [
+    "#FBF9F5",
+    "#C99B66",
+    "#E8D9B8",
+    "#7F9F5A"
+   ],
+   "note": "밝은 원목 바닥과 라탄 수납장, 체크 테이블보로 내추럴한 톤을 맞췄습니다. 행사에 따라 풍선과 꽃 장식을 바꿔 달 수 있도록 벽면은 단순하게 두었습니다.",
+   "items": [
+    "라탄 수납장",
+    "원목 체어",
+    "체크 테이블보",
+    "드레스 행거 소품"
+   ],
+   "thumb": "/assets/img/archive/r25-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r25-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r25-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r25-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r25-4.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r25-5.webp",
+     "w": 747,
+     "h": 560
+    }
+   ]
+  },
+  {
+   "no": 26,
+   "key": "r26",
+   "tone": "화이트 & 우드 + 그린",
+   "en": "White & Wood + Green",
+   "space": "파티룸",
+   "family": "natural",
+   "palette": [
+    "#F3EFE7",
+    "#A8794F",
+    "#2F6B66",
+    "#CFC6B8"
+   ],
+   "note": "통창 앞에 리넨 커튼을 이중으로 달고 그레이 모듈 소파와 원목 의자를 두었습니다. 천장 쪽으로 그린 월을 길게 둘러 창밖 테라스와 색을 이었습니다.",
+   "items": [
+    "이중 커튼",
+    "모듈 소파",
+    "원목 원형 테이블",
+    "그린 월",
+    "샹들리에"
+   ],
+   "thumb": "/assets/img/archive/r26-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r26-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r26-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r26-3.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r26-4.webp",
+     "w": 747,
+     "h": 561
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r26-b.webp",
+    "w": 747,
+    "h": 412
+   }
+  },
+  {
+   "no": 27,
+   "key": "r27",
+   "tone": "화이트 & 우드 + 그린",
+   "en": "White & Wood + Green",
+   "space": "파티룸 · 테라스",
+   "family": "natural",
+   "palette": [
+    "#F5F2EC",
+    "#B0703F",
+    "#DAD3C7",
+    "#6D7F4A"
+   ],
+   "note": "라탄 의자와 원목 테이블로 실내를 정리하고, 바깥 데크에는 접이식 우드 체어와 전구 조명을 달았습니다. 겨울에는 트리와 체크 패브릭만 더해 계절 분위기를 바꿨습니다.",
+   "items": [
+    "라탄 체어",
+    "우드 데크",
+    "스트링 전구",
+    "빔프로젝터",
+    "시즌 데코"
+   ],
+   "thumb": "/assets/img/archive/r27-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r27-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r27-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r27-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r27-4.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r27-b.webp",
+    "w": 747,
+    "h": 560
+   }
+  },
+  {
+   "no": 28,
+   "key": "r28",
+   "tone": "화이트 & 우드 + 그린",
+   "en": "White & Wood + Green",
+   "space": "파티룸 · 복층",
+   "family": "natural",
+   "palette": [
+    "#F2EEE6",
+    "#9C6B43",
+    "#E0D6C8",
+    "#3F3F3F"
+   ],
+   "note": "복층 구조를 살려 아래층은 소파와 라운지 체어, 위층은 다이닝으로 나눴습니다. 화이트 벽돌 벽과 종이 펜던트로 전체 톤을 부드럽게 맞췄습니다.",
+   "items": [
+    "복층 동선 구성",
+    "모듈 소파",
+    "종이 펜던트",
+    "화이트 벽돌 벽",
+    "파라솔 테라스"
+   ],
+   "thumb": "/assets/img/archive/r28-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r28-1.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r28-2.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r28-3.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r28-4.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r28-5.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r28-6.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r28-7.webp",
+     "w": 900,
+     "h": 675
+    }
+   ],
+   "home": true
+  },
+  {
+   "no": 29,
+   "key": "r29",
+   "tone": "화이트 & 우드 + 그린",
+   "en": "White & Wood + Green",
+   "space": "파티룸",
+   "family": "natural",
+   "palette": [
+    "#F4EFE6",
+    "#7A5434",
+    "#E2C08D",
+    "#5F8A4A"
+   ],
+   "note": "아치형 벽 디테일과 라탄 장식, 화단형 간접 조명으로 작은 공간에 리듬을 만들었습니다. 모임 자리는 원목 롱테이블 하나로 단순하게 구성했습니다.",
+   "items": [
+    "아치 벽 디테일",
+    "라탄 월 장식",
+    "화단 간접 조명",
+    "원목 롱테이블",
+    "원목 전신 거울"
+   ],
+   "thumb": "/assets/img/archive/r29-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r29-1.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r29-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r29-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r29-4.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r29-b.webp",
+    "w": 495,
+    "h": 371
+   }
+  },
+  {
+   "no": 30,
+   "key": "r30",
+   "tone": "화이트 & 블랙 + 그린",
+   "en": "White & Black + Green",
+   "space": "파티룸",
+   "family": "dark",
+   "palette": [
+    "#F2EFEA",
+    "#1E1E1E",
+    "#4E7A3E",
+    "#F28C5B"
+   ],
+   "note": "흰 벽에 블랙 다이닝 세트와 원형 좌식 쿠션을 맞추고, 바닥 화단에 식물을 일렬로 세워 시선을 모았습니다. 선셋 조명과 벽난로 오브제로 저녁 시간의 분위기를 따로 챙겼습니다.",
+   "items": [
+    "블랙 다이닝 세트",
+    "원형 좌식 쿠션",
+    "화단 라인 조명",
+    "선셋 램프",
+    "벽난로 오브제"
+   ],
+   "thumb": "/assets/img/archive/r30-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r30-1.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r30-2.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r30-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r30-4.webp",
+     "w": 747,
+     "h": 561
+    }
+   ]
+  },
+  {
+   "no": 31,
+   "key": "r31",
+   "tone": "딥 틸 & 브라운 레더",
+   "en": "Deep Teal & Brown Leather",
+   "space": "파티룸",
+   "family": "green",
+   "palette": [
+    "#1F4E4E",
+    "#8A4B2A",
+    "#7B4FD6",
+    "#C49A6C"
+   ],
+   "note": "벽을 짙은 틸 그린으로 칠하고 브라운 가죽 소파와 원목 롱테이블을 들였습니다. 천장 라인 조명에 보랏빛을 더해 밤 모임에 맞는 분위기를 냈습니다.",
+   "items": [
+    "딥 틸 도장",
+    "브라운 가죽 소파",
+    "원목 롱테이블",
+    "LED 라인 조명",
+    "미러볼"
+   ],
+   "thumb": "/assets/img/archive/r31-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r31-1.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r31-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r31-3.webp",
+     "w": 747,
+     "h": 560
+    }
+   ]
+  },
+  {
+   "no": 32,
+   "key": "r32",
+   "tone": "화이트 & 포인트 컬러",
+   "en": "White & Point Color",
+   "space": "파티룸 · 시즌 스타일링",
+   "family": "color",
+   "palette": [
+    "#FAF8F4",
+    "#2E5E3E",
+    "#C23B3B",
+    "#D4AF6A"
+   ],
+   "note": "흰 바탕은 그대로 두고 계절마다 포인트 색만 바꿔 다는 구성입니다. 연말에는 트리와 레드 캔들, 컬러 러그로 크리스마스 분위기를 만들었습니다.",
+   "items": [
+    "시즌 데코",
+    "크리스마스 트리",
+    "컬러 러그",
+    "캔들 테이블 세팅",
+    "웨이브 거울"
+   ],
+   "thumb": "/assets/img/archive/r32-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r32-1.webp",
+     "w": 495,
+     "h": 372
+    },
+    {
+     "src": "/assets/img/archive/r32-2.webp",
+     "w": 900,
+     "h": 676
+    },
+    {
+     "src": "/assets/img/archive/r32-3.webp",
+     "w": 495,
+     "h": 372
+    }
+   ]
+  },
+  {
+   "no": 33,
+   "key": "r33",
+   "tone": "화이트 & 플라워 + 골드",
+   "en": "White & Flower + Gold",
+   "space": "파티룸",
+   "family": "white",
+   "palette": [
+    "#FFFFFF",
+    "#E8E3DC",
+    "#F2A07B",
+    "#D4AF6A"
+   ],
+   "note": "대리석 패턴 테이블을 길게 이어 단체석을 만들고, 팜파스와 꽃 장식으로 테이블 위를 채웠습니다. 코랄 소파 하나로 흰 공간에 따뜻한 색을 더했습니다.",
+   "items": [
+    "대리석 패턴 롱테이블",
+    "팜파스 센터피스",
+    "코랄 소파",
+    "골드 샹들리에",
+    "벌룬 포토존"
+   ],
+   "thumb": "/assets/img/archive/r33-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r33-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r33-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r33-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r33-4.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r33-5.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r33-6.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "home": true
+  },
+  {
+   "no": 34,
+   "key": "r34",
+   "tone": "화이트 & 플라워 + 골드",
+   "en": "White & Flower + Gold",
+   "space": "파티룸",
+   "family": "white",
+   "palette": [
+    "#FFFFFF",
+    "#F4C9CF",
+    "#7F9F6A",
+    "#C9A45C"
+   ],
+   "note": "흰 커튼 월 앞에 유칼립투스와 꽃 갈런드를 걸어 브라이덜 샤워나 생일 파티에 바로 쓸 수 있는 배경을 만들었습니다.",
+   "items": [
+    "커튼 월 배경",
+    "플라워 갈런드",
+    "화이트 체어",
+    "레터 벌룬"
+   ],
+   "thumb": "/assets/img/archive/r34-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r34-1.webp",
+     "w": 747,
+     "h": 498
+    },
+    {
+     "src": "/assets/img/archive/r34-2.webp",
+     "w": 747,
+     "h": 498
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r34-b.webp",
+    "w": 747,
+    "h": 354
+   }
+  },
+  {
+   "no": 35,
+   "key": "r35",
+   "tone": "화이트 & 플라워 + 골드",
+   "en": "White & Flower + Gold",
+   "space": "파티룸",
+   "family": "white",
+   "palette": [
+    "#F5F0E8",
+    "#E7D9C9",
+    "#2F4F3F",
+    "#E3B5A4"
+   ],
+   "note": "곡선형 부클레 소파와 구름 모양 테이블로 부드러운 라운지를 만들고, 그린 아치와 꽃 장식으로 입구를 꾸몄습니다. 한쪽에는 노래방 부스를 따로 두었습니다.",
+   "items": [
+    "곡선형 부클레 소파",
+    "구름 테이블",
+    "플라워 아치",
+    "노래방 부스"
+   ],
+   "thumb": "/assets/img/archive/r35-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r35-1.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r35-2.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r35-3.webp",
+     "w": 420,
+     "h": 560
+    }
+   ]
+  },
+  {
+   "no": 36,
+   "key": "r36",
+   "tone": "퓨어 화이트",
+   "en": "Pure White",
+   "space": "파티룸 · 촬영 공간",
+   "family": "white",
+   "palette": [
+    "#FFFFFF",
+    "#F1EDE6",
+    "#E7D7F0",
+    "#E3C27A"
+   ],
+   "note": "벽, 천장, 가구를 모두 흰색 계열로 맞추고 조명과 소품의 금색만 남겼습니다. 아치 니치, 벽난로, 계단형 벤치를 만들어 어느 쪽에서 찍어도 배경이 깔끔하게 나오도록 했습니다.",
+   "items": [
+    "올 화이트 마감",
+    "아치 니치",
+    "벽난로 오브제",
+    "계단형 벤치",
+    "선인장 코너"
+   ],
+   "thumb": "/assets/img/archive/r36-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r36-1.webp",
+     "w": 743,
+     "h": 494
+    },
+    {
+     "src": "/assets/img/archive/r36-2.webp",
+     "w": 743,
+     "h": 494
+    },
+    {
+     "src": "/assets/img/archive/r36-3.webp",
+     "w": 743,
+     "h": 494
+    },
+    {
+     "src": "/assets/img/archive/r36-4.webp",
+     "w": 371,
+     "h": 558
+    },
+    {
+     "src": "/assets/img/archive/r36-5.webp",
+     "w": 371,
+     "h": 558
+    },
+    {
+     "src": "/assets/img/archive/r36-6.webp",
+     "w": 371,
+     "h": 558
+    },
+    {
+     "src": "/assets/img/archive/r36-7.webp",
+     "w": 371,
+     "h": 558
+    },
+    {
+     "src": "/assets/img/archive/r36-8.webp",
+     "w": 743,
+     "h": 494
+    }
+   ],
+   "home": true
+  },
+  {
+   "no": 37,
+   "key": "r37",
+   "tone": "블루 & 화이트",
+   "en": "Blue & White",
+   "space": "파티룸",
+   "family": "color",
+   "palette": [
+    "#FFFFFF",
+    "#3E5F9E",
+    "#1E2A44",
+    "#CFD8E6"
+   ],
+   "note": "블루 모듈 소파와 유리 테이블, 둥근 러그로 시원한 톤을 맞췄습니다. 긴 화이트 테이블은 인원에 따라 붙이거나 나눌 수 있게 배치했습니다.",
+   "items": [
+    "블루 모듈 소파",
+    "유리 커피 테이블",
+    "라운드 러그",
+    "화이트 롱테이블"
+   ],
+   "thumb": "/assets/img/archive/r37-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r37-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r37-2.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r37-3.webp",
+     "w": 900,
+     "h": 675
+    }
+   ]
+  },
+  {
+   "no": 38,
+   "key": "r38",
+   "tone": "블루 · 핑크 & 화이트 + 플라워 골드",
+   "en": "Blue / Pink & White + Flower Gold",
+   "space": "파티룸",
+   "family": "color",
+   "palette": [
+    "#FFFFFF",
+    "#E9735A",
+    "#4C6A92",
+    "#D4AF6A"
+   ],
+   "note": "아치형 문을 코랄과 블루로 나눠 칠하고 원형 창을 내어 포토존으로 썼습니다. 꽃 패널과 골드 샹들리에를 더해 밝은 낮 분위기에 맞췄습니다.",
+   "items": [
+    "컬러 아치 도어",
+    "원형 창 디테일",
+    "플라워 패널",
+    "골드 샹들리에",
+    "테라스 연결"
+   ],
+   "thumb": "/assets/img/archive/r38-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r38-1.webp",
+     "w": 747,
+     "h": 567
+    },
+    {
+     "src": "/assets/img/archive/r38-2.webp",
+     "w": 747,
+     "h": 567
+    },
+    {
+     "src": "/assets/img/archive/r38-3.webp",
+     "w": 747,
+     "h": 561
+    }
+   ]
+  },
+  {
+   "no": 39,
+   "key": "r39",
+   "tone": "컬러풀",
+   "en": "Colorful",
+   "space": "파티룸",
+   "family": "color",
+   "palette": [
+    "#F2B33D",
+    "#2E4A8C",
+    "#E07A2E",
+    "#DADAD6"
+   ],
+   "note": "회색 에폭시 바닥 위에 블루, 오렌지, 머스터드 의자를 섞어 놓아 색으로 리듬을 만들었습니다. 벽면 니치와 샹들리에로 공간이 가볍게만 보이지 않도록 무게를 더했습니다.",
+   "items": [
+    "컬러 믹스 체어",
+    "에폭시 바닥",
+    "벽면 니치",
+    "화이트 소파 라운지"
+   ],
+   "thumb": "/assets/img/archive/r39-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r39-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r39-2.webp",
+     "w": 1200,
+     "h": 900
+    },
+    {
+     "src": "/assets/img/archive/r39-3.webp",
+     "w": 747,
+     "h": 560
+    }
+   ]
+  },
+  {
+   "no": 40,
+   "key": "r40",
+   "tone": "화이트 & 라탄 + 그린",
+   "en": "White & Rattan + Green",
+   "space": "바다 전망 파티룸",
+   "family": "out",
+   "palette": [
+    "#F6F3EC",
+    "#C8A06A",
+    "#2E8BC0",
+    "#6E9B4A"
+   ],
+   "note": "바다가 보이는 통창 앞에 라탄 파라솔과 푸프를 두고, 천장에는 그린 덩굴을 드리웠습니다. 긴 아일랜드 주방과 테라스 그릴까지 휴양지 콘셉트에 맞췄습니다.",
+   "items": [
+    "라탄 파라솔",
+    "행잉 그린",
+    "아일랜드 키친",
+    "푸프 스툴",
+    "오션뷰 테라스"
+   ],
+   "thumb": "/assets/img/archive/r40-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r40-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r40-2.webp",
+     "w": 747,
+     "h": 561
+    },
+    {
+     "src": "/assets/img/archive/r40-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r40-4.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r40-5.webp",
+     "w": 747,
+     "h": 560
+    }
+   ],
+   "home": true
+  },
+  {
+   "no": 41,
+   "key": "r41",
+   "tone": "화이트 & 핑크 + 그린",
+   "en": "White & Pink + Green",
+   "space": "바다 전망 파티룸",
+   "family": "out",
+   "palette": [
+    "#F7F2EE",
+    "#E9A2A0",
+    "#D9604A",
+    "#7DA05A"
+   ],
+   "note": "핑크 소파와 코랄 체어, 천장을 덮은 꽃 덩굴로 창밖 바다와 대비되는 색을 썼습니다. 욕실은 대리석 타일과 금색 수전으로 마감했습니다.",
+   "items": [
+    "핑크 벨벳 소파",
+    "코랄 다이닝 체어",
+    "플라워 캐노피",
+    "골드 수전 욕실"
+   ],
+   "thumb": "/assets/img/archive/r41-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r41-1.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r41-2.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r41-3.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r41-4.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r41-5.webp",
+     "w": 747,
+     "h": 560
+    },
+    {
+     "src": "/assets/img/archive/r41-6.webp",
+     "w": 429,
+     "h": 560
+    }
+   ]
+  },
+  {
+   "no": 42,
+   "key": "r42",
+   "tone": "화이트 & 블랙 + 퍼플",
+   "en": "White & Black + Purple",
+   "space": "게임 파티룸",
+   "family": "color",
+   "palette": [
+    "#FFFFFF",
+    "#1A1A1A",
+    "#7B3FE4",
+    "#E040A0"
+   ],
+   "note": "게이밍 좌석과 단체 테이블을 한 공간에 두고, 낮에는 흰 공간으로 쓰다가 밤에는 퍼플 조명으로 분위기가 바뀌게 했습니다.",
+   "items": [
+    "게이밍 좌석",
+    "LED 라인 조명",
+    "단체 테이블",
+    "웨이브 거울"
+   ],
+   "thumb": "/assets/img/archive/r42-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r42-1.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r42-2.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r42-3.webp",
+     "w": 900,
+     "h": 675
+    }
+   ]
+  },
+  {
+   "no": 43,
+   "key": "r43",
+   "tone": "화이트 & 블랙 + 그린",
+   "en": "White & Black + Green",
+   "space": "스테이",
+   "family": "natural",
+   "palette": [
+    "#F3EEE6",
+    "#B08458",
+    "#1E1E1E",
+    "#6E8B4E"
+   ],
+   "note": "사무실로 쓰던 층을 철거하고 침실과 다이닝을 갖춘 숙박형 공간으로 바꿨습니다. 헤링본 바닥, 우드 슬랫 벽, 암막 커튼으로 머무는 공간에 맞게 정리했습니다.",
+   "items": [
+    "헤링본 바닥",
+    "우드 슬랫 벽",
+    "데이베드",
+    "암막 커튼",
+    "원목 다이닝"
+   ],
+   "thumb": "/assets/img/archive/r43-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r43-1.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r43-2.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r43-3.webp",
+     "w": 900,
+     "h": 676
+    },
+    {
+     "src": "/assets/img/archive/r43-4.webp",
+     "w": 403,
+     "h": 519
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r43-b.webp",
+    "w": 495,
+    "h": 372
+   }
+  },
+  {
+   "no": 44,
+   "key": "r44",
+   "tone": "블랙 & 그린 · 테라스",
+   "en": "Terrace · Black & Green",
+   "space": "루프톱 테라스",
+   "family": "out",
+   "palette": [
+    "#1F2A2A",
+    "#6BA33E",
+    "#E8B35A",
+    "#3A4A5A"
+   ],
+   "note": "잡초가 자라던 옥상 마당에 잔디와 조경을 새로 깔고, 처마 아래 조명과 캠핑 의자로 저녁 모임 자리를 만들었습니다.",
+   "items": [
+    "옥상 잔디 조성",
+    "조경 식재",
+    "처마 조명",
+    "캠핑 체어"
+   ],
+   "thumb": "/assets/img/archive/r44-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r44-1.webp",
+     "w": 988,
+     "h": 738
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r44-b.webp",
+    "w": 900,
+    "h": 675
+   }
+  },
+  {
+   "no": 45,
+   "key": "r45",
+   "tone": "블랙 & 그린 · 테라스",
+   "en": "Terrace · Black & Green",
+   "space": "루프톱 테라스",
+   "family": "out",
+   "palette": [
+    "#2B2E33",
+    "#6BA33E",
+    "#C89B6A",
+    "#F2C46D"
+   ],
+   "note": "비어 있던 옥상 바닥에 잔디와 우드 데크를 깔고 바비큐 그릴, 철제 테이블, 스트링 전구를 설치했습니다. 그릴 주변은 자갈로 따로 마감했습니다.",
+   "items": [
+    "잔디 · 우드 데크",
+    "바비큐 그릴 존",
+    "철제 다이닝 세트",
+    "스트링 전구",
+    "자갈 마감"
+   ],
+   "thumb": "/assets/img/archive/r45-t.webp",
+   "photos": [
+    {
+     "src": "/assets/img/archive/r45-1.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r45-2.webp",
+     "w": 900,
+     "h": 675
+    },
+    {
+     "src": "/assets/img/archive/r45-3.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r45-4.webp",
+     "w": 495,
+     "h": 371
+    },
+    {
+     "src": "/assets/img/archive/r45-5.webp",
+     "w": 495,
+     "h": 371
+    }
+   ],
+   "before": {
+    "src": "/assets/img/archive/r45-b.webp",
+    "w": 747,
+    "h": 561
+   },
+   "home": true
+  }
+ ]
+}
