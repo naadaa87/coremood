@@ -219,8 +219,10 @@
    "category": "business",
    "keyword": "숙박 객실 사진",
    "angle": "객실 유형별 필수 컷, 침구·조명 세팅, 욕실 컷, 계절별 업데이트",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "stay-room-photo-booking-guide",
+   "publishedAt": "2026-11-15T10:00:00+09:00"
   },
   {
    "id": "q21",
