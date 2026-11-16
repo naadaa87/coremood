@@ -230,8 +230,10 @@
    "category": "interior",
    "keyword": "매장 음향",
    "angle": "흡음재 위치, 스피커 배치, 주방 소음 차단, 업종별 적정 분위기(수치 단정 금지)",
-   "status": "pending",
-   "addedAt": "2026-10-26T12:00:00+09:00"
+   "status": "done",
+   "addedAt": "2026-10-26T12:00:00+09:00",
+   "publishedSlug": "store-acoustics-music-noise",
+   "publishedAt": "2026-11-16T10:00:00+09:00"
   },
   {
    "id": "q22",

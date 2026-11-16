@@ -1,6 +1,30 @@
 {
- "updated": "2026-11-15T01:00:00.000Z",
+ "updated": "2026-11-16T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "store-acoustics-music-noise",
+   "title": "매장 음향 설계, 음악과 소음이 체류 시간에 주는 영향",
+   "date": "2026-11-16T10:00:00+09:00",
+   "updated": "",
+   "category": "interior",
+   "keyword": "매장 음향",
+   "tags": [
+    "매장 음향",
+    "흡음",
+    "상가 인테리어",
+    "카페",
+    "음식점"
+   ],
+   "description": "매장 음향은 스피커보다 마감재와 배치에서 먼저 정해집니다. 흡음재를 둘 위치, 스피커 배치, 주방 소음 차단, 업종별로 맞는 소리의 분위기를 공사 전에 판단하는 기준을 정리했습니다.",
+   "cover": "/assets/img/p-cafe-w.webp",
+   "coverAlt": "스톤과 브론즈로 구성한 라운지형 카페 스타일 디렉션",
+   "og": "/assets/img/og/store-acoustics-music-noise.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3211,
+   "status": "live",
+   "file": "content/posts/store-acoustics-music-noise.md"
+  },
   {
    "slug": "stay-room-photo-booking-guide",
    "title": "숙박 객실 사진, 예약 채널에서 선택받는 촬영 순서와 기준",
