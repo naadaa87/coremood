@@ -979,3 +979,9 @@ table{border-collapse:collapse;width:100%}
   .amosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:118px}
   .amosaic__i--1,.amosaic__i--2{grid-column:span 2}
 }
+
+/* ---------- 회원 가입 (2026-11) ---------- */
+.jchk .tag{cursor:pointer;display:inline-flex;gap:.5em;align-items:center}
+.jchk input{accent-color:#6F735E}
+.jchk .tag:has(input:checked){border-color:var(--olive);background:var(--olive-soft);color:var(--olive-deep)}
+.fconsent+.fconsent{margin-top:.6em}

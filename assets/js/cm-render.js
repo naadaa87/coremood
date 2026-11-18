@@ -6,7 +6,7 @@
   "use strict";
 
   /* ---------- site constants ---------- */
-  var ASSET_V = "20261114"; // CSS·JS 를 고치면 이 값을 바꿔 브라우저 캐시를 갱신합니다
+  var ASSET_V = "20261118"; // CSS·JS 를 고치면 이 값을 바꿔 브라우저 캐시를 갱신합니다
   var SITE = {
     url: "https://coremood.kr",
     name: "코어무드",
@@ -397,7 +397,7 @@
       '      <div class="ftr__brand">\n        <a href="/" class="logo" style="font-size:1.3rem"><span class="logo__mark">코어무드<span class="dot">.</span></span></a>\n' +
       '        <p class="small" style="margin-top:1.4em;max-width:34ch">컨셉과 무드에서 출발해 브랜드, 공간, 콘텐츠까지 하나의 결로 연결하는 공간 비즈니스 스튜디오입니다. ' + SITE.record + "를 다뤄 왔습니다.</p>\n" +
       '        <address class="ftr__addr" style="margin-top:1.4em">' + SITE.address + '<br><a href="' + SITE.telLink + '">' + SITE.tel + '</a><br><a href="mailto:' + SITE.email + '">' + SITE.email + "</a></address>\n      </div>\n" +
-      '      <div>\n        <span class="ftr__t">Studio</span>\n        <ul class="ftr__list"><li><a href="/about">브랜드 소개</a></li><li><a href="/services">서비스</a></li><li><a href="/portfolio">프로젝트</a></li><li><a href="/process">진행 절차</a></li><li><a href="/estimate">견적 안내</a></li><li><a href="/faq">자주 묻는 질문</a></li><li><a href="/contact">상담 신청</a></li></ul>\n      </div>\n' +
+      '      <div>\n        <span class="ftr__t">Studio</span>\n        <ul class="ftr__list"><li><a href="/about">브랜드 소개</a></li><li><a href="/services">서비스</a></li><li><a href="/portfolio">프로젝트</a></li><li><a href="/process">진행 절차</a></li><li><a href="/estimate">견적 안내</a></li><li><a href="/faq">자주 묻는 질문</a></li><li><a href="/contact">상담 신청</a></li><li><a href="/join">회원 가입 · 소식 받기</a></li></ul>\n      </div>\n' +
       '      <div>\n        <span class="ftr__t">Industries</span>\n        <ul class="ftr__list">' + inds + "</ul>\n      </div>\n" +
       '      <div>\n        <span class="ftr__t">Journal</span>\n        <ul class="ftr__list"><li><a href="/journal/">전체 글</a></li>' + cats + '<li><a href="/feed.xml">RSS</a></li></ul>\n      </div>\n    </div>\n' +
       '    <div class="ftr__biz">상호 ' + SITE.corp + " <i>|</i> 브랜드 " + SITE.full + " <i>|</i> 대표 " + SITE.ceo + " <i>|</i> " + SITE.address + " <i>|</i> 전화 " + SITE.tel + " <i>|</i> " + SITE.email + "</div>\n" +
@@ -505,7 +505,7 @@
       '<div class="wrap jbody">\n  <aside class="jside">' + tocHtml + "</aside>\n  <div class=\"prose\">\n" + r.html + "\n" +
       ((post.tags || []).length ? '<div class="jtags">' + post.tags.map(function (t) { return '<span class="tag">#' + esc(t) + "</span>"; }).join("") + "</div>\n" : "") +
       '<div class="jauthor"><span class="jauthor__mark">코어무드<span class="dot">.</span></span><div><strong>코어무드 스튜디오</strong><p>컨셉과 무드에서 출발해 브랜드, 공간 기획, 인테리어, 콘텐츠와 마케팅까지 하나의 흐름으로 연결하는 공간 비즈니스 스튜디오입니다. ' + SITE.record + '를 다뤄 왔습니다. <a href="/about">스튜디오 소개</a> · <a href="/portfolio">프로젝트</a></p></div></div>\n' +
-      '<div class="jshare"><button type="button" class="tlink" data-copy>링크 복사<span aria-hidden="true">↗</span></button><a class="tlink" href="/journal/">저널 목록<span aria-hidden="true">→</span></a></div>\n' +
+      '<div class="jshare"><button type="button" class="tlink" data-copy>링크 복사<span aria-hidden="true">↗</span></button><a class="tlink" href="/join">새 글 소식 받기<span aria-hidden="true">→</span></a><a class="tlink" href="/journal/">저널 목록<span aria-hidden="true">→</span></a></div>\n' +
       "  </div>\n</div>\n</article>\n" +
       ((newer || older) ? '<nav class="wrap jpn" aria-label="이전 글, 다음 글">' +
         (older ? '<a href="' + postUrl(older) + '" class="jpn__a"><span class="label">이전 글</span><span>' + esc(older.title) + "</span></a>" : "<span></span>") +
@@ -835,7 +835,7 @@
   var STATIC_PAGES = [
     ["/", "1.0", "weekly"], ["/about", "0.8", "monthly"], ["/services", "0.9", "monthly"], ["/industries/", "0.9", "weekly"],
     ["/portfolio", "0.9", "monthly"], ["/process", "0.8", "monthly"], ["/estimate", "0.8", "monthly"], ["/faq", "0.7", "monthly"],
-    ["/contact", "0.8", "monthly"], ["/journal/", "0.9", "daily"]
+    ["/contact", "0.8", "monthly"], ["/join", "0.4", "monthly"], ["/journal/", "0.9", "daily"]
   ];
   function renderSitemap(ctx) {
     var today = isoDate(new Date(ctx.now || Date.now()));

@@ -263,6 +263,105 @@
     return v;
   })();
 
+  /* ---------- 방문 통계 (코어무드 자체 수집 · 개인 정보 없음) ---------- */
+  // 브라우저마다 임의 번호를 하나 만들어 방문자 수를 셉니다. 관리자 화면에 로그인한 브라우저는 빠집니다.
+  var TRK = (function () {
+    var store = function (k, v) {
+      try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; }
+      return v;
+    };
+    if (!window.fetch || store("cm_notrack") === "1" || navigator.webdriver || /^\/admin/.test(location.pathname)) return { ev: function () {} };
+    var rid = function () { return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-5); };
+    var now = Date.now(), fresh = 0;
+    var vid = store("cm_vid");
+    if (!vid) { vid = rid(); fresh = 1; store("cm_vid", vid); }
+    var ses = null;
+    try { ses = JSON.parse(store("cm_ses") || "null"); } catch (e) { ses = null; }
+    var entry = 0;
+    if (!ses || !ses.id || now - (ses.at || 0) > 30 * 60 * 1000) { ses = { id: rid(), at: now }; entry = 1; }
+    ses.at = now; store("cm_ses", JSON.stringify(ses));
+    var ua = navigator.userAgent || "";
+    var dev = /iPad|Tablet/i.test(ua) || (/Android/i.test(ua) && !/Mobile/i.test(ua)) ? "tablet" : /Mobi|iPhone|iPod|Android/i.test(ua) ? "mobile" : "desktop";
+    var base = { v: vid, s: ses.id, p: rid(), path: location.pathname, dev: dev };
+    var send = function (o, beacon) {
+      var d = {}, k;
+      for (k in base) d[k] = base[k];
+      for (k in o) d[k] = o[k];
+      var body = JSON.stringify(d);
+      try {
+        if (beacon && navigator.sendBeacon && navigator.sendBeacon("/api/track", body)) return;
+        fetch("/api/track", { method: "POST", body: body, keepalive: true, headers: { "Content-Type": "text/plain;charset=UTF-8" } }).catch(function () {});
+      } catch (e) {}
+    };
+    var ref = document.referrer || "";
+    if (ref.indexOf(location.origin) === 0) ref = "";
+    send({ t: "pv", title: document.title.replace(/\s*\|\s*코어무드.*$/, ""), entry: entry, fresh: fresh, ref: entry ? ref : "", utm: entry ? SRC.utm : "" });
+
+    // 체류 시간(화면을 보고 있던 시간)과 스크롤 깊이
+    var shown = document.visibilityState !== "hidden" ? Date.now() : 0, spent = 0, depth = 0, last = -1;
+    var measure = function () {
+      var de = document.documentElement, full = Math.max(de.scrollHeight, document.body.scrollHeight);
+      var d = full > 0 ? Math.round(Math.min(1, (window.scrollY + window.innerHeight) / full) * 100) : 100;
+      if (d > depth) depth = d;
+    };
+    var seen = function () { return Math.round((spent + (shown ? Date.now() - shown : 0)) / 1000); };
+    var report = function (sec, beacon) {
+      if (sec === last) return;
+      last = sec;
+      send({ t: "end", dur: sec, depth: depth }, beacon);
+    };
+    var flush = function () {
+      if (shown) { spent += Date.now() - shown; shown = 0; }
+      report(Math.round(spent / 1000), true);
+    };
+    // 페이지를 떠날 때 보내는 신호가 빠지는 브라우저도 있어, 10초 · 30초 · 1분 뒤부터는 1분마다 중간값을 남깁니다
+    var nextAt = 10;
+    setInterval(function () {
+      if (document.visibilityState === "hidden") return;
+      var sec = seen();
+      if (sec >= nextAt && sec <= 1800) { report(sec); nextAt = nextAt < 30 ? 30 : nextAt < 60 ? 60 : nextAt + 60; }
+    }, 5000);
+    measure();
+    window.addEventListener("scroll", function () { if (!measure._t) measure._t = setTimeout(function () { measure._t = 0; measure(); }, 250); }, { passive: true });
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "hidden") flush();
+      else { shown = Date.now(); store("cm_ses", JSON.stringify({ id: ses.id, at: Date.now() })); }
+    });
+    window.addEventListener("pagehide", flush);
+
+    // 클릭 — 상담 연결(전화·카카오톡·상담 버튼)과 많이 누르는 버튼을 봅니다
+    var label = function (el) {
+      return (el.getAttribute("data-track") || el.getAttribute("aria-label") || el.textContent || "").replace(/[→↗›‹✕↑↓]/g, "").replace(/\s+/g, " ").trim().slice(0, 60);
+    };
+    document.addEventListener("click", function (e) {
+      var el = e.target && e.target.closest ? e.target.closest("a,button") : null;
+      if (!el) return;
+      var href = el.getAttribute("href") || "", kind = "", lab = label(el);
+      var u = null;
+      try { u = href && !/^(tel|mailto|sms|javascript):|^#/.test(href) ? new URL(href, location.href) : null; } catch (er) { u = null; }
+      if (/^tel:/.test(href)) { kind = "tel"; lab = lab || href.slice(4); }
+      else if (/^mailto:/.test(href)) kind = "mail";
+      else if (el.classList.contains("fab__b--k") || /kakao\.com/.test(href)) kind = "kakao";
+      else if (el.classList.contains("fab__b--q") || el.hasAttribute("data-quick")) kind = "quick";
+      else if (el.classList.contains("acard")) {
+        kind = "archive";
+        var t = el.querySelector(".acard__t"), n = el.querySelector(".acard__no");
+        lab = ((n ? n.textContent + " " : "") + (t ? t.textContent : lab)).trim();
+      }
+      else if (u && u.host !== location.host) { kind = "out"; lab = u.hostname.replace(/^www\./, "") + " · " + lab.slice(0, 30); }
+      else if (u && /^\/(contact|estimate|join)(\.html)?$/.test(u.pathname)) kind = "contact";
+      else if (u && /^\/projects\//.test(u.pathname)) kind = "case";
+      else if (el.closest(".hdr,.mnav")) kind = "menu";
+      else if (el.closest(".ftr,.mobcta")) kind = el.closest(".mobcta") ? "contact" : "footer";
+      else if (el.type === "submit") kind = "form";
+      else kind = el.tagName === "A" ? "link" : "button";
+      if (!lab) return;
+      send({ t: "click", kind: kind, label: lab }, kind === "out" || kind === "tel" || kind === "mail");
+      if (el.tagName === "A" && (u || /^(tel|mailto):/.test(href)) && el.target !== "_blank") report(seen());
+    }, true);
+    return { ev: function (t, kind, lab) { send({ t: t, kind: kind || "", label: lab || "" }, true); } };
+  })();
+
   /* ---------- inquiry (상담 신청 · 빠른 문의 공용) ---------- */
   var CFG = null;           // data/site.json
   var TS = { key: "", ready: null };
@@ -312,6 +411,7 @@
       .then(function (res) {
         if (res && res.ok) {
           if (typeof window.gtag === "function") window.gtag("event", "generate_lead", { form: data.type });
+          TRK.ev("lead", data.type || "상담 신청", data.biz || "");
           return { ok: true };
         }
         if (res && (res.reason === "captcha" || res.reason === "too-many" || res.reason === "required")) return res;
@@ -372,6 +472,52 @@
         tsReset(tsHost);
         sending = false; if (btn) btn.disabled = false;
       });
+    });
+  }
+
+  /* ---------- 회원 가입 (/join) ---------- */
+  var jf = $("[data-join]");
+  if (jf) {
+    var jts = document.createElement("div");
+    jts.className = "cf-turnstile"; jts.hidden = true;
+    var jsub = $(".fsub", jf);
+    if (jsub) jsub.parentNode.insertBefore(jts, jsub);
+    jf._ts = jts;
+    var jbusy = false;
+    jf.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (jbusy) return;
+      var d = new FormData(jf);
+      var g = function (k) { return (d.get(k) || "").toString().trim(); };
+      var msg = $("[data-join-msg]");
+      var say = function (t) { if (msg) msg.textContent = t; };
+      if (!g("name")) { say("성함을 적어 주세요."); jf.querySelector('[name="name"]').focus(); return; }
+      if (!g("email") && !g("phone")) { say("이메일과 연락처 중 하나는 꼭 적어 주세요."); jf.querySelector('[name="email"]').focus(); return; }
+      if (g("email") && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(g("email"))) { say("이메일 주소를 다시 확인해 주세요."); jf.querySelector('[name="email"]').focus(); return; }
+      if (!jf.querySelector('[name="agree"]').checked) { say("개인정보 수집·이용에 동의해 주셔야 가입할 수 있습니다."); return; }
+      var data = {
+        name: g("name"), email: g("email"), phone: g("phone"), biz: g("biz"), stage: g("stage"), interests: d.getAll("interests"),
+        agree: true, marketing: jf.querySelector('[name="marketing"]').checked, hp: g("website"), cf_token: tsToken(jts),
+        page: location.pathname, landing: SRC.landing, ref: SRC.ref, utm: SRC.utm
+      };
+      if (TS.key && !data.cf_token) { say(FAIL_MSG.captcha); return; }
+      var btn = jf.querySelector('[type="submit"]');
+      jbusy = true; if (btn) btn.disabled = true;
+      say("가입하는 중입니다…");
+      fetch("/api/join", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) })
+        .then(function (r) { return r.json().catch(function () { return { ok: false, reason: "http-" + r.status }; }); })
+        .catch(function () { return { ok: false, reason: "network" }; })
+        .then(function (r) {
+          jbusy = false; if (btn) btn.disabled = false; tsReset(jts);
+          if (r && r.ok) {
+            TRK.ev("join", r.again ? "정보 갱신" : "신규 가입", data.biz);
+            jf.reset();
+            say(r.again ? "이미 가입되어 있어 남겨 주신 내용으로 정보를 고쳤습니다. 감사합니다." : "가입되었습니다. 새 소식이 생기면 보내 드리겠습니다.");
+            return;
+          }
+          var why = { email: "이메일 주소를 다시 확인해 주세요.", phone: "연락처를 다시 확인해 주세요.", required: "성함과 이메일 또는 연락처를 적어 주세요.", agree: "개인정보 수집·이용에 동의해 주세요." };
+          say(why[r && r.reason] || FAIL_MSG[r && r.reason] || "가입을 처리하지 못했습니다. 잠시 뒤 다시 시도하거나 010-2384-9580으로 연락 주세요.");
+        });
     });
   }
 
@@ -436,6 +582,7 @@
       }
       TS.key = (CFG.turnstile && CFG.turnstile.siteKey) || "";
       if (TS.key && form) { var h = $(".cf-turnstile", form); if (h) { h.hidden = false; mountTurnstile(h); } }
+      if (TS.key && jf && jf._ts) { jf._ts.hidden = false; mountTurnstile(jf._ts); }
       // 오른쪽 아래 버튼
       var q = CFG.quick || {}, k = CFG.kakao || {};
       var showQ = q.enabled !== false && page !== "contact";

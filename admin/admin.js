@@ -193,7 +193,7 @@
 
   /* ---------- shell ---------- */
   var NAV = [
-    ["", "운영"], ["dashboard", "대시보드"], ["inquiries", "상담 문의"],
+    ["", "운영"], ["dashboard", "대시보드"], ["kpi", "KPI 지표"], ["inquiries", "상담 문의"], ["members", "회원"],
     ["", "콘텐츠"], ["posts", "저널 글"], ["queue", "발행 계획"], ["cases", "시공 사례"], ["industries", "업종 페이지"],
     ["", "사이트"], ["pages", "페이지 SEO"], ["images", "이미지"], ["settings", "사이트 설정"],
     ["", "도움말"], ["setup", "설정 점검"], ["help", "사용 안내"]
@@ -224,7 +224,8 @@
     if (v === "industry") return industryEditor(decodeURIComponent(parts[1] || ""));
     if (v === "case") return caseEditor(decodeURIComponent(parts[1] || "new"));
     if (v === "inquiry") return inquiriesView(decodeURIComponent(parts[1] || ""));
-    var fn = { dashboard: dashboard, posts: postsView, queue: queueView, cases: casesView, industries: industriesView, inquiries: function () { inquiriesView(""); }, pages: pagesView, images: imagesView, settings: settingsView, setup: setupView, help: helpView }[v] || dashboard;
+    if (v === "member") return membersView(decodeURIComponent(parts[1] || ""));
+    var fn = { dashboard: dashboard, posts: postsView, queue: queueView, cases: casesView, industries: industriesView, inquiries: function () { inquiriesView(""); }, kpi: kpiView, members: function () { membersView(""); }, pages: pagesView, images: imagesView, settings: settingsView, setup: setupView, help: helpView }[v] || dashboard;
     fn();
   }
   window.addEventListener("hashchange", function () { if (S.token) route(); });
@@ -249,6 +250,7 @@
       '<div class="panel"><h2>오늘 할 일 <small><a href="#/inquiries">상담 문의 전체</a></small></h2><div id="todo"><div class="empty">불러오는 중…</div></div></div>' +
       '<div class="panel"><h2>문의 흐름 <small>최근 30일</small></h2><div id="funnel"><div class="empty">–</div></div></div>' +
       "</div><div>" +
+      '<div class="panel"><h2>방문 요약 <small>최근 7일 · <a href="#/kpi">KPI 지표 보기</a></small></h2><div id="dvis"><div class="empty">불러오는 중…</div></div></div>' +
       '<div class="panel"><h2>최근 변경 기록 <small><a href="https://github.com/' + REPO + '/commits/' + BRANCH + '" target="_blank" rel="noopener">GitHub에서 보기</a></small></h2><div id="commits"><div class="empty">불러오는 중…</div></div></div>' +
       '<div class="panel"><h2>바로 하기</h2><div class="row"><a class="btn" href="#/post/new">새 글 쓰기</a><a class="btn btn--ghost" href="#/case/new">시공 사례 추가</a><a class="btn btn--ghost" href="#/queue">발행 주제 추가</a><a class="btn btn--ghost" href="#/inquiries">문의 직접 등록</a></div>' +
       '<h2 style="margin-top:22px">바깥 서비스</h2><div class="row">' +
@@ -260,6 +262,19 @@
     shell("dashboard", "대시보드", "오늘 확인할 문의와 홈페이지 운영 현황입니다.", '<button class="btn btn--ghost" id="reload">새로고침</button>', body);
     bindGo();
     $("#reload").addEventListener("click", function () { busy("최신 상태를 불러오는 중"); S.inq = null; loadAll().then(function () { busy(); dashboard(); }); });
+    // 방문 요약 (최근 7일)
+    var t0 = todayKST();
+    api("/api/admin/kpi?from=" + addDay(t0, -6) + "&to=" + t0).then(function (d) {
+      var el = $("#dvis"); if (!el) return;
+      if (!d.ok) { el.innerHTML = '<div class="empty">' + (d._status === 0 || d._status === 404 ? "배포된 사이트(coremood.kr/admin)에서 확인됩니다." : "불러오지 못했습니다.") + "</div>"; return; }
+      var V = d.visits.cur || {}, Vp = d.visits.prev || {};
+      el.innerHTML = '<div class="dvis">' +
+        '<div><span>방문자</span><b>' + nf(V.uv) + "</b>" + deltaHtml(V.uv, Vp.uv, true) + "</div>" +
+        '<div><span>페이지뷰</span><b>' + nf(V.pv) + "</b>" + deltaHtml(V.pv, Vp.pv, true) + "</div>" +
+        '<div><span>상담 연결 클릭</span><b>' + nf(d.contact.cur) + "</b>" + deltaHtml(d.contact.cur, d.contact.prev, true) + "</div>" +
+        '<div><span>신규 회원</span><b>' + nf(d.members.items.length) + "</b>" + deltaHtml(d.members.items.length, d.members.prev, true) + "</div></div>" +
+        (d.since ? "" : '<p class="tiny" style="margin-top:10px">방문 기록은 이번 업데이트 배포 뒤부터 쌓입니다.</p>');
+    });
     // 최근 변경 기록
     gh("/repos/" + REPO + "/commits?sha=" + BRANCH + "&per_page=8").then(function (list) {
       var el = $("#commits"); if (!el) return;
@@ -324,6 +339,450 @@
   }
   function stat(k, v, unit, n) { return '<div class="stat"><div class="stat__k">' + k + '</div><div class="stat__v">' + v + "<small>" + unit + '</small></div><div class="stat__n">' + h(n) + "</div></div>"; }
   function bindGo() { $$("[data-go]").forEach(function (el) { if (el._go) return; el._go = 1; el.addEventListener("click", function (e) { if (e.target.closest("a,button")) return; location.hash = el.dataset.go; }); }); }
+
+  /* ---------- KPI 지표 ---------- */
+  var KPI_CONTACT = { tel: "전화", kakao: "카카오톡", mail: "메일", quick: "빠른 상담", contact: "상담·견적·가입 버튼" };
+  var CLICK_KIND = { tel: "전화", kakao: "카카오톡", mail: "메일", quick: "빠른 상담", contact: "상담 연결", archive: "레퍼런스", "case": "시공 사례", out: "외부 링크", menu: "메뉴", footer: "하단 메뉴", link: "링크", button: "버튼", form: "폼 제출" };
+  var DEV_KO = { mobile: "모바일", desktop: "PC", tablet: "태블릿" };
+  var REGION_KO = { "Seoul": "서울", "Gyeonggi-do": "경기", "Incheon": "인천", "Busan": "부산", "Daegu": "대구", "Daejeon": "대전", "Gwangju": "광주", "Ulsan": "울산", "Sejong": "세종", "Sejong-si": "세종",
+    "Gangwon-do": "강원", "Gangwon": "강원", "Chungcheongbuk-do": "충북", "North Chungcheong": "충북", "Chungcheongnam-do": "충남", "South Chungcheong": "충남", "Jeollabuk-do": "전북", "North Jeolla": "전북", "Jeonbuk": "전북",
+    "Jeollanam-do": "전남", "South Jeolla": "전남", "Gyeongsangbuk-do": "경북", "North Gyeongsang": "경북", "Gyeongsangnam-do": "경남", "South Gyeongsang": "경남", "Jeju-do": "제주", "Jeju": "제주" };
+  var WD_KO = ["일", "월", "화", "수", "목", "금", "토"];
+  function nf(n) { return Math.round(Number(n) || 0).toLocaleString("ko-KR"); }
+  function durTxt(sec) {
+    sec = Math.round(Number(sec) || 0);
+    if (!sec) return "–";
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return m ? m + "분 " + (s < 10 ? "0" : "") + s + "초" : s + "초";
+  }
+  function pctTxt(v, digits) { return v == null || isNaN(v) ? "–" : (v * 100).toFixed(digits == null ? 1 : digits).replace(/\.0$/, "") + "%"; }
+  function addDay(day, n) { return new Date(Date.parse(day + "T00:00:00Z") + n * 86400000).toISOString().slice(0, 10); }
+  function dayList(from, to) { var out = [], d = from; while (d <= to && out.length < 400) { out.push(d); d = addDay(d, 1); } return out; }
+  function mdTxt(day) { return parseInt(day.slice(5, 7), 10) + "/" + parseInt(day.slice(8), 10); }
+  // 이전 기간 대비 — 오름이 좋은 지표인지(goodUp)에 따라 색을 정하고, 화살표와 글자로도 함께 알립니다
+  function deltaHtml(cur, prev, goodUp, rate) {
+    cur = Number(cur) || 0; prev = Number(prev) || 0;
+    if (!cur && !prev) return '<span class="kd">이전 기간과 같음</span>';
+    var diff, txt;
+    if (rate) { diff = cur - prev; txt = Math.abs(diff * 100).toFixed(1).replace(/\.0$/, "") + "%p"; }
+    else if (!prev) return '<span class="kd kd--' + (goodUp ? "good" : "bad") + '">▲ 새로 생김</span>';
+    else { diff = cur - prev; txt = Math.abs(Math.round(diff / prev * 100)) + "%"; }
+    if (Math.abs(diff) < 1e-9) return '<span class="kd">이전 기간과 같음</span>';
+    var up = diff > 0, good = up === goodUp;
+    return '<span class="kd kd--' + (good ? "good" : "bad") + '">' + (up ? "▲ " : "▼ ") + txt + '<em>' + (up ? " 늘었습니다" : " 줄었습니다") + "</em></span>";
+  }
+  function ktile(k, v, unit, delta, note) {
+    return '<div class="ktile"><div class="ktile__k">' + k + '</div><div class="ktile__v">' + v + (unit ? "<small>" + unit + "</small>" : "") + "</div>" + (delta || "") + (note ? '<div class="ktile__n">' + note + "</div>" : "") + "</div>";
+  }
+  // 순위 막대 (한 가지 색, 큰 순서)
+  function kbars(rows, opt) {
+    opt = opt || {};
+    if (!rows.length) return '<div class="empty">' + (opt.empty || "아직 기록이 없습니다.") + "</div>";
+    var total = opt.total || rows.reduce(function (s, r) { return s + r.n; }, 0) || 1;
+    var max = Math.max.apply(null, rows.map(function (r) { return r.n; })) || 1;
+    return '<ol class="kbars">' + rows.map(function (r) {
+      return '<li class="kb"' + (r.title ? ' title="' + h(r.title) + '"' : "") + '><span class="kb__k">' + h(r.k) + (r.sub ? "<span>" + h(r.sub) + "</span>" : "") + '</span><span class="kb__t"><i style="width:' + Math.max(1.5, r.n / max * 100).toFixed(1) + '%"></i></span><span class="kb__n">' + nf(r.n) + (opt.share === false ? "" : "<small>" + pctTxt(r.n / total, 0) + "</small>") + "</span></li>";
+    }).join("") + "</ol>";
+  }
+  function niceStep(raw) {
+    var p = Math.pow(10, Math.floor(Math.log10(Math.max(raw, 1e-9))));
+    var f = raw / p;
+    return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
+  }
+  // 세로 막대 차트 (한 계열) — rows: [{ key, label, tip }], 값은 rows[i].v
+  function colChart(el, rows, opt) {
+    if (!el) return;
+    opt = opt || {};
+    var W = Math.max(280, el.clientWidth || 720), H = opt.height || 220, padL = 38, padR = 6, padT = 18, padB = 26;
+    var n = rows.length, max = 0;
+    rows.forEach(function (r) { if (r.v > max) max = r.v; });
+    var step = max <= 4 ? 1 : niceStep(max / 4), top = Math.max(step, Math.ceil(max / step) * step);
+    var iw = W - padL - padR, ih = H - padT - padB, band = iw / Math.max(1, n), bw = Math.max(2, Math.min(24, band * 0.68));
+    var y = function (v) { return padT + ih - v / top * ih; };
+    var svg = '<svg viewBox="0 0 ' + W + " " + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="' + h(opt.title || "") + '">';
+    for (var t = 0; t <= top + 1e-9; t += step) {
+      var yy = Math.round(y(t)) + 0.5;
+      svg += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + yy + '" y2="' + yy + '" class="' + (t === 0 ? "kc-base" : "kc-grid") + '"/>' +
+        '<text x="' + (padL - 8) + '" y="' + (yy + 4) + '" class="kc-tick" text-anchor="end">' + nf(t) + "</text>";
+    }
+    var every = Math.max(1, Math.ceil(n / (opt.maxLabels || Math.max(4, Math.floor(iw / 64)))));
+    var peak = -1;
+    rows.forEach(function (r, i) { if (r.v > 0 && (peak < 0 || r.v > rows[peak].v)) peak = i; });
+    rows.forEach(function (r, i) {
+      var cx = padL + band * i + band / 2, x = cx - bw / 2, hgt = r.v / top * ih, yb = padT + ih;
+      if (r.v > 0) {
+        var rr = Math.min(4, bw / 2, hgt), yt = yb - Math.max(hgt, 1.5);
+        svg += '<path class="kc-bar" data-i="' + i + '" d="M' + x.toFixed(1) + "," + yb + "V" + (yt + rr).toFixed(1) + "Q" + x.toFixed(1) + "," + yt.toFixed(1) + " " + (x + rr).toFixed(1) + "," + yt.toFixed(1) +
+          "H" + (x + bw - rr).toFixed(1) + "Q" + (x + bw).toFixed(1) + "," + yt.toFixed(1) + " " + (x + bw).toFixed(1) + "," + (yt + rr).toFixed(1) + "V" + yb + 'Z"/>';
+      }
+      if (i % every === 0 || (opt.lastLabel && i === n - 1 && n - 1 - (Math.floor((n - 1) / every) * every) > every / 2)) svg += '<text x="' + cx.toFixed(1) + '" y="' + (H - 8) + '" class="kc-tick" text-anchor="middle">' + h(r.label) + "</text>";
+    });
+    if (peak >= 0 && opt.peakLabel !== false) {
+      var px = padL + band * peak + band / 2, py = y(rows[peak].v) - 6;
+      svg += '<text x="' + px.toFixed(1) + '" y="' + Math.max(11, py).toFixed(1) + '" class="kc-val" text-anchor="middle">' + nf(rows[peak].v) + "</text>";
+    }
+    rows.forEach(function (r, i) { svg += '<rect class="kc-hit" data-i="' + i + '" tabindex="0" x="' + (padL + band * i).toFixed(1) + '" y="' + padT + '" width="' + band.toFixed(1) + '" height="' + ih + '"/>'; });
+    svg += "</svg>";
+    el.innerHTML = '<div class="kc">' + svg + '<div class="kc-tip" hidden></div></div>';
+    var tip = $(".kc-tip", el), box = $(".kc", el);
+    var show = function (i) {
+      var r = rows[i]; if (!r) return;
+      $$(".kc-bar", el).forEach(function (b) { b.classList.toggle("on", +b.dataset.i === i); });
+      tip.innerHTML = r.tip;
+      tip.hidden = false;
+      var cx = padL + band * i + band / 2, tw = tip.offsetWidth, bwid = box.clientWidth;
+      tip.style.left = Math.max(0, Math.min(bwid - tw, cx / W * bwid - tw / 2)) + "px";
+    };
+    var hide = function () { tip.hidden = true; $$(".kc-bar.on", el).forEach(function (b) { b.classList.remove("on"); }); };
+    $$(".kc-hit", el).forEach(function (hit) {
+      var i = +hit.dataset.i;
+      hit.addEventListener("pointerenter", function () { show(i); });
+      hit.addEventListener("focus", function () { show(i); });
+      hit.addEventListener("blur", hide);
+    });
+    $("svg", el).addEventListener("pointerleave", hide);
+  }
+  // 주소를 관리자가 알아보기 쉬운 이름으로 (페이지 이름 · 글 제목 · 업종 · 사례)
+  function pageName(path, title) {
+    if (path === "/") return "홈";
+    var pm = (S.pages && S.pages.pages) || {}, m, k;
+    for (k in pm) if (pm[k].path === path) return pm[k].name;
+    if (path === "/journal/") return "저널 목록";
+    if ((m = /^\/journal\/category\/([^/]+)$/.exec(path))) return "저널 · " + catName(m[1]);
+    if ((m = /^\/journal\/([^/]+)$/.exec(path))) { var po = (S.index.posts || []).filter(function (x) { return x.slug === m[1]; })[0]; if (po) return po.title; }
+    if (path === "/industries/") return "업종별 인테리어";
+    if ((m = /^\/industries\/([^/]+)$/.exec(path))) { var ind = (S.index.industries || []).filter(function (x) { return x.slug === m[1]; })[0]; if (ind) return ind.keyword || ind.title; }
+    if ((m = /^\/projects\/([^/]+)$/.exec(path))) { var c = cases().filter(function (x) { return x.slug === m[1]; })[0]; if (c) return "시공 사례 · " + (c.title || c.slug); }
+    if (path === "/faq") return "자주 묻는 질문";
+    return String(title || path).split(/\s+[—|]\s+/)[0];
+  }
+  function utmName(u) {
+    var o = {};
+    String(u || "").split("&").forEach(function (kv) { var i = kv.indexOf("="); if (i > 0) { try { o[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); } catch (e) { o[kv.slice(0, i)] = kv.slice(i + 1); } } });
+    return [o.source, o.medium, o.campaign].filter(Boolean).join(" / ") || u;
+  }
+  function kpiRange() {
+    var r = kpiView.r || { p: "30" };
+    var today = todayKST();
+    if (r.p === "custom" && r.from && r.to) return r;
+    if (r.p === "today") return { p: r.p, from: today, to: today };
+    if (r.p === "yesterday") { var y = addDay(today, -1); return { p: r.p, from: y, to: y }; }
+    if (r.p === "month") return { p: r.p, from: today.slice(0, 8) + "01", to: today };
+    var n = parseInt(r.p, 10) || 30;
+    return { p: String(n), from: addDay(today, -(n - 1)), to: today };
+  }
+  function notrack(v) {
+    try { if (v === undefined) return localStorage.getItem("cm_notrack") === "1"; localStorage.setItem("cm_notrack", v ? "1" : "0"); } catch (e) { return false; }
+    return v;
+  }
+  function kpiView() {
+    var R = kpiRange();
+    kpiView.r = R;
+    var presets = [["today", "오늘"], ["yesterday", "어제"], ["7", "최근 7일"], ["30", "최근 30일"], ["90", "최근 90일"], ["month", "이번 달"]];
+    var body = '<div class="kfil"><div class="filters" id="k-p">' + presets.map(function (p) { return '<button class="chip' + (R.p === p[0] ? " on" : "") + '" data-p="' + p[0] + '">' + p[1] + "</button>"; }).join("") + "</div>" +
+      '<div class="kfil__d"><input class="in" type="date" id="k-from" value="' + R.from + '" max="' + todayKST() + '"><span>~</span><input class="in" type="date" id="k-to" value="' + R.to + '" max="' + todayKST() + '"><button class="btn btn--ghost btn--sm" id="k-go">적용</button></div>' +
+      '<span class="klive" id="k-live"></span></div>' +
+      '<div id="kbody" class="kbody"><div class="panel"><div class="empty">지표를 불러오는 중…</div></div></div>';
+    shell("kpi", "KPI 지표", "방문, 클릭, 상담 문의, 회원 지표를 한 화면에서 봅니다. 모든 증감은 바로 앞 같은 길이의 기간과 비교합니다.",
+      '<button class="btn btn--ghost" id="k-csv" disabled>CSV 내려받기</button><button class="btn btn--ghost" id="k-re">새로고침</button>', body);
+    $$("#k-p .chip").forEach(function (c) { c.addEventListener("click", function () { kpiView.r = { p: c.dataset.p }; kpiView(); }); });
+    $("#k-go").addEventListener("click", function () {
+      var f = $("#k-from").value, t = $("#k-to").value;
+      if (!f || !t) return toast("시작일과 종료일을 모두 골라 주세요.", true);
+      if (f > t) { var x = f; f = t; t = x; }
+      kpiView.r = { p: "custom", from: f, to: t }; kpiView();
+    });
+    $("#k-re").addEventListener("click", function () { kpiView.cache = null; kpiView(); });
+    var key = R.from + "_" + R.to;
+    var go = function (d) { kpiRender(d, R); };
+    if (kpiView.cache && kpiView.cache.key === key && Date.now() - kpiView.cache.at < 60000) return go(kpiView.cache.d);
+    api("/api/admin/kpi?from=" + R.from + "&to=" + R.to).then(function (d) {
+      if (d.ok) kpiView.cache = { key: key, at: Date.now(), d: d };
+      go(d);
+    });
+  }
+  function kpiRender(d, R) {
+    var box = $("#kbody"); if (!box) return;
+    if (!d.ok) {
+      box.innerHTML = '<div class="panel"><div class="note warn">' + (d.reason === "not-configured" ? 'D1 데이터베이스가 연결되지 않아 지표를 모을 수 없습니다. <a href="#/setup">설정 점검</a>을 확인해 주세요.'
+        : d._status === 0 || d._status === 404 ? "서버 기능에 연결하지 못했습니다. 배포된 주소(coremood.kr/admin)에서 열어 주세요." : "지표를 불러오지 못했습니다 (" + h(d.reason || d.error || d._status) + ").") + "</div></div>";
+      return;
+    }
+    $("#k-live").innerHTML = '<i></i>지금 보고 있는 방문자 <b>' + nf(d.live) + "</b>명";
+    var V = d.visits.cur || {}, Vp = d.visits.prev || {}, Sx = d.visits.sess || {}, Sp = d.visits.sessPrev || {};
+    var bounce = Sx.n ? Sx.bounce / Sx.n : 0, bounceP = Sp.n ? Sp.bounce / Sp.n : 0;
+    var inq = d.inquiries.items, inqN = inq.length, won = inq.filter(function (x) { return x.status === "won"; }).length;
+    var conv = V.uv ? inqN / V.uv : 0, convP = Vp.uv ? d.inquiries.prev / Vp.uv : 0;
+    var memN = d.members.items.length;
+    var spanTxt = R.from === R.to ? fmtDay(R.from) : fmtDay(R.from) + " ~ " + fmtDay(R.to);
+    function fmtDay(x) { return x.slice(0, 4) + ". " + parseInt(x.slice(5, 7), 10) + ". " + parseInt(x.slice(8), 10) + "."; }
+    var days = dayList(d.from, d.to), byDay = {};
+    days.forEach(function (x) { byDay[x] = { uv: 0, pv: 0, ses: 0, contact: 0, inq: 0, mem: 0 }; });
+    d.daily.forEach(function (r) { if (byDay[r.day]) { byDay[r.day].uv = r.uv; byDay[r.day].pv = r.pv; byDay[r.day].ses = r.ses; } });
+    d.dailyContact.forEach(function (r) { if (byDay[r.day]) byDay[r.day].contact = r.n; });
+    inq.forEach(function (x) { if (byDay[x.day]) byDay[x.day].inq++; });
+    d.members.items.forEach(function (x) { if (byDay[x.day]) byDay[x.day].mem++; });
+    var pc = {}; d.pageContact.forEach(function (r) { pc[r.path] = r.n; });
+    var titleOf = function (p) { return pageName(p.path, p.title); };
+    var pathKo = function (p) { return p; };
+    var pages = d.pages;
+    var group = function (re, exclude) { return pages.filter(function (p) { return re.test(p.path) && !(exclude && exclude.test(p.path)); }).slice(0, 10).map(function (p) { return { k: titleOf(p), sub: p.dur ? "평균 " + durTxt(p.dur) + " 머무름" : "", n: p.pv, title: p.path }; }); };
+    var empty = !d.since;
+    var html = "";
+    if (empty) html += '<div class="note" style="margin-bottom:16px">방문 기록은 이번 업데이트가 배포된 뒤부터 쌓입니다. 하루 이틀 지나면 아래 지표가 채워집니다. 상담 문의와 회원 지표는 지금도 바로 볼 수 있습니다.</div>';
+    html += '<p class="kspan">' + spanTxt + " · " + d.days + "일" + (d.since ? ' <span class="muted">· 방문 기록 ' + fmtDay(d.since) + "부터</span>" : "") + "</p>";
+    html += '<h2 class="ksec">방문</h2><div class="ktiles">' +
+      ktile("방문자", nf(V.uv), "명", deltaHtml(V.uv, Vp.uv, true), "처음 온 방문자 " + nf(V.nv) + " · 다시 온 방문자 " + nf((V.uv || 0) - (V.nv || 0))) +
+      ktile("페이지뷰", nf(V.pv), "회", deltaHtml(V.pv, Vp.pv, true), "방문자 1명당 " + (V.uv ? (V.pv / V.uv).toFixed(1) : "0") + "페이지") +
+      ktile("방문 수", nf(V.ses), "회", deltaHtml(V.ses, Vp.ses, true), "30분 넘게 쉬면 새 방문으로 셉니다") +
+      ktile("평균 체류 시간", durTxt(Sx.dwell), "", deltaHtml(Sx.dwell, Sp.dwell, true), "방문 1회 동안 화면을 본 시간") +
+      ktile("이탈률", pctTxt(bounce), "", deltaHtml(bounce, bounceP, false, true), "한 페이지만 보고 나간 방문 비율") +
+      ktile("방문당 페이지", Sx.ppv ? Number(Sx.ppv).toFixed(1) : "0", "페이지", deltaHtml(Sx.ppv, Sp.ppv, true), "방문 1회에 둘러본 페이지 수") + "</div>";
+    html += '<h2 class="ksec">성과</h2><div class="ktiles">' +
+      ktile("상담 연결 클릭", nf(d.contact.cur), "회", deltaHtml(d.contact.cur, d.contact.prev, true), "전화·카카오톡·상담 버튼을 누른 횟수") +
+      ktile("상담 문의", nf(inqN), "건", deltaHtml(inqN, d.inquiries.prev, true), '<a href="#/inquiries">상담 문의 관리 →</a>') +
+      ktile("문의 전환율", pctTxt(conv, 2), "", deltaHtml(conv, convP, true, true), "상담 문의 ÷ 방문자") +
+      ktile("계약", nf(won), "건", deltaHtml(won, d.inquiries.prevWon, true), "이 기간에 들어온 문의 중 계약 상태") +
+      ktile("신규 회원", nf(memN), "명", deltaHtml(memN, d.members.prev, true), '<a href="#/members">회원 관리 →</a>') +
+      ktile("활동 회원", nf(d.members.active), "명", "", "소식 수신 동의 " + nf(d.members.marketing) + "명" + (d.members.total - d.members.active > 0 ? " · 탈퇴 " + nf(d.members.total - d.members.active) + "명 제외" : "")) + "</div>";
+    var tabs = [["uv", "방문자"], ["pv", "페이지뷰"], ["ses", "방문 수"], ["contact", "상담 연결 클릭"], ["inq", "상담 문의"], ["mem", "신규 회원"]];
+    var tk = kpiRender.tab || "uv";
+    if (d.days > 1) html += '<div class="panel ktrend"><h2><span id="kt-title">일별 ' + h((tabs.filter(function (t) { return t[0] === tk; })[0] || tabs[0])[1]) + "</span><small><button class=\"link\" id=\"kt-table\">표로 보기</button></small></h2>" +
+      '<div class="tabs" id="kt-tabs">' + tabs.map(function (t) { return '<button data-k="' + t[0] + '"' + (t[0] === tk ? ' class="on"' : "") + ">" + t[1] + "</button>"; }).join("") + "</div>" +
+      '<div id="kt-chart" class="kchart"></div><div id="kt-tbl" hidden></div></div>';
+    var pageRows = pages.map(function (p) {
+      return "<tr><td class=\"t\">" + h(titleOf(p)) + "<span>" + h(pathKo(p.path)) + '</span></td><td class="num">' + nf(p.pv) + '</td><td class="num">' + nf(p.uv) + '</td><td class="num hide-m">' + durTxt(p.dur) + '</td><td class="num hide-m">' + (p.depth != null ? Math.round(p.depth) + "%" : "–") + '</td><td class="num hide-m">' + nf(pc[p.path] || 0) + '</td><td class="num hide-m">' + nf(p.ent) + "</td></tr>";
+    });
+    html += '<div class="grid g2 kgrid"><div class="panel"><h2>페이지별 방문 <small>조회수 순</small></h2>' +
+      '<div class="tblwrap"><table class="tbl ktbl"><thead><tr><th>페이지</th><th class="num">조회수</th><th class="num">방문자</th><th class="num hide-m">평균 체류</th><th class="num hide-m">스크롤</th><th class="num hide-m">상담 클릭</th><th class="num hide-m">첫 방문</th></tr></thead><tbody id="k-pages">' +
+      (pageRows.slice(0, 12).join("") || '<tr><td colspan="7"><div class="empty">아직 기록이 없습니다.</div></td></tr>') + "</tbody></table></div>" +
+      (pageRows.length > 12 ? '<div class="row" style="margin-top:10px"><button class="btn btn--ghost btn--sm" id="k-more">' + (pageRows.length - 12) + "개 페이지 더 보기</button></div>" : "") + "</div>";
+    var pop = [["journal", "저널 글"], ["cases", "시공 사례 · 레퍼런스"], ["ind", "업종 페이지"], ["clicks", "많이 누른 버튼"]];
+    var pk = kpiRender.pop || "journal";
+    html += '<div class="panel"><h2>가장 인기 있는 정보</h2><div class="tabs" id="kp-tabs">' + pop.map(function (t) { return '<button data-k="' + t[0] + '"' + (t[0] === pk ? ' class="on"' : "") + ">" + t[1] + "</button>"; }).join("") + '</div><div id="kp-body"></div></div></div>';
+    var srcTotal = d.sources.reduce(function (s, r) { return s + r.n; }, 0);
+    html += '<div class="grid g3 kgrid">' +
+      '<div class="panel"><h2>유입 경로 <small>방문 수 기준</small></h2>' + kbars(d.sources.map(function (r) { return { k: r.src || "직접 방문", n: r.n }; }), { total: srcTotal }) + "</div>" +
+      '<div class="panel"><h2>처음 들어온 페이지</h2>' + kbars(d.landing.map(function (r) { return { k: titleOf(r), n: r.n, title: r.path }; }), { total: srcTotal }) + "</div>" +
+      '<div class="panel"><h2>캠페인 <small>utm 주소로 들어온 방문</small></h2>' + kbars(d.campaigns.map(function (r) { return { k: utmName(r.utm), n: r.n, title: r.utm }; }), { share: false, empty: "캠페인 주소(utm)로 들어온 방문이 없습니다. 블로그·인스타그램 링크에 ?utm_source=blog 처럼 붙이면 여기서 따로 셀 수 있습니다." }) + "</div></div>";
+    var devTotal = d.devices.reduce(function (s, r) { return s + r.n; }, 0);
+    var reg = {};
+    d.regions.forEach(function (r) { var k = r.country && r.country !== "KR" ? "해외 (" + r.country + ")" : REGION_KO[r.region] || r.region || "알 수 없음"; reg[k] = (reg[k] || 0) + r.n; });
+    var regRows = Object.keys(reg).map(function (k) { return { k: k, n: reg[k] }; }).sort(function (a, b) { return b.n - a.n; }).slice(0, 8);
+    html += '<div class="grid g3 kgrid">' +
+      '<div class="panel"><h2>기기 <small>방문 수 기준</small></h2>' + kbars(d.devices.map(function (r) { return { k: DEV_KO[r.dev] || r.dev, n: r.n }; }), { total: devTotal }) + "</div>" +
+      '<div class="panel"><h2>지역 <small>접속 위치 기준 · 대략</small></h2>' + kbars(regRows, { total: devTotal }) + "</div>" +
+      '<div class="panel"><h2>처음 온 방문자와 다시 온 방문자</h2>' + kbars([{ k: "처음 온 방문자", n: V.nv || 0 }, { k: "다시 온 방문자", n: (V.uv || 0) - (V.nv || 0) }].filter(function (r) { return r.n > 0; }), { total: V.uv }) +
+      '<p class="tiny" style="margin-top:12px">다시 온 방문자가 늘면 저널 글과 사례가 다시 찾아올 이유가 되고 있다는 뜻입니다.</p></div></div>';
+    html += '<div class="grid g2 kgrid"><div class="panel"><h2>시간대별 페이지뷰</h2><div id="k-hours" class="kchart"></div></div>' +
+      '<div class="panel"><h2>요일별 페이지뷰</h2><div id="k-wd" class="kchart"></div></div></div>';
+    var cnt = function (list, key) { var o = {}; list.forEach(function (x) { var v = key(x); if (Array.isArray(v)) v.forEach(function (y) { if (y) o[y] = (o[y] || 0) + 1; }); else if (v) o[v] = (o[v] || 0) + 1; }); return Object.keys(o).map(function (k) { return { k: k, n: o[k] }; }).sort(function (a, b) { return b.n - a.n; }); };
+    html += '<div class="grid g2 kgrid"><div class="panel"><h2>상담 문의 <small><a href="#/inquiries">전체 보기</a></small></h2>' +
+      '<div class="ksub">들어온 경로</div>' + kbars(cnt(inq, function (x) { return x.type === "직접 등록" ? "직접 등록 · " + (x.channel || "기타") : x.type || "상담 신청"; }), { empty: "이 기간에 들어온 문의가 없습니다." }) +
+      '<div class="ksub">업종</div>' + kbars(cnt(inq, function (x) { return x.biz || "업종 미선택"; }).slice(0, 6), { empty: "–" }) +
+      '<div class="ksub">진행 상태</div>' + kbars(INQ_ST.map(function (s) { return { k: s[1], n: inq.filter(function (x) { return x.status === s[0]; }).length }; }).filter(function (r) { return r.n; }), { empty: "–" }) + "</div>" +
+      '<div class="panel"><h2>회원 <small><a href="#/members">회원 관리</a></small></h2>' +
+      '<div class="ksub">관심 분야 <span class="muted">· 이 기간 가입자</span></div>' + kbars(cnt(d.members.items, function (x) { return x.interests; }), { share: false, empty: "이 기간에 가입한 회원이 없습니다." }) +
+      '<div class="ksub">지금 상황</div>' + kbars(cnt(d.members.items, function (x) { return x.stage || "선택 안 함"; }), { empty: "–" }) +
+      '<div class="ksub">최근 가입</div>' + (d.members.recent.length ? '<table class="tbl"><tbody>' + d.members.recent.map(function (m) {
+        return '<tr class="click" data-go="#/member/' + encodeURIComponent(m.id) + '"><td class="t">' + h(m.name || "(이름 없음)") + "<span>" + h([m.biz, m.stage].filter(Boolean).join(" · ") || "-") + '</span></td><td style="text-align:right" class="tiny">' + fmtDT(m.created_at).slice(0, 12) + (m.status === "unsub" ? ' <span class="badge closed">탈퇴</span>' : "") + "</td></tr>";
+      }).join("") + "</tbody></table>" : '<div class="empty">아직 가입한 회원이 없습니다. 홈페이지 하단과 저널 글 끝의 ‘회원 가입’ 링크로 가입할 수 있습니다.</div>') + "</div></div>";
+    var off = notrack();
+    html += '<div class="panel kfoot"><h2>집계 기준</h2><ul class="bul2">' +
+      "<li>방문 기록은 코어무드 데이터베이스(coremood-db)에 직접 모읍니다. IP 주소나 이름 같은 개인 정보는 저장하지 않고, 브라우저마다 만든 임의 번호로 방문자를 셉니다.</li>" +
+      "<li>검색엔진 로봇과 관리자 화면 접속은 빠집니다. 체류 시간은 화면을 실제로 보고 있던 시간만 더하고, 한 페이지에 30분 넘게 머문 기록은 30분으로 셉니다.</li>" +
+      "<li>문의 전환율은 이 기간 상담 문의 수를 방문자 수로 나눈 값입니다. 전화로 바로 연락한 고객은 ‘상담 연결 클릭’에 잡힙니다.</li>" +
+      "<li>1년 넘게 지난 방문 기록은 자동으로 정리됩니다. 상담 문의와 회원 정보는 지우기 전까지 남습니다.</li></ul>" +
+      '<label class="chk" style="margin-top:12px"><input type="checkbox" id="k-off"' + (off ? " checked" : "") + "> 이 브라우저에서 보는 홈페이지 방문은 통계에서 빼기 <span class=\"muted\">(관리자 로그인 때 자동으로 켜집니다)</span></label></div>";
+    box.innerHTML = html;
+    $("#k-csv").disabled = false;
+    bindGo();
+    // 추이 차트
+    var drawTrend = function () {
+      var t = (tabs.filter(function (x) { return x[0] === tk; })[0] || tabs[0]);
+      $("#kt-title").textContent = "일별 " + t[1];
+      colChart($("#kt-chart"), days.map(function (x) {
+        var r = byDay[x], wd = WD_KO[new Date(x + "T00:00:00Z").getUTCDay()];
+        return { v: r[tk], label: mdTxt(x), tip: '<b>' + nf(r[tk]) + "</b> " + h(t[1]) + '<span class="kc-tip__d">' + mdTxt(x) + " (" + wd + ")</span>" +
+          '<span class="kc-tip__r">방문자 ' + nf(r.uv) + " · 페이지뷰 " + nf(r.pv) + "</span>" + '<span class="kc-tip__r">상담 클릭 ' + nf(r.contact) + " · 문의 " + nf(r.inq) + " · 가입 " + nf(r.mem) + "</span>" };
+      }), { title: "일별 " + t[1], lastLabel: true });
+      $("#kt-tbl").innerHTML = '<div class="tblwrap" style="max-height:340px"><table class="tbl ktbl"><thead><tr><th>날짜</th><th class="num">방문자</th><th class="num">페이지뷰</th><th class="num">방문 수</th><th class="num">상담 클릭</th><th class="num">문의</th><th class="num">가입</th></tr></thead><tbody>' +
+        days.slice().reverse().map(function (x) { var r = byDay[x]; return "<tr><td>" + x + '</td><td class="num">' + nf(r.uv) + '</td><td class="num">' + nf(r.pv) + '</td><td class="num">' + nf(r.ses) + '</td><td class="num">' + nf(r.contact) + '</td><td class="num">' + nf(r.inq) + '</td><td class="num">' + nf(r.mem) + "</td></tr>"; }).join("") + "</tbody></table></div>";
+    };
+    if (d.days > 1) drawTrend();
+    else kpiRender.tab = tk;
+    if (d.days > 1) $$("#kt-tabs button").forEach(function (b) { b.addEventListener("click", function () { tk = kpiRender.tab = b.dataset.k; $$("#kt-tabs button").forEach(function (o) { o.classList.toggle("on", o === b); }); drawTrend(); }); });
+    if ($("#kt-table")) $("#kt-table").addEventListener("click", function () { var t = $("#kt-tbl"), c = $("#kt-chart"); t.hidden = !t.hidden; c.hidden = !t.hidden; this.textContent = t.hidden ? "표로 보기" : "차트로 보기"; });
+    var more = $("#k-more");
+    if (more) more.addEventListener("click", function () { $("#k-pages").innerHTML = pageRows.join(""); more.remove(); });
+    // 인기 정보
+    var drawPop = function () {
+      var el = $("#kp-body"), list;
+      if (pk === "journal") list = kbars(group(/^\/journal\/(?!category\/)[^/]+$/), { share: false, empty: "아직 저널 글 조회 기록이 없습니다." });
+      else if (pk === "ind") list = kbars(group(/^\/industries\/[^/]+$/), { share: false, empty: "아직 업종 페이지 조회 기록이 없습니다." });
+      else if (pk === "cases") list = '<div class="ksub">시공 사례 · 프로젝트 페이지</div>' + kbars(group(/^\/(projects\/[^/]+|portfolio)$/), { share: false, empty: "아직 조회 기록이 없습니다." }) +
+        '<div class="ksub">많이 열어 본 톤앤매너 레퍼런스</div>' + kbars(d.archive.map(function (r) { return { k: r.label, n: r.n }; }), { share: false, empty: "아직 열어 본 레퍼런스가 없습니다." });
+      else list = kbars(d.topClicks.filter(function (r) { return r.kind !== "menu"; }).slice(0, 12).map(function (r) { return { k: r.label, sub: CLICK_KIND[r.kind] || r.kind, n: r.n }; }), { share: false, empty: "아직 클릭 기록이 없습니다." }) +
+        (d.contact.kinds.length ? '<div class="ksub">상담 연결 클릭 내역</div>' + kbars(d.contact.kinds.filter(function (r) { return KPI_CONTACT[r.kind]; }).map(function (r) { return { k: KPI_CONTACT[r.kind], n: r.n }; }), { empty: "–" }) : "");
+      el.innerHTML = list;
+    };
+    drawPop();
+    $$("#kp-tabs button").forEach(function (b) { b.addEventListener("click", function () { pk = kpiRender.pop = b.dataset.k; $$("#kp-tabs button").forEach(function (o) { o.classList.toggle("on", o === b); }); drawPop(); }); });
+    // 시간대 · 요일
+    var hrs = []; for (var i = 0; i < 24; i++) hrs.push(0);
+    d.hours.forEach(function (r) { if (r.hour >= 0 && r.hour < 24) hrs[r.hour] = r.n; });
+    colChart($("#k-hours"), hrs.map(function (v, i) { return { v: v, label: i % 3 === 0 ? i + "시" : "", tip: "<b>" + nf(v) + "</b> 페이지뷰<span class=\"kc-tip__d\">" + i + "시 ~ " + (i + 1) + "시</span>" }; }), { height: 190, maxLabels: 24, title: "시간대별 페이지뷰" });
+    var wd = [0, 0, 0, 0, 0, 0, 0];
+    d.weekdays.forEach(function (r) { if (r.wd >= 0 && r.wd < 7) wd[r.wd] = r.n; });
+    colChart($("#k-wd"), [1, 2, 3, 4, 5, 6, 0].map(function (i) { return { v: wd[i], label: WD_KO[i], tip: "<b>" + nf(wd[i]) + "</b> 페이지뷰<span class=\"kc-tip__d\">" + WD_KO[i] + "요일</span>" }; }), { height: 190, maxLabels: 7, title: "요일별 페이지뷰" });
+    $("#k-off").addEventListener("change", function () { notrack(this.checked); toast(this.checked ? "이 브라우저의 방문은 이제 통계에서 빠집니다." : "이 브라우저의 방문도 통계에 들어갑니다."); });
+    // 창 크기가 바뀌면 차트를 다시 그립니다
+    clearTimeout(kpiRender._rz);
+    window.onresize = function () { clearTimeout(kpiRender._rz); kpiRender._rz = setTimeout(function () { if ($("#k-hours") && $("#kbody")) kpiRender(d, R); }, 250); };
+    $("#k-csv").onclick = function () {
+      var qq = function (v) { return '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"'; };
+      var L = [["날짜", "방문자", "페이지뷰", "방문 수", "상담 연결 클릭", "상담 문의", "신규 회원"].map(qq).join(",")];
+      days.forEach(function (x) { var r = byDay[x]; L.push([x, r.uv, r.pv, r.ses, r.contact, r.inq, r.mem].map(qq).join(",")); });
+      L.push("");
+      L.push(["페이지", "주소", "조회수", "방문자", "평균 체류(초)", "스크롤(%)", "상담 클릭", "첫 방문"].map(qq).join(","));
+      pages.forEach(function (p) { L.push([titleOf(p), p.path, p.pv, p.uv, Math.round(p.dur || 0), Math.round(p.depth || 0), pc[p.path] || 0, p.ent].map(qq).join(",")); });
+      var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + L.join("\n")], { type: "text/csv" })); a.download = "coremood-kpi-" + d.from + "_" + d.to + ".csv"; a.click();
+    };
+  }
+
+  /* ---------- 회원 ---------- */
+  var MEM_STAGES = ["창업 준비 중", "매장 운영 중 · 리뉴얼 검토", "건물주 · 공실 활용", "프랜차이즈 · 다점포", "기타"];
+  var MEM_INTERESTS = ["브랜딩 · 네이밍", "공간 콘셉트", "인테리어 설계 · 시공", "가구 스타일링 · 톤앤매너", "마케팅 · 콘텐츠", "창업 교육 · 컨설팅"];
+  function digitsOf(v) { return String(v || "").replace(/[^0-9]/g, ""); }
+  function membersView(openId) {
+    var f = membersView.f || { st: "", q: "", biz: "" };
+    shell("members", "회원", "홈페이지에서 가입한 회원과 직접 등록한 회원을 관리합니다. 비밀번호 없는 소식 받기 회원입니다.",
+      '<button class="btn btn--ghost" id="m-csv">CSV 내려받기</button><button class="btn" id="m-add">회원 직접 등록</button>',
+      '<div id="memBody"><div class="panel"><div class="empty">불러오는 중…</div></div></div>');
+    api("/api/admin/members").then(function (r) {
+      var box = $("#memBody"); if (!box) return;
+      if (!r.ok) {
+        box.innerHTML = '<div class="panel"><div class="note warn">' + (r.reason === "not-configured" ? 'D1 데이터베이스가 연결되지 않았습니다. <a href="#/setup">설정 점검</a>을 확인해 주세요.' : r._status === 0 || r._status === 404 ? "서버 기능에 연결하지 못했습니다. 배포된 주소(coremood.kr/admin)에서 열어 주세요." : "회원 목록을 불러오지 못했습니다 (" + h(r.reason || r.error || r._status) + ").") + "</div></div>";
+        $("#m-add").disabled = true; $("#m-csv").disabled = true;
+        return;
+      }
+      var items = r.items || [], sel = openId || null;
+      var ST = [["", "전체"], ["active", "활동"], ["mk", "소식 수신 동의"], ["unsub", "탈퇴 · 수신 거부"]];
+      function match(x) {
+        if (f.st === "active" && x.status !== "active") return false;
+        if (f.st === "unsub" && x.status !== "unsub") return false;
+        if (f.st === "mk" && !(x.status === "active" && x.marketing)) return false;
+        if (f.biz && x.biz !== f.biz) return false;
+        if (f.q) {
+          var hay = [x.name, x.email, x.phone, x.biz, x.stage, (x.interests || []).join(" "), x.memo, x.src].join(" ").toLowerCase();
+          if (f.q.toLowerCase().split(/\s+/).some(function (w) { return hay.indexOf(w) < 0; })) return false;
+        }
+        return true;
+      }
+      var bizList = []; items.forEach(function (x) { if (x.biz && bizList.indexOf(x.biz) < 0) bizList.push(x.biz); });
+      function draw() {
+        var list = items.filter(match);
+        var thisMonth = todayKST().slice(0, 7);
+        var monthN = items.filter(function (x) { return toLocalInput(x.createdAt).slice(0, 7) === thisMonth; }).length;
+        box.innerHTML = '<div class="grid g4" style="margin-bottom:16px">' +
+          stat("전체 회원", items.filter(function (x) { return x.status === "active"; }).length, "명", "탈퇴 · 수신 거부 " + items.filter(function (x) { return x.status === "unsub"; }).length + "명 별도") +
+          stat("이번 달 가입", monthN, "명", thisMonth.replace("-", "년 ") + "월") +
+          stat("소식 수신 동의", items.filter(function (x) { return x.status === "active" && x.marketing; }).length, "명", "이메일·문자 발송 가능") +
+          stat("홈페이지 가입", items.filter(function (x) { return x.channel === "홈페이지"; }).length, "명", "직접 등록 " + items.filter(function (x) { return x.channel !== "홈페이지"; }).length + "명") + "</div>" +
+          '<div class="inq"><div class="panel"><div class="bar"><div class="filters" id="m-st">' + ST.map(function (s) {
+            var n = s[0] === "" ? items.length : s[0] === "mk" ? items.filter(function (x) { return x.status === "active" && x.marketing; }).length : items.filter(function (x) { return x.status === s[0]; }).length;
+            return '<button class="chip' + (f.st === s[0] ? " on" : "") + '" data-f="' + s[0] + '">' + s[1] + " " + n + "</button>";
+          }).join("") + '</div></div><div class="bar"><input class="in" id="m-q" style="max-width:280px" placeholder="이름·연락처·이메일·관심 분야 검색" value="' + h(f.q) + '">' +
+          '<select class="sel" id="m-biz" style="max-width:180px"><option value="">모든 업종</option>' + bizList.map(function (b) { return "<option" + (f.biz === b ? " selected" : "") + ">" + h(b) + "</option>"; }).join("") + "</select></div>" +
+          '<div class="tblwrap"><table class="tbl"><thead><tr><th>가입</th><th>회원</th><th class="hide-m">업종 · 상황</th><th class="hide-m">관심 분야</th><th>소식</th></tr></thead><tbody>' +
+          (list.map(function (x) {
+            return '<tr class="click' + (x.id === sel ? " sel" : "") + '" data-id="' + h(x.id) + '"><td style="white-space:nowrap">' + fmtDT(x.createdAt).slice(0, 12) + '<span class="tiny" style="display:block">' + h(x.channel === "홈페이지" ? "홈페이지" : "직접 등록") + "</span></td>" +
+              '<td class="t">' + h(x.name || "(이름 없음)") + "<span>" + h(x.phone || x.email || "-") + '</span></td><td class="hide-m">' + h(x.biz || "-") + '<span class="tiny" style="display:block">' + h(x.stage || "") + '</span></td><td class="hide-m tiny">' + h((x.interests || []).join(", ") || "-") + "</td>" +
+              "<td>" + (x.status === "unsub" ? '<span class="badge closed">탈퇴</span>' : x.marketing ? '<span class="badge won">동의</span>' : '<span class="badge">미동의</span>') + "</td></tr>";
+          }).join("") || '<tr><td colspan="5"><div class="empty">' + (items.length ? "조건에 맞는 회원이 없습니다." : "아직 가입한 회원이 없습니다. 홈페이지 하단과 저널 글 끝의 ‘회원 가입’ 링크(/join)로 가입할 수 있습니다.") + "</div></td></tr>") +
+          '</tbody></table></div></div><div class="panel inq__d" id="memD"><div class="empty">왼쪽에서 회원을 고르세요.</div></div></div>';
+        $$("#m-st .chip").forEach(function (c) { c.addEventListener("click", function () { f.st = c.dataset.f; membersView.f = f; draw(); }); });
+        var qi = $("#m-q"); qi.addEventListener("input", function () { f.q = qi.value; membersView.f = f; clearTimeout(qi._t); qi._t = setTimeout(function () { draw(); var n = $("#m-q"); n.focus(); n.setSelectionRange(n.value.length, n.value.length); }, 250); });
+        $("#m-biz").addEventListener("change", function () { f.biz = this.value; membersView.f = f; draw(); });
+        $$("tr[data-id]", box).forEach(function (tr) { tr.addEventListener("click", function () { sel = tr.dataset.id; history.replaceState(null, "", "#/member/" + encodeURIComponent(sel)); draw(); }); });
+        if (sel) detail();
+      }
+      function detail() {
+        var x = items.filter(function (y) { return y.id === sel; })[0];
+        var D = $("#memD"); if (!x || !D) return;
+        var row = function (k, v) { return "<dt>" + k + "</dt><dd>" + (v ? h(v) : '<span class="muted">-</span>') + "</dd>"; };
+        D.innerHTML = "<h2>" + h(x.name || "(이름 없음)") + " <small>" + (x.status === "unsub" ? '<span class="badge closed">탈퇴 · 수신 거부</span>' : '<span class="badge contacted">활동</span>') + "</small></h2>" +
+          '<div class="row" style="margin-bottom:14px">' + (x.phone ? '<a class="btn btn--sm" href="tel:' + h(telHref(x.phone)) + '">전화</a><a class="btn btn--ghost btn--sm" href="sms:' + h(telHref(x.phone)) + '">문자</a>' : "") + (x.email ? '<a class="btn btn--ghost btn--sm" href="mailto:' + h(x.email) + '">메일</a>' : "") + "</div>" +
+          '<dl class="kv">' + row("가입", fmtDT(x.createdAt) + " · " + (x.channel || "")) + (x.updatedAt && x.updatedAt !== x.createdAt ? row("최근 수정", fmtDT(x.updatedAt) + (x.updatedBy ? " · " + x.updatedBy : "")) : "") +
+          row("유입 경로", x.src) + row("첫 방문", x.landing) + "</dl>" +
+          '<div class="grid g2" style="margin-top:14px"><div class="f"><label for="md-name">성함</label><input class="in" id="md-name" value="' + h(x.name) + '"></div><div class="f"><label for="md-phone">연락처</label><input class="in" id="md-phone" value="' + h(x.phone) + '"></div>' +
+          '<div class="f"><label for="md-email">이메일</label><input class="in" id="md-email" value="' + h(x.email) + '"></div><div class="f"><label for="md-biz">업종</label><input class="in" id="md-biz" value="' + h(x.biz) + '"></div>' +
+          '<div class="f"><label for="md-stage">지금 상황</label><select class="sel" id="md-stage"><option value="">선택 안 함</option>' + MEM_STAGES.map(function (s) { return "<option" + (x.stage === s ? " selected" : "") + ">" + s + "</option>"; }).join("") + "</select></div>" +
+          '<div class="f"><label for="md-st">상태</label><select class="sel" id="md-st"><option value="active"' + (x.status === "active" ? " selected" : "") + '>활동</option><option value="unsub"' + (x.status === "unsub" ? " selected" : "") + ">탈퇴 · 수신 거부</option></select></div></div>" +
+          '<div class="f" style="margin-top:14px"><label>관심 분야</label><div class="row" id="md-int">' + MEM_INTERESTS.map(function (s) { return '<label class="chk"><input type="checkbox" value="' + h(s) + '"' + ((x.interests || []).indexOf(s) >= 0 ? " checked" : "") + "> " + h(s) + "</label>"; }).join("") + "</div></div>" +
+          '<label class="chk" style="margin:4px 0 10px"><input type="checkbox" id="md-mk"' + (x.marketing ? " checked" : "") + "> 소식 수신 동의 (이메일 · 문자)</label>" +
+          '<div class="f"><label for="md-memo">메모</label><textarea class="ta" id="md-memo" style="min-height:72px">' + h(x.memo || "") + "</textarea></div>" +
+          '<div class="row" style="margin-top:12px;justify-content:space-between"><button class="btn" id="md-save">저장</button><button class="btn btn--danger btn--sm" id="md-del">완전 삭제</button></div>' +
+          '<h2 style="margin-top:22px">상담 문의 이력</h2><div id="md-inq"><div class="tiny">찾는 중…</div></div>';
+        loadInquiries().then(function (q) {
+          var el = $("#md-inq"); if (!el) return;
+          var dg = digitsOf(x.phone), em = (x.email || "").toLowerCase();
+          var hit = (q.items || []).filter(function (y) { return (dg && digitsOf(y.phone) === dg) || (em && (y.email || "").toLowerCase() === em); });
+          el.innerHTML = hit.length ? '<table class="tbl"><tbody>' + hit.map(function (y) { return '<tr class="click" data-go="#/inquiry/' + encodeURIComponent(y.id) + '"><td class="t">' + h(y.type || "") + "<span>" + fmtDT(y.createdAt) + '</span></td><td><span class="badge ' + y.status + '">' + inqLabel(y.status) + "</span></td></tr>"; }).join("") + "</tbody></table>" : '<div class="tiny">같은 연락처나 이메일로 들어온 상담 문의가 없습니다.</div>';
+          bindGo();
+        });
+        $("#md-save").addEventListener("click", function () {
+          busy("저장하는 중");
+          api("/api/admin/members", { method: "PATCH", body: { id: x.id, name: $("#md-name").value, phone: $("#md-phone").value, email: $("#md-email").value, biz: $("#md-biz").value, stage: $("#md-stage").value, status: $("#md-st").value,
+            interests: $$("#md-int input:checked").map(function (c) { return c.value; }), marketing: $("#md-mk").checked, memo: $("#md-memo").value } }).then(function (res) {
+            busy(); if (!res.ok) return toast("저장하지 못했습니다.", true);
+            Object.assign(x, res.item); toast("저장했습니다."); draw();
+          });
+        });
+        $("#md-del").addEventListener("click", function () {
+          if (!confirm((x.name || "이") + " 님의 회원 정보를 완전히 삭제할까요? 되돌릴 수 없습니다.\n소식만 그만 받기를 원하시면 상태를 ‘탈퇴 · 수신 거부’로 바꾸는 방법도 있습니다.")) return;
+          api("/api/admin/members?id=" + encodeURIComponent(x.id), { method: "DELETE" }).then(function (res) {
+            if (!res.ok) return toast("삭제하지 못했습니다.", true);
+            items = items.filter(function (y) { return y.id !== x.id; }); sel = null; history.replaceState(null, "", "#/members"); toast("삭제했습니다."); draw();
+          });
+        });
+      }
+      draw();
+      $("#m-csv").addEventListener("click", function () {
+        var cols = [["createdAt", "가입일시"], ["channel", "가입 경로"], ["status", "상태"], ["name", "성함"], ["phone", "연락처"], ["email", "이메일"], ["biz", "업종"], ["stage", "지금 상황"], ["interests", "관심 분야"], ["marketing", "소식 수신 동의"], ["src", "유입 경로"], ["memo", "메모"]];
+        var qq = function (v) { return '"' + String(v == null ? "" : Array.isArray(v) ? v.join(", ") : v).replace(/"/g, '""') + '"'; };
+        var csv = "﻿" + cols.map(function (c) { return qq(c[1]); }).join(",") + "\n" + items.filter(match).map(function (x) {
+          return cols.map(function (c) { var v = x[c[0]]; return qq(c[0] === "createdAt" ? fmtDT(v) : c[0] === "status" ? (v === "unsub" ? "탈퇴 · 수신 거부" : "활동") : c[0] === "marketing" ? (v ? "동의" : "미동의") : v); }).join(",");
+        }).join("\n");
+        var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); a.download = "coremood-members-" + todayKST() + ".csv"; a.click();
+      });
+      $("#m-add").addEventListener("click", function () {
+        var m = document.createElement("div"); m.className = "modal";
+        m.innerHTML = '<div class="modal__box" style="max-width:620px"><div class="modal__h"><h2 style="font-size:1.05rem">회원 직접 등록</h2><button class="btn btn--ghost btn--sm" data-x>닫기</button></div>' +
+          '<p class="small muted" style="margin-bottom:12px">상담이나 행사에서 소식 받기를 원한 분을 등록합니다. 수신 동의는 본인에게 받은 경우에만 체크해 주세요.</p>' +
+          '<div class="grid g2"><div class="f"><label>성함</label><input class="in" name="name"></div><div class="f"><label>연락처</label><input class="in" name="phone"></div>' +
+          '<div class="f"><label>이메일</label><input class="in" name="email"></div><div class="f"><label>업종</label><select class="sel" name="biz"><option value="">선택</option>' + BIZ_OPTS.map(function (c) { return "<option>" + c + "</option>"; }).join("") + "</select></div>" +
+          '<div class="f"><label>지금 상황</label><select class="sel" name="stage"><option value="">선택</option>' + MEM_STAGES.map(function (c) { return "<option>" + c + "</option>"; }).join("") + '</select></div><div class="f"><label>받은 곳</label><select class="sel" name="channel"><option>상담</option><option>전화</option><option>행사 · 교육</option><option>소개</option><option>기타</option></select></div></div>' +
+          '<div class="f"><label>관심 분야</label><div class="row">' + MEM_INTERESTS.map(function (s) { return '<label class="chk"><input type="checkbox" name="int" value="' + h(s) + '"> ' + h(s) + "</label>"; }).join("") + "</div></div>" +
+          '<label class="chk"><input type="checkbox" name="mk"> 소식 수신 동의를 받았습니다</label>' +
+          '<div class="f" style="margin-top:10px"><label>메모</label><textarea class="ta" name="memo"></textarea></div>' +
+          '<div class="row" style="margin-top:14px"><button class="btn" data-save>등록</button></div></div>';
+        document.body.appendChild(m);
+        var close = function () { m.remove(); };
+        $("[data-x]", m).addEventListener("click", close);
+        $("[data-save]", m).addEventListener("click", function () {
+          var v = function (n) { return $('[name="' + n + '"]', m).value.trim(); };
+          if (!v("name") || (!v("phone") && !v("email"))) return toast("성함과, 연락처나 이메일 중 하나는 입력해 주세요.", true);
+          busy("등록하는 중");
+          api("/api/admin/members", { method: "POST", body: { name: v("name"), phone: v("phone"), email: v("email"), biz: v("biz"), stage: v("stage"), channel: v("channel"), memo: v("memo"),
+            interests: $$('[name="int"]:checked', m).map(function (c) { return c.value; }), marketing: $('[name="mk"]', m).checked } }).then(function (res) {
+            busy(); if (!res.ok) return toast("등록하지 못했습니다.", true);
+            close(); toast("등록했습니다."); items.unshift(res.item); sel = res.item.id; draw();
+          });
+        });
+      });
+    });
+  }
 
   /* ---------- posts list ---------- */
   function postsView() {
@@ -1355,8 +1814,8 @@
       '<ol class="steps"><li>코어무드 전용 D1 데이터베이스 <code>coremood-db</code>를 씁니다 (위치: Asia Pacific, 2026-11 생성).</li>' +
       "<li><b>Compute → Workers &amp; Pages</b> → <b>coremood</b> → <b>Settings → Bindings</b>에서 Production과 Preview 모두 <code>DB</code> → <code>coremood-db</code>로 연결되어 있는지 확인합니다.</li>" +
       "<li>연결을 바꾼 뒤에는 Deployments에서 최신 배포를 <b>Retry deployment</b> 하거나 새 커밋으로 다시 배포해야 반영됩니다.</li>" +
-      "<li>코어무드 표(<code>cm_inquiries</code>, <code>cm_inquiry_notes</code>, <code>cm_auth_cache</code>)는 첫 요청 때 자동으로 만들어집니다. SQL을 따로 실행할 필요가 없습니다.</li></ol>" +
-      '<div class="note" style="margin-top:4px">coremood-db를 지우면 상담 문의 기록이 모두 사라집니다. 백업이 필요하면 D1의 Time Travel(시점 복구) 기능을 쓸 수 있습니다.</div>' +
+      "<li>코어무드 표(<code>cm_inquiries</code>, <code>cm_inquiry_notes</code>, <code>cm_auth_cache</code>, 방문 통계 <code>cm_events</code>, 회원 <code>cm_members</code>)는 첫 요청 때 자동으로 만들어집니다. SQL을 따로 실행할 필요가 없습니다.</li></ol>" +
+      '<div class="note" style="margin-top:4px">coremood-db를 지우면 상담 문의, 회원, 방문 통계 기록이 모두 사라집니다. 백업이 필요하면 D1의 Time Travel(시점 복구) 기능을 쓸 수 있습니다.</div>' +
       '<div class="su__st" data-st="db"></div></section>' +
       '<section class="panel su" id="su-nt"><h2>' + mark("wait") + ' 2. 새 문의 알림 <small>권장 · 하나 이상</small></h2>' +
       '<p class="small">문의가 들어오면 바로 알 수 있게 합니다. 세 가지 중 편한 것을 하나 이상 고르세요. 모두 Pages 프로젝트의 <b>Settings → Variables and Secrets → Add</b>에서 넣고(비밀 값은 <b>Encrypt</b> 선택), 다시 배포합니다.</p>' +
@@ -1376,6 +1835,7 @@
       '<li class="' + (vf.google ? "ok" : "warn") + '"><span class="i">' + (vf.google ? "✓" : "!") + "</span><span>구글 서치 콘솔 소유확인 태그 " + (vf.google ? "적용됨" : "없음 — HTML 태그 방식으로 받아 사이트 설정에 저장") + "</span></li>" +
       '<li class="ok"><span class="i">✓</span><span>새 글·사례 저장 때 IndexNow로 검색엔진에 자동 알림</span></li></ul></section>' +
       '<section class="panel su"><h2>' + mark((cfg.analytics && (cfg.analytics.ga4 || cfg.analytics.naver)) ? "ok" : "off") + ' 5. 방문 분석 <small>선택</small></h2>' +
+      '<p class="small" style="margin-bottom:10px">방문자·페이지뷰·체류 시간·클릭은 따로 설정하지 않아도 coremood-db에 모여 <a href="#/kpi">KPI 지표</a>에서 볼 수 있습니다. 아래 서비스는 검색어 분석처럼 더 자세한 정보가 필요할 때 함께 씁니다.</p>' +
       '<ul class="bul2"><li><b>Cloudflare Web Analytics</b> (무료, 쿠키 없음): Workers &amp; Pages → coremood → <b>Metrics → Web Analytics → Enable</b>. 다음 배포부터 자동으로 집계됩니다.</li>' +
       "<li><b>네이버 애널리틱스</b>: analytics.naver.com에서 사이트 등록 후 받은 ID를 <a href=\"#/settings\">사이트 설정 → 방문 분석</a>에 저장합니다.</li>" +
       "<li><b>구글 애널리틱스 4</b>: 측정 ID(G-로 시작)를 같은 곳에 저장합니다.</li></ul></section>" +
@@ -1394,7 +1854,7 @@
         return;
       }
       setMark("su-db", r.db ? "ok" : "bad");
-      put("db", r.db ? '<div class="note">연결됨 · 저장된 문의 ' + r.total + "건</div>" : '<div class="note bad">아직 연결되지 않았습니다' + (r.dbError ? " (" + h(r.dbError) + ")" : "") + ". 위 순서대로 연결한 뒤 다시 배포해 주세요.</div>");
+      put("db", r.db ? '<div class="note">연결됨 · 저장된 문의 ' + r.total + "건 · 회원 " + (r.members || 0) + "명 · 방문 기록 " + nf(r.events || 0) + "건" + (r.eventsSince ? " (" + h(r.eventsSince) + "부터)" : "") + "</div>" : '<div class="note bad">아직 연결되지 않았습니다' + (r.dbError ? " (" + h(r.dbError) + ")" : "") + ". 위 순서대로 연결한 뒤 다시 배포해 주세요.</div>");
       var n = r.notify || {}, any = n.email || n.telegram || n.webhook;
       setMark("su-nt", any ? "ok" : "warn");
       put("nt", '<ul class="seo">' + [["email", "이메일" + (r.notifyEmail ? " → " + r.notifyEmail : "")], ["telegram", "텔레그램"], ["webhook", "웹후크"]].map(function (x) {
@@ -1424,6 +1884,7 @@
       "<h3>글을 직접 쓰고 고치기</h3><p>저널 글 → 새 글 쓰기. 제목, 영문 주소, 키워드, 설명을 채우고 본문을 씁니다. 오른쪽 ‘점검’이 모두 ✓가 되면 좋습니다. ‘공개’를 끄면 임시저장, 발행 일시를 미래로 정하면 예약 발행입니다(그 시각 이후 첫 자동 발행 때 함께 공개).</p>" +
       "<h3>시공 사례 추가</h3><p>시공 사례 → 새 사례 추가. 시공 전·후 대표 사진 두 장과 현장 이야기를 넣으면 <code>/projects/영문주소</code> 페이지가 만들어지고, ‘대표 사례’를 켜면 홈과 프로젝트 페이지의 전후 비교 슬라이더에도 나옵니다. 지역과 업종이 들어간 사례 페이지는 ‘강남 카페 인테리어’ 같은 지역 검색에 잡히기 좋습니다.</p>" +
       "<h3>상담 문의 관리</h3><ul><li>새 문의는 ‘새 문의’ 상태로 들어옵니다. 연락한 뒤 상태를 바꾸고 <b>다음 연락일</b>을 정해 두면 대시보드 ‘오늘 할 일’에 다시 나타납니다.</li><li>통화 내용은 ‘상담 기록 추가’에 남기면 시간순으로 쌓입니다.</li><li>전화·카카오톡으로 받은 문의도 ‘문의 직접 등록’으로 같은 목록에서 관리하세요.</li><li>각 문의의 ‘유입 경로’에서 어떤 글이나 검색을 보고 들어왔는지 확인할 수 있습니다.</li></ul>" +
+      "<h3>KPI 지표와 회원</h3><ul><li><b>KPI 지표</b>: 기간을 고르면 방문자, 페이지뷰, 체류 시간, 이탈률, 상담 연결 클릭, 문의 전환율, 회원 가입을 바로 앞 같은 기간과 비교해 보여 줍니다. CSV로 내려받아 보고서에 쓸 수 있습니다.</li><li><b>회원</b>: 홈페이지 /join 에서 가입한 분과 직접 등록한 분을 관리합니다. 소식을 보낼 때는 ‘소식 수신 동의’ 회원만 골라 CSV로 내려받으세요.</li><li>관리자로 로그인한 브라우저의 방문은 통계에서 자동으로 빠집니다.</li></ul>" +
       "<h3>글쓰기 규칙</h3><ul><li>실적은 ‘10여 년간 340개 이상 프로젝트’로만 씁니다.</li><li>최고·1위·보장 같은 표현은 쓰지 않습니다.</li><li>인허가·소방·전기 용량은 ‘별도 확인 항목’으로 안내합니다.</li><li>소제목은 <code>## </code>, 체크리스트는 <code>:::check 제목</code> … <code>:::</code>, 자주 묻는 질문은 <code>:::faq</code> 안에 <code>Q. 질문</code> 다음 줄에 답변.</li></ul>" +
       '</div><div class="panel help">' +
       "<h3>반영 시간과 되돌리기</h3><p>저장하면 GitHub에 기록되고 Cloudflare Pages가 1~2분 안에 사이트를 다시 배포합니다. 모든 변경은 왼쪽 아래 ‘변경 기록’에 남고, 잘못 올린 내용도 이전 상태로 되돌릴 수 있습니다. 상담 문의는 GitHub가 아니라 Cloudflare D1에 저장되므로 공개 저장소에 올라가지 않습니다.</p>" +
@@ -1436,6 +1897,8 @@
 
   /* ---------- boot ---------- */
   function boot() {
+    // 관리자 브라우저의 홈페이지 방문은 기본으로 통계에서 뺍니다 (KPI 지표 화면 아래에서 바꿀 수 있음)
+    try { if (localStorage.getItem("cm_notrack") === null) localStorage.setItem("cm_notrack", "1"); } catch (e) {}
     busy("데이터를 불러오는 중");
     return loadAll().then(function () { busy(); route(); }).catch(function (e) { busy(); toast("불러오지 못했습니다: " + e.message, true); route(); });
   }
