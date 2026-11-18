@@ -252,8 +252,10 @@
       "category": "marketing",
       "keyword": "매장 숏폼",
       "angle": "공사 과정 기록, 오픈 전날, 대표 메뉴/공간 루틴, 세로 화면 기준",
-      "status": "pending",
-      "addedAt": "2026-10-26T12:00:00+09:00"
+      "status": "done",
+      "addedAt": "2026-10-26T12:00:00+09:00",
+      "publishedSlug": "store-short-form-video-before-opening",
+      "publishedAt": "2026-11-18T10:00:00+09:00"
     },
     {
       "id": "q24",
