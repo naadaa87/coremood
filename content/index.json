@@ -1,6 +1,30 @@
 {
- "updated": "2026-11-18T12:16:42.381Z",
+ "updated": "2026-11-19T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "wine-bar-interior-lighting-seating",
+   "title": "와인바 인테리어, 창업 전에 정할 조명과 좌석 높이",
+   "date": "2026-11-19T10:00:00+09:00",
+   "updated": "",
+   "category": "startup",
+   "keyword": "와인바 인테리어",
+   "tags": [
+    "와인바 인테리어",
+    "바",
+    "와인바 창업",
+    "조명",
+    "좌석"
+   ],
+   "description": "와인바 인테리어에서 카운터석과 테이블석 비율, 좌석 높이, 와인 보관 위치, 조도와 음향을 공사 전에 어떻게 정하는지 정리했습니다. 업태에 맞는 공간 구성을 판단하는 기준을 알려 드립니다.",
+   "cover": "/assets/img/p-lounge-w.webp",
+   "coverAlt": "앰버 조명과 브론즈 백바의 위스키 바 스타일 디렉션",
+   "og": "/assets/img/og/wine-bar-interior-lighting-seating.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3247,
+   "status": "live",
+   "file": "content/posts/wine-bar-interior-lighting-seating.md"
+  },
   {
    "slug": "store-short-form-video-before-opening",
    "title": "매장 숏폼 영상, 오픈 전에 미리 찍어 둬야 할 장면들",

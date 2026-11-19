@@ -263,8 +263,10 @@
       "category": "startup",
       "keyword": "와인바 인테리어",
       "angle": "바 좌석과 테이블 좌석 비율, 와인 보관 환경, 조도, 음향",
-      "status": "pending",
-      "addedAt": "2026-10-26T12:00:00+09:00"
+      "status": "done",
+      "addedAt": "2026-10-26T12:00:00+09:00",
+      "publishedSlug": "wine-bar-interior-lighting-seating",
+      "publishedAt": "2026-11-19T10:00:00+09:00"
     },
     {
       "id": "q25",
