@@ -6,7 +6,15 @@
     <description>상업공간 브랜딩, 인테리어, 마케팅, 창업에 대한 코어무드의 실무 노트</description>
     <language>ko</language>
     <atom:link href="https://coremood.kr/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Thu, 19 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <item>
+      <title>상가 공용부 정비, 건물주가 먼저 손볼 수 있는 곳</title>
+      <link>https://coremood.kr/journal/commercial-building-common-area-fix</link>
+      <guid isPermaLink="true">https://coremood.kr/journal/commercial-building-common-area-fix</guid>
+      <description>예비 임차인이 호실보다 먼저 지나가는 건물 입구, 복도, 계단실, 층별 안내판을 어떤 순서로 정비할지 정리했습니다. 비용을 들일 곳과 청소로 끝낼 곳, 별도 확인이 필요한 항목을 구분해 드립니다.</description>
+      <category>공간 비즈니스</category>
+      <pubDate>Fri, 20 Nov 2026 01:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>와인바 인테리어, 창업 전에 정할 조명과 좌석 높이</title>
       <link>https://coremood.kr/journal/wine-bar-interior-lighting-seating</link>
@@ -398,14 +406,6 @@
       <description>인테리어 견적서는 합계만으로 비교할 수 없습니다. 공종별로 다시 펼치는 법, 수량·단가·식 단위를 읽는 법, 같은 단어에 숨은 범위 차이와 계약 전에 받아 둘 문서를 정리했습니다.</description>
       <category>인테리어</category>
       <pubDate>Sun, 25 Oct 2026 23:02:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>상가 인테리어 비용, 평당 단가만 보면 안 되는 이유</title>
-      <link>https://coremood.kr/journal/commercial-interior-cost-guide</link>
-      <guid isPermaLink="true">https://coremood.kr/journal/commercial-interior-cost-guide</guid>
-      <description>평당 단가가 같아도 최종 금액이 달라지는 이유를 현장 조건, 견적서 밖 항목, 면적과 사양의 관계로 나눠 정리했습니다. 견적을 받기 전에 예산을 어떻게 나눠 잡을지 판단할 수 있습니다.</description>
-      <category>인테리어</category>
-      <pubDate>Sun, 25 Oct 2026 23:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>

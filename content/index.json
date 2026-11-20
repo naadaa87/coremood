@@ -1,6 +1,29 @@
 {
- "updated": "2026-11-19T01:00:00.000Z",
+ "updated": "2026-11-20T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "commercial-building-common-area-fix",
+   "title": "상가 공용부 정비, 건물주가 먼저 손볼 수 있는 곳",
+   "date": "2026-11-20T10:00:00+09:00",
+   "updated": "",
+   "category": "business",
+   "keyword": "상가 공용부",
+   "tags": [
+    "상가 공용부",
+    "건물주",
+    "공실 상가",
+    "오피스"
+   ],
+   "description": "예비 임차인이 호실보다 먼저 지나가는 건물 입구, 복도, 계단실, 층별 안내판을 어떤 순서로 정비할지 정리했습니다. 비용을 들일 곳과 청소로 끝낼 곳, 별도 확인이 필요한 항목을 구분해 드립니다.",
+   "cover": "/assets/img/band-stone.webp",
+   "coverAlt": "따뜻한 조명이 비추는 석재 계단실",
+   "og": "/assets/img/og/commercial-building-common-area-fix.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3144,
+   "status": "live",
+   "file": "content/posts/commercial-building-common-area-fix.md"
+  },
   {
    "slug": "wine-bar-interior-lighting-seating",
    "title": "와인바 인테리어, 창업 전에 정할 조명과 좌석 높이",
