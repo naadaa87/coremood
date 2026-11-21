@@ -6,7 +6,15 @@
     <description>상업공간 브랜딩, 인테리어, 마케팅, 창업에 대한 코어무드의 실무 노트</description>
     <language>ko</language>
     <atom:link href="https://coremood.kr/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Fri, 20 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <item>
+      <title>셀프 인테리어 상가, 직접 할 공정과 맡길 공정 나누는 법</title>
+      <link>https://coremood.kr/journal/self-interior-store-diy-scope</link>
+      <guid isPermaLink="true">https://coremood.kr/journal/self-interior-store-diy-scope</guid>
+      <description>상가 셀프 인테리어에서 직접 해도 되는 공정과 전문 시공에 맡겨야 하는 공정을 나누는 기준을 정리했습니다. 공정 순서, 하자 책임, 일정이 밀릴 때 생기는 비용까지 미리 따져 볼 수 있습니다.</description>
+      <category>인테리어</category>
+      <pubDate>Sat, 21 Nov 2026 01:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>상가 공용부 정비, 건물주가 먼저 손볼 수 있는 곳</title>
       <link>https://coremood.kr/journal/commercial-building-common-area-fix</link>
@@ -398,14 +406,6 @@
       <description>상가 인테리어 공사 기간은 착공일이 아니라 결정이 끝나는 날부터 셉니다. 단계별 소요 기간, 현장 공정 순서, 일정이 밀리는 지점과 줄여도 되는 구간을 정리했습니다.</description>
       <category>인테리어</category>
       <pubDate>Sun, 25 Oct 2026 23:04:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>인테리어 견적서 비교하는 법, 항목별로 봐야 할 것들</title>
-      <link>https://coremood.kr/journal/interior-quote-comparison</link>
-      <guid isPermaLink="true">https://coremood.kr/journal/interior-quote-comparison</guid>
-      <description>인테리어 견적서는 합계만으로 비교할 수 없습니다. 공종별로 다시 펼치는 법, 수량·단가·식 단위를 읽는 법, 같은 단어에 숨은 범위 차이와 계약 전에 받아 둘 문서를 정리했습니다.</description>
-      <category>인테리어</category>
-      <pubDate>Sun, 25 Oct 2026 23:02:00 GMT</pubDate>
     </item>
   </channel>
 </rss>

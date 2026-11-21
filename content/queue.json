@@ -285,8 +285,10 @@
       "category": "interior",
       "keyword": "셀프 인테리어 상가",
       "angle": "직접 해도 되는 공정과 맡겨야 하는 공정(전기·설비·소방은 별도 확인), 일정 리스크",
-      "status": "pending",
-      "addedAt": "2026-10-26T12:00:00+09:00"
+      "status": "done",
+      "addedAt": "2026-10-26T12:00:00+09:00",
+      "publishedSlug": "self-interior-store-diy-scope",
+      "publishedAt": "2026-11-21T10:00:00+09:00"
     },
     {
       "id": "q27",

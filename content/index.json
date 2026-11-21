@@ -1,6 +1,29 @@
 {
- "updated": "2026-11-20T01:00:00.000Z",
+ "updated": "2026-11-21T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "self-interior-store-diy-scope",
+   "title": "셀프 인테리어 상가, 직접 할 공정과 맡길 공정 나누는 법",
+   "date": "2026-11-21T10:00:00+09:00",
+   "updated": "",
+   "category": "interior",
+   "keyword": "셀프 인테리어 상가",
+   "tags": [
+    "셀프 인테리어",
+    "상가 인테리어",
+    "공정 분리",
+    "창업"
+   ],
+   "description": "상가 셀프 인테리어에서 직접 해도 되는 공정과 전문 시공에 맡겨야 하는 공정을 나누는 기준을 정리했습니다. 공정 순서, 하자 책임, 일정이 밀릴 때 생기는 비용까지 미리 따져 볼 수 있습니다.",
+   "cover": "/assets/img/s-interior.webp",
+   "coverAlt": "석재 타일 벽 앞 테이블에 우드와 석재 마감재 샘플을 세워 둔 공간",
+   "og": "/assets/img/og/self-interior-store-diy-scope.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3217,
+   "status": "live",
+   "file": "content/posts/self-interior-store-diy-scope.md"
+  },
   {
    "slug": "commercial-building-common-area-fix",
    "title": "상가 공용부 정비, 건물주가 먼저 손볼 수 있는 곳",
