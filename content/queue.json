@@ -296,8 +296,10 @@
       "category": "branding",
       "keyword": "파사드 디자인",
       "angle": "입구 폭, 유리면 처리, 간판과 조명의 관계, 밤 풍경",
-      "status": "pending",
-      "addedAt": "2026-10-26T12:00:00+09:00"
+      "status": "done",
+      "addedAt": "2026-10-26T12:00:00+09:00",
+      "publishedSlug": "facade-design-store-front-3m",
+      "publishedAt": "2026-11-22T10:00:00+09:00"
     },
     {
       "id": "q28",

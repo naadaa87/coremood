@@ -1,6 +1,30 @@
 {
- "updated": "2026-11-21T01:00:00.000Z",
+ "updated": "2026-11-22T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "facade-design-store-front-3m",
+   "title": "파사드 디자인, 매장 앞 3미터에서 손님이 정하는 것",
+   "date": "2026-11-22T10:00:00+09:00",
+   "updated": "",
+   "category": "branding",
+   "keyword": "파사드 디자인",
+   "tags": [
+    "파사드 디자인",
+    "매장 외관",
+    "카페",
+    "리테일",
+    "음식점"
+   ],
+   "description": "매장 파사드 디자인을 입구 폭, 유리면 처리, 간판과 조명의 관계, 밤 풍경으로 나눠 정리했습니다. 지나가던 사람이 문 앞에서 들어올지 말지 정하는 지점을 공사 전에 점검할 수 있습니다.",
+   "cover": "/assets/img/ab-facade.webp",
+   "coverAlt": "유리로 마감한 미니멀 현대식 건물 파사드",
+   "og": "/assets/img/og/facade-design-store-front-3m.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3210,
+   "status": "live",
+   "file": "content/posts/facade-design-store-front-3m.md"
+  },
   {
    "slug": "self-interior-store-diy-scope",
    "title": "셀프 인테리어 상가, 직접 할 공정과 맡길 공정 나누는 법",

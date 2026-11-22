@@ -6,7 +6,15 @@
     <description>상업공간 브랜딩, 인테리어, 마케팅, 창업에 대한 코어무드의 실무 노트</description>
     <language>ko</language>
     <atom:link href="https://coremood.kr/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Sat, 21 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <item>
+      <title>파사드 디자인, 매장 앞 3미터에서 손님이 정하는 것</title>
+      <link>https://coremood.kr/journal/facade-design-store-front-3m</link>
+      <guid isPermaLink="true">https://coremood.kr/journal/facade-design-store-front-3m</guid>
+      <description>매장 파사드 디자인을 입구 폭, 유리면 처리, 간판과 조명의 관계, 밤 풍경으로 나눠 정리했습니다. 지나가던 사람이 문 앞에서 들어올지 말지 정하는 지점을 공사 전에 점검할 수 있습니다.</description>
+      <category>브랜딩</category>
+      <pubDate>Sun, 22 Nov 2026 01:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>셀프 인테리어 상가, 직접 할 공정과 맡길 공정 나누는 법</title>
       <link>https://coremood.kr/journal/self-interior-store-diy-scope</link>
@@ -398,14 +406,6 @@
       <description>같은 마감재라도 조명에 따라 매장의 인상은 크게 달라집니다. 색온도와 조도, 연색성, 배치와 회로 분리까지 매장 조명을 계획할 때 판단할 기준과 오픈 전 점검 항목을 정리했습니다.</description>
       <category>인테리어</category>
       <pubDate>Sun, 25 Oct 2026 23:06:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>인테리어 공사 기간, 오픈일에서 거꾸로 짜는 상가 공정 순서</title>
-      <link>https://coremood.kr/journal/store-interior-schedule</link>
-      <guid isPermaLink="true">https://coremood.kr/journal/store-interior-schedule</guid>
-      <description>상가 인테리어 공사 기간은 착공일이 아니라 결정이 끝나는 날부터 셉니다. 단계별 소요 기간, 현장 공정 순서, 일정이 밀리는 지점과 줄여도 되는 구간을 정리했습니다.</description>
-      <category>인테리어</category>
-      <pubDate>Sun, 25 Oct 2026 23:04:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
