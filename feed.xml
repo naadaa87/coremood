@@ -6,7 +6,15 @@
     <description>상업공간 브랜딩, 인테리어, 마케팅, 창업에 대한 코어무드의 실무 노트</description>
     <language>ko</language>
     <atom:link href="https://coremood.kr/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Sun, 22 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <item>
+      <title>단골 만들기, 쿠폰보다 먼저 공간에 심어 둘 재방문 장치</title>
+      <link>https://coremood.kr/journal/regular-customer-space-design</link>
+      <guid isPermaLink="true">https://coremood.kr/journal/regular-customer-space-design</guid>
+      <description>손님이 다시 오는 이유를 쿠폰보다 공간과 운영에서 찾는 방법을 정리했습니다. 자리 기억, 직원 동선과 인사, 두 번째 방문의 경험을 어떻게 설계할지 판단할 수 있습니다.</description>
+      <category>마케팅</category>
+      <pubDate>Mon, 23 Nov 2026 01:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>파사드 디자인, 매장 앞 3미터에서 손님이 정하는 것</title>
       <link>https://coremood.kr/journal/facade-design-store-front-3m</link>
@@ -398,14 +406,6 @@
       <description>상가 원상복구 비용은 나갈 때가 아니라 들어갈 때 정해집니다. 계약서 문구 확인, 입점 상태 기록, 복구 부담이 적은 공사 방식과 예외 상황까지 실무 기준으로 정리했습니다.</description>
       <category>인테리어</category>
       <pubDate>Sun, 25 Oct 2026 23:08:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>매장 조명 인테리어, 색온도와 조도로 분위기 바꾸기</title>
-      <link>https://coremood.kr/journal/store-lighting-plan</link>
-      <guid isPermaLink="true">https://coremood.kr/journal/store-lighting-plan</guid>
-      <description>같은 마감재라도 조명에 따라 매장의 인상은 크게 달라집니다. 색온도와 조도, 연색성, 배치와 회로 분리까지 매장 조명을 계획할 때 판단할 기준과 오픈 전 점검 항목을 정리했습니다.</description>
-      <category>인테리어</category>
-      <pubDate>Sun, 25 Oct 2026 23:06:00 GMT</pubDate>
     </item>
   </channel>
 </rss>

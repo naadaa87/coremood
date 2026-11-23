@@ -307,8 +307,10 @@
       "category": "marketing",
       "keyword": "단골 만들기",
       "angle": "자리 기억, 직원 동선과 인사, 쿠폰보다 먼저 할 일",
-      "status": "pending",
-      "addedAt": "2026-10-26T12:00:00+09:00"
+      "status": "done",
+      "addedAt": "2026-10-26T12:00:00+09:00",
+      "publishedSlug": "regular-customer-space-design",
+      "publishedAt": "2026-11-23T10:00:00+09:00"
     },
     {
       "id": "q29",
