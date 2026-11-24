@@ -318,8 +318,10 @@
       "category": "startup",
       "keyword": "셀프 사진관 창업",
       "angle": "부스 수와 대기 공간, 조명 세팅, 무인 운영 동선, 소품 관리",
-      "status": "pending",
-      "addedAt": "2026-10-26T12:00:00+09:00"
+      "status": "done",
+      "addedAt": "2026-10-26T12:00:00+09:00",
+      "publishedSlug": "self-photo-studio-booth-lighting",
+      "publishedAt": "2026-11-24T10:00:00+09:00"
     },
     {
       "id": "q30",
