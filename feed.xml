@@ -6,7 +6,15 @@
     <description>상업공간 브랜딩, 인테리어, 마케팅, 창업에 대한 코어무드의 실무 노트</description>
     <language>ko</language>
     <atom:link href="https://coremood.kr/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Tue, 24 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <item>
+      <title>매장 분위기 바꾸기, 큰 공사 없이 시즌 리뉴얼하는 범위</title>
+      <link>https://coremood.kr/journal/store-mood-change-without-renovation</link>
+      <guid isPermaLink="true">https://coremood.kr/journal/store-mood-change-without-renovation</guid>
+      <description>철거나 설비 공사 없이 조명, 패브릭, 식물, 사인물만으로 매장 분위기를 바꿀 때 어디까지 손댈 수 있는지, 무엇부터 바꿔야 체감이 큰지, 언제 하는 게 좋은지 판단할 수 있습니다.</description>
+      <category>공간 비즈니스</category>
+      <pubDate>Wed, 25 Nov 2026 01:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>셀프 사진관 창업, 부스 배치와 조명부터 정해야 하는 이유</title>
       <link>https://coremood.kr/journal/self-photo-studio-booth-lighting</link>
@@ -398,14 +406,6 @@
       <description>음식점 공사에서 홀 좌석보다 주방 동선을 먼저 그려야 하는 이유를 정리했습니다. 식자재 입고부터 퇴식까지의 흐름, 주방 배치 유형, 배기와 배수 위치, 도면 확정 전 체크리스트까지 담았습니다.</description>
       <category>인테리어</category>
       <pubDate>Sun, 25 Oct 2026 23:12:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>인테리어 업체 선정, 포트폴리오에서 먼저 확인할 것</title>
-      <link>https://coremood.kr/journal/interior-company-checklist</link>
-      <guid isPermaLink="true">https://coremood.kr/journal/interior-company-checklist</guid>
-      <description>포트폴리오 사진이 모두 그럴듯해 보일 때 무엇으로 업체를 가려야 할까요. 투시도와 시공 사진 구분, 업종 경험, 마감 디테일, 공정 관리 방식까지 상담 전에 확인할 기준을 정리했습니다.</description>
-      <category>인테리어</category>
-      <pubDate>Sun, 25 Oct 2026 23:10:00 GMT</pubDate>
     </item>
   </channel>
 </rss>

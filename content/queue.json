@@ -329,8 +329,10 @@
       "category": "business",
       "keyword": "매장 분위기 바꾸기",
       "angle": "조명·패브릭·식물·사인물로 바꾸는 범위, 비용 대비 체감, 시기",
-      "status": "pending",
-      "addedAt": "2026-10-26T12:00:00+09:00"
+      "status": "done",
+      "addedAt": "2026-10-26T12:00:00+09:00",
+      "publishedSlug": "store-mood-change-without-renovation",
+      "publishedAt": "2026-11-25T10:00:00+09:00"
     }
   ]
 }
