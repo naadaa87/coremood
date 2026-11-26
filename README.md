@@ -79,10 +79,13 @@ D1이 연결되기 전에는 문의가 방문자의 메일 앱으로 넘어갑�
 ├── index.html about.html services.html portfolio.html     기본 페이지(직접 작성한 HTML, 표시 구간만 자동 갱신)
 ├── process.html estimate.html contact.html 404.html
 ├── faq.html                     ← content/pages/faq.md
+├── glossary.html  search.html   ← 용어 사전 · 사이트 검색 (생성)
 ├── journal/                     ← 저널 글·목록·분류 (생성)
+│   └── topic/                   ← 주제별 글 모음(주제 허브, 생성)
 ├── industries/                  ← 업종별 페이지 (생성)
 ├── projects/                    ← 시공 사례 페이지 (생성)
-├── sitemap.xml  feed.xml        ← 생성
+├── sitemap.xml  feed.xml        ← 생성 (사이트맵은 이미지 포함, RSS는 최근 20편 본문 전체)
+├── robots.txt  llms.txt  llms-full.txt   ← 생성 (검색엔진·AI 검색 서비스 안내)
 ├── content/
 │   ├── posts/*.md               저널 원고
 │   ├── industries/*.md          업종 페이지 원고
@@ -96,9 +99,14 @@ D1이 연결되기 전에는 문의가 방문자의 메일 앱으로 넘어갑�
 │   ├── site.json                공지·버튼·분석·스팸 방지·소유확인 설정
 │   ├── pages.json               기본 페이지 검색 제목·설명
 │   ├── images.json              이미지 라이브러리
-│   └── posts.json               공개 글 목록(생성)
+│   ├── topics.json              주제 허브 원본 (주제 이름·설명·묶는 단어)
+│   ├── glossary.json            용어 사전 원본
+│   ├── posts.json               공개 글 목록(생성)
+│   ├── search.json              사이트 검색 색인(생성)
+│   ├── lastmod.json             사이트맵 수정일 기록(생성 — 내용이 바뀐 날만 갱신)
+│   └── dims.json                이미지 크기(생성)
 ├── admin/                       관리자 화면
-├── functions/                   Cloudflare Pages Functions (문의 접수·관리, 알림, IndexNow)
+├── functions/                   Cloudflare Pages Functions (문의 접수·관리, 알림, 방문 통계, IndexNow 자동 알림)
 ├── scripts/                     build.js · check.js · og.py
 └── assets/                      css · js(main.js, cm-render.js 공용 렌더러) · fonts · img
 ```
@@ -119,10 +127,35 @@ CSS나 JS를 고쳤다면 `assets/js/cm-render.js` 의 `ASSET_V` 값을 바꿔 �
 
 ---
 
-## 검색엔진 등록
+## 검색 · AI 검색 노출 (SEO · AEO · GEO)
 
-- 네이버 서치어드바이저: 소유확인 태그 적용 완료 → 사이트맵 `https://coremood.kr/sitemap.xml`, RSS `https://coremood.kr/feed.xml` 제출
+검색엔진(네이버·구글·빙·다음)과 AI 검색(ChatGPT, Perplexity, Gemini 등)이 사이트 내용을 정확히 읽고 인용하도록 아래 구조를 갖췄습니다. 모두 `node scripts/build.js` 가 자동으로 만들고 갱신합니다.
+
+| 구분 | 내용 |
+|---|---|
+| 글 구조 | 모든 저널 글 맨 위에 **핵심 요약**(`:::summary`), 본문에 **자주 묻는 질문**(`:::faq`). 요약은 구조화 데이터(abstract · speakable)와 `llms.txt` 에도 들어갑니다 |
+| 주제 허브 | `/journal/topic/<slug>` — 업종·주제별 글 모음. 글의 키워드와 앞쪽 태그 두 개가 `data/topics.json` 의 `match` 단어로 시작하면 묶입니다. 글이 3편 이상인 주제만 페이지가 생깁니다 |
+| 용어 사전 | `/glossary` — `data/glossary.json` 원본, 용어마다 고유 주소(`/glossary#id`)와 DefinedTerm 구조화 데이터 |
+| 사이트 검색 | `/search?q=` — 글, 업종 페이지, 시공 사례, FAQ 문답, 용어, 톤앤매너 레퍼런스를 한 번에 검색(`data/search.json`). 방문자가 찾은 말은 관리자 KPI에 모입니다 |
+| 구조화 데이터 | 홈(ProfessionalService · WebSite 검색창), 브랜드(AboutPage), 서비스(Service 목록), 진행 절차(HowTo), 견적 안내(평당 기준 Offer), 프로젝트(사례 목록), 글(BlogPosting · FAQPage), 주제·분류(CollectionPage · ItemList), 용어 사전(DefinedTermSet) |
+| 사이트맵 · RSS | 사이트맵에 이미지 포함, 수정일은 내용이 실제로 바뀐 날만 갱신(`data/lastmod.json`). RSS는 최근 20편 본문 전체 |
+| AI 서비스 안내 | `robots.txt`(검색·AI 수집 허용, 관리자·원본 폴더 제외), `llms.txt`(사이트 요약), `llms-full.txt`(FAQ 전문·용어·글별 핵심 요약) |
+| 자동 알림 | 관리자에서 저장할 때, 그리고 매일 자동 발행 뒤에도 사이트맵에서 바뀐 주소를 찾아 IndexNow(네이버·빙)로 보냅니다 (`functions/_lib/indexnow.js`, 20분에 한 번 확인) |
+
+원본을 고치는 곳
+
+- 주제 허브: `data/topics.json` (주제 추가·이름·설명·묶는 단어)
+- 용어 사전: `data/glossary.json`
+- 운영 채널 주소(블로그·인스타그램 등, 구조화 데이터 sameAs와 푸터): 관리자 → 사이트 설정
+- 수집 허용 범위와 `llms.txt` 문구: `assets/js/cm-render.js` 의 `renderRobots` · `llmsHead`
+- 견적 평당 기준을 바꿀 때는 `assets/js/main.js` 의 `GRADE` 와 `cm-render.js` 의 `EST_GRADES` 를 함께 고칩니다(`check.js` 가 비교합니다)
+
+### 검색엔진 등록 (직접 한 번씩)
+
+- 네이버 서치어드바이저: 소유확인 태그 적용 완료 → 요청 → 사이트맵 제출에 `https://coremood.kr/sitemap.xml`, RSS 제출에 `https://coremood.kr/feed.xml`
 - 구글 서치 콘솔: HTML 태그 방식으로 받은 값을 관리자 → 사이트 설정에 저장 후 확인, `sitemap.xml` 제출
-- 새 글·사례는 저장할 때 IndexNow로 검색엔진에 자동으로 알립니다.
+- 빙 웹마스터 도구(bing.com/webmasters): ‘구글 서치 콘솔에서 가져오기’로 등록 → ChatGPT 검색·코파일럿 노출에 도움이 됩니다
+- 다음 검색 등록(register.search.daum.net): 사이트 주소 등록
+- Cloudflare 대시보드에서 ‘AI 봇 차단’ 기능이 켜져 있으면 AI 검색이 사이트를 읽지 못합니다. AI 검색 노출을 원하면 꺼 둡니다.
 
 © 코어무드 CORE MOOD · (주)블랭크

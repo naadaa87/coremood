@@ -2,6 +2,7 @@
 import { json, requireAdmin } from "../../_lib/util.js";
 import { ensureSchema } from "../../_lib/db.js";
 import { channels } from "../../_lib/notify.js";
+import { lastLog } from "../../_lib/indexnow.js";
 
 export async function onRequestGet(context) {
   const auth = await requireAdmin(context);
@@ -23,6 +24,7 @@ export async function onRequestGet(context) {
     notify: channels(env),
     notifyEmail: env.RESEND_API_KEY ? String(env.NOTIFY_EMAIL || "spaceblank0100@gmail.com") : "",
     turnstile: !!env.TURNSTILE_SECRET,
-    indexnow: true
+    indexnow: true,
+    indexnowAuto: db ? await lastLog(env.DB) : null
   });
 }

@@ -1,11 +1,12 @@
 // POST /api/track — 홈페이지 방문 통계 수집 (코어무드 자체 수집)
-// pv: 페이지 조회 · end: 체류 시간과 스크롤 깊이 갱신 · click: 버튼·링크 클릭 · lead: 상담 접수 · join: 회원 가입
+// pv: 페이지 조회 · end: 체류 시간과 스크롤 깊이 갱신 · click: 버튼·링크 클릭 · lead: 상담 접수 · join: 회원 가입 · search: 사이트 내 검색어
 // IP 주소, 이름, 연락처 같은 개인 정보는 받지도 저장하지도 않습니다.
 import { clip } from "../_lib/util.js";
 import { ensureSchema, kst } from "../_lib/db.js";
 import { classifySource, hostOf, isBot } from "../_lib/source.js";
+import { autoSubmit } from "../_lib/indexnow.js";
 
-const TYPES = ["pv", "end", "click", "lead", "join"];
+const TYPES = ["pv", "end", "click", "lead", "join", "search"];
 const KINDS = ["tel", "kakao", "mail", "quick", "contact", "archive", "case", "out", "menu", "footer", "link", "button", "form"];
 const ok = () => new Response(null, { status: 204, headers: { "cache-control": "no-store" } });
 
@@ -13,6 +14,8 @@ export async function onRequestPost(context) {
   const { request, env } = context;
   const db = env.DB;
   if (!db) return ok();
+  // 사이트맵이 바뀌었으면(새 글 발행 등) 바뀐 주소를 검색엔진에 알립니다. 20분에 한 번만 확인합니다.
+  context.waitUntil(autoSubmit(context).catch(() => {}));
   const ua = request.headers.get("user-agent") || "";
   if (isBot(ua)) return ok();
   const origin = request.headers.get("origin");
@@ -68,6 +71,11 @@ export async function onRequestPost(context) {
   }
 
   const kind = type === "click" ? (KINDS.includes(b.kind) ? b.kind : "link") : clip(b.kind, 30);
+  // 검색어: 짧은 낱말만 받고, 전화번호나 메일 주소처럼 보이는 입력은 저장하지 않습니다
+  if (type === "search") {
+    const term = clip(b.label, 40);
+    if (term.length < 2 || /\d{7,}|@/.test(term)) return ok();
+  }
   await db.prepare(
     `INSERT INTO cm_events (at, day, hour, wd, type, vid, sid, pid, path, kind, label, dev, country, region)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`

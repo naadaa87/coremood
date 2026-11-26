@@ -3,7 +3,9 @@
 // 비교 기간은 같은 길이의 바로 앞 기간입니다.
 import { json, requireAdmin } from "../../_lib/util.js";
 import { ensureSchema, kst } from "../../_lib/db.js";
+import { SEARCH_SOURCES, AI_SOURCES } from "../../_lib/source.js";
 
+const FIND = SEARCH_SOURCES.concat(AI_SOURCES); // 검색엔진과 AI 검색으로 들어온 방문
 const CONTACT = "('tel','kakao','mail','quick','contact')";
 const isDay = (v) => /^\d{4}-\d{2}-\d{2}$/.test(v || "");
 const addDays = (day, n) => new Date(Date.parse(day + "T00:00:00Z") + n * 86400000).toISOString().slice(0, 10);
@@ -52,6 +54,9 @@ export async function onRequestGet(context) {
     hours: q(`SELECT hour, COUNT(*) AS n FROM cm_events WHERE ${PV} GROUP BY hour`, from, to),
     weekdays: q(`SELECT wd, COUNT(*) AS n FROM cm_events WHERE ${PV} GROUP BY wd`, from, to),
     topClicks: q(`SELECT kind, label, COUNT(*) AS n FROM cm_events WHERE ${CL} GROUP BY kind, label ORDER BY n DESC LIMIT 25`, from, to),
+    searches: q("SELECT label, COUNT(*) AS n, SUM(CASE WHEN kind = '0' THEN 1 ELSE 0 END) AS zero FROM cm_events WHERE type = 'search' AND day BETWEEN ? AND ? GROUP BY label ORDER BY n DESC LIMIT 20", from, to),
+    findSrc: q(`SELECT src, COUNT(*) AS n FROM cm_events WHERE ${PV} AND entry = 1 AND src IN (${FIND.map(() => "?").join(",")}) GROUP BY src ORDER BY n DESC`, from, to, ...FIND),
+    findLanding: q(`SELECT path, MAX(title) AS title, COUNT(*) AS n FROM cm_events WHERE ${PV} AND entry = 1 AND src IN (${FIND.map(() => "?").join(",")}) GROUP BY path ORDER BY n DESC LIMIT 10`, from, to, ...FIND),
     archive: q(`SELECT label, COUNT(*) AS n FROM cm_events WHERE ${CL} AND kind = 'archive' GROUP BY label ORDER BY n DESC LIMIT 10`, from, to),
     live: q("SELECT COUNT(DISTINCT sid) AS n FROM cm_events WHERE at > ?", new Date(Date.now() - 5 * 60000).toISOString()),
     first: q("SELECT MIN(day) AS day FROM cm_events WHERE type = 'pv'"),
@@ -86,6 +91,7 @@ export async function onRequestGet(context) {
     sources: R.sources, landing: R.landing, campaigns: R.campaigns,
     devices: R.devices, regions: R.regions, hours: R.hours, weekdays: R.weekdays,
     topClicks: R.topClicks, archive: R.archive,
+    searches: R.searches, find: { sources: R.findSrc, landing: R.findLanding, ai: AI_SOURCES },
     inquiries: { items: inq, prev: one("inqPrev").n || 0, prevWon: one("inqPrev").won || 0 },
     members: { total: one("memAll").n || 0, active: one("memAll").active || 0, marketing: one("memAll").mk || 0, items: mem, prev: one("memPrev").n || 0, recent: R.memRecent }
   });

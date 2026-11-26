@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T01:00:00.000Z",
+ "updated": "2026-11-26T15:02:07.612Z",
  "posts": [
   {
    "slug": "store-information-sign-design",
@@ -21,15 +21,17 @@
    "og": "/assets/img/og/store-information-sign-design.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3291,
+   "chars": 3379,
    "status": "live",
-   "file": "content/posts/store-information-sign-design.md"
+   "file": "content/posts/store-information-sign-design.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "store-mood-change-without-renovation",
    "title": "매장 분위기 바꾸기, 큰 공사 없이 시즌 리뉴얼하는 범위",
    "date": "2026-11-25T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "business",
    "keyword": "매장 분위기 바꾸기",
    "tags": [
@@ -45,15 +47,17 @@
    "og": "/assets/img/og/store-mood-change-without-renovation.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3199,
+   "chars": 3309,
    "status": "live",
-   "file": "content/posts/store-mood-change-without-renovation.md"
+   "file": "content/posts/store-mood-change-without-renovation.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "self-photo-studio-booth-lighting",
    "title": "셀프 사진관 창업, 부스 배치와 조명부터 정해야 하는 이유",
    "date": "2026-11-24T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "startup",
    "keyword": "셀프 사진관 창업",
    "tags": [
@@ -69,15 +73,17 @@
    "og": "/assets/img/og/self-photo-studio-booth-lighting.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3306,
+   "chars": 3424,
    "status": "live",
-   "file": "content/posts/self-photo-studio-booth-lighting.md"
+   "file": "content/posts/self-photo-studio-booth-lighting.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "regular-customer-space-design",
    "title": "단골 만들기, 쿠폰보다 먼저 공간에 심어 둘 재방문 장치",
    "date": "2026-11-23T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "marketing",
    "keyword": "단골 만들기",
    "tags": [
@@ -93,15 +99,17 @@
    "og": "/assets/img/og/regular-customer-space-design.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3257,
+   "chars": 3373,
    "status": "live",
-   "file": "content/posts/regular-customer-space-design.md"
+   "file": "content/posts/regular-customer-space-design.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "facade-design-store-front-3m",
    "title": "파사드 디자인, 매장 앞 3미터에서 손님이 정하는 것",
    "date": "2026-11-22T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "branding",
    "keyword": "파사드 디자인",
    "tags": [
@@ -117,15 +125,17 @@
    "og": "/assets/img/og/facade-design-store-front-3m.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3210,
+   "chars": 3330,
    "status": "live",
-   "file": "content/posts/facade-design-store-front-3m.md"
+   "file": "content/posts/facade-design-store-front-3m.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "self-interior-store-diy-scope",
    "title": "셀프 인테리어 상가, 직접 할 공정과 맡길 공정 나누는 법",
    "date": "2026-11-21T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "셀프 인테리어 상가",
    "tags": [
@@ -140,15 +150,17 @@
    "og": "/assets/img/og/self-interior-store-diy-scope.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3217,
+   "chars": 3340,
    "status": "live",
-   "file": "content/posts/self-interior-store-diy-scope.md"
+   "file": "content/posts/self-interior-store-diy-scope.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "commercial-building-common-area-fix",
    "title": "상가 공용부 정비, 건물주가 먼저 손볼 수 있는 곳",
    "date": "2026-11-20T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "business",
    "keyword": "상가 공용부",
    "tags": [
@@ -163,15 +175,17 @@
    "og": "/assets/img/og/commercial-building-common-area-fix.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3144,
+   "chars": 3281,
    "status": "live",
-   "file": "content/posts/commercial-building-common-area-fix.md"
+   "file": "content/posts/commercial-building-common-area-fix.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "wine-bar-interior-lighting-seating",
    "title": "와인바 인테리어, 창업 전에 정할 조명과 좌석 높이",
    "date": "2026-11-19T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "startup",
    "keyword": "와인바 인테리어",
    "tags": [
@@ -187,15 +201,20 @@
    "og": "/assets/img/og/wine-bar-interior-lighting-seating.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3247,
+   "chars": 3355,
    "status": "live",
-   "file": "content/posts/wine-bar-interior-lighting-seating.md"
+   "file": "content/posts/wine-bar-interior-lighting-seating.md",
+   "fq": [
+    "작은 면적이라 카운터만 두고 테이블을 없애도 될까요?",
+    "지하 상가에 와인바를 열어도 괜찮을까요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "store-short-form-video-before-opening",
    "title": "매장 숏폼 영상, 오픈 전에 미리 찍어 둬야 할 장면들",
    "date": "2026-11-18T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "marketing",
    "keyword": "매장 숏폼",
    "tags": [
@@ -210,16 +229,18 @@
    "coverAlt": "공간을 촬영하며 콘텐츠를 만드는 장면",
    "og": "/assets/img/og/store-short-form-video-before-opening.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3090,
+   "minutes": 7,
+   "chars": 3201,
    "status": "live",
-   "file": "content/posts/store-short-form-video-before-opening.md"
+   "file": "content/posts/store-short-form-video-before-opening.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "logo-renewal-change-or-keep",
    "title": "로고 리뉴얼, 바꿔야 할 때와 지켜야 할 때를 가르는 기준",
    "date": "2026-11-17T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "branding",
    "keyword": "로고 리뉴얼",
    "tags": [
@@ -235,15 +256,20 @@
    "og": "/assets/img/og/logo-renewal-change-or-keep.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3204,
+   "chars": 3322,
    "status": "live",
-   "file": "content/posts/logo-renewal-change-or-keep.md"
+   "file": "content/posts/logo-renewal-change-or-keep.md",
+   "fq": [
+    "가게 이름은 그대로 두고 로고만 바꿔도 되나요?",
+    "로고만 먼저 바꾸고 간판은 나중에 바꿔도 될까요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "store-acoustics-music-noise",
    "title": "매장 음향 설계, 음악과 소음이 체류 시간에 주는 영향",
    "date": "2026-11-16T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "매장 음향",
    "tags": [
@@ -259,15 +285,17 @@
    "og": "/assets/img/og/store-acoustics-music-noise.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3211,
+   "chars": 3328,
    "status": "live",
-   "file": "content/posts/store-acoustics-music-noise.md"
+   "file": "content/posts/store-acoustics-music-noise.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "stay-room-photo-booking-guide",
    "title": "숙박 객실 사진, 예약 채널에서 선택받는 촬영 순서와 기준",
    "date": "2026-11-15T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "business",
    "keyword": "숙박 객실 사진",
    "tags": [
@@ -282,16 +310,18 @@
    "coverAlt": "리넨 침구와 오크 가구로 마감한 호텔 스위트 객실",
    "og": "/assets/img/og/stay-room-photo-booking-guide.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3040,
+   "minutes": 7,
+   "chars": 3155,
    "status": "live",
-   "file": "content/posts/stay-room-photo-booking-guide.md"
+   "file": "content/posts/stay-room-photo-booking-guide.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "franchise-vs-independent-store-interior",
    "title": "프랜차이즈 인테리어, 개인 매장과 달라지는 범위와 판단 기준",
    "date": "2026-11-14T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "startup",
    "keyword": "프랜차이즈 인테리어",
    "tags": [
@@ -306,16 +336,21 @@
    "coverAlt": "컨셉과 무드를 기획하는 작업 테이블",
    "og": "/assets/img/og/franchise-vs-independent-store-interior.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3114,
+   "minutes": 7,
+   "chars": 3254,
    "status": "live",
-   "file": "content/posts/franchise-vs-independent-store-interior.md"
+   "file": "content/posts/franchise-vs-independent-store-interior.md",
+   "fq": [
+    "가맹점인데 시공 업체를 따로 정할 수 있나요?",
+    "가맹점 인테리어 금액에는 무엇이 빠져 있는 경우가 많나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "review-reply-writing-guide",
    "title": "리뷰 답글 쓰는 법, 불만 리뷰에도 다시 오게 만드는 문장",
    "date": "2026-11-13T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "marketing",
    "keyword": "리뷰 답글",
    "tags": [
@@ -331,15 +366,21 @@
    "og": "/assets/img/og/review-reply-writing-guide.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3239,
+   "chars": 3343,
    "status": "live",
-   "file": "content/posts/review-reply-writing-guide.md"
+   "file": "content/posts/review-reply-writing-guide.md",
+   "fq": [
+    "모든 리뷰에 답글을 달아야 하나요?",
+    "답글을 미리 써 둔 문장 모음으로 돌려 써도 되나요?",
+    "오래전 불만 리뷰에도 지금 답글을 다는 게 의미가 있나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "brand-story-show-not-tell-store",
    "title": "브랜드 스토리, 매장에서 말하지 않고 보여 주는 법",
    "date": "2026-11-12T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "branding",
    "keyword": "브랜드 스토리",
    "tags": [
@@ -355,15 +396,17 @@
    "og": "/assets/img/og/brand-story-show-not-tell-store.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3218,
+   "chars": 3328,
    "status": "live",
-   "file": "content/posts/brand-story-show-not-tell-store.md"
+   "file": "content/posts/brand-story-show-not-tell-store.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "commercial-restroom-interior-guide",
    "title": "상가 화장실 인테리어, 리뷰에 남는 작은 공간 다루는 법",
    "date": "2026-11-11T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "상가 화장실 인테리어",
    "tags": [
@@ -378,16 +421,18 @@
    "coverAlt": "햇살이 드는 테이블 위 뉴트럴 소재 샘플 보드",
    "og": "/assets/img/og/commercial-restroom-interior-guide.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3119,
+   "minutes": 7,
+   "chars": 3239,
    "status": "live",
-   "file": "content/posts/commercial-restroom-interior-guide.md"
+   "file": "content/posts/commercial-restroom-interior-guide.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "office-relocation-checklist",
    "title": "사무실 이전 체크리스트, 이전 석 달 전부터 할 일",
    "date": "2026-11-10T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "business",
    "keyword": "사무실 이전",
    "tags": [
@@ -402,15 +447,17 @@
    "og": "/assets/img/og/office-relocation-checklist.jpg",
    "draft": false,
    "minutes": 8,
-   "chars": 3630,
+   "chars": 3749,
    "status": "live",
-   "file": "content/posts/office-relocation-checklist.md"
+   "file": "content/posts/office-relocation-checklist.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "nail-shop-interior-seating-ventilation",
    "title": "네일샵 인테리어, 작은 면적에서 좌석과 환기 잡기",
    "date": "2026-11-09T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "startup",
    "keyword": "네일샵 인테리어",
    "tags": [
@@ -425,15 +472,17 @@
    "og": "/assets/img/og/nail-shop-interior-seating-ventilation.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2923,
+   "chars": 3027,
    "status": "live",
-   "file": "content/posts/nail-shop-interior-seating-ventilation.md"
+   "file": "content/posts/nail-shop-interior-seating-ventilation.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "blog-review-campaign-timing",
    "title": "블로그 체험단, 오픈 초기에 써도 되는 경우와 아닌 경우",
    "date": "2026-11-08T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "marketing",
    "keyword": "블로그 체험단",
    "tags": [
@@ -448,16 +497,22 @@
    "coverAlt": "간접 조명이 들어간 곡선형 바 카운터와 술병 진열장이 보이는 음식점 내부",
    "og": "/assets/img/og/blog-review-campaign-timing.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3083,
+   "minutes": 7,
+   "chars": 3201,
    "status": "live",
-   "file": "content/posts/blog-review-campaign-timing.md"
+   "file": "content/posts/blog-review-campaign-timing.md",
+   "fq": [
+    "체험단 글이 많을수록 검색에 유리하지 않나요?",
+    "리뉴얼한 매장도 체험단을 다시 해야 하나요?",
+    "체험단 글에 사실과 다른 내용이 있으면 어떻게 하나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "store-goods-uniform-branding",
    "title": "매장 굿즈와 유니폼, 공간 밖으로 브랜드를 가져가는 방법",
    "date": "2026-11-07T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "branding",
    "keyword": "매장 굿즈",
    "tags": [
@@ -473,15 +528,20 @@
    "og": "/assets/img/og/store-goods-uniform-branding.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3190,
+   "chars": 3289,
    "status": "live",
-   "file": "content/posts/store-goods-uniform-branding.md"
+   "file": "content/posts/store-goods-uniform-branding.md",
+   "fq": [
+    "로고가 아직 확정되지 않았는데 포장재를 먼저 주문해도 될까요?",
+    "굿즈 디자인을 매장 인테리어와 똑같이 맞춰야 하나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "commercial-hvac-selection-layout",
    "title": "상가 냉난방기 선택과 배치, 공사 전에 정해야 할 것",
    "date": "2026-11-06T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "상가 냉난방기",
    "tags": [
@@ -497,15 +557,17 @@
    "og": "/assets/img/og/commercial-hvac-selection-layout.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3211,
+   "chars": 3349,
    "status": "live",
-   "file": "content/posts/commercial-hvac-selection-layout.md"
+   "file": "content/posts/commercial-hvac-selection-layout.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "unmanned-study-cafe-complaint-design",
    "title": "무인 스터디카페 운영, 민원을 줄이는 공간 설계",
    "date": "2026-11-05T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "business",
    "keyword": "무인 스터디카페",
    "tags": [
@@ -520,15 +582,17 @@
    "og": "/assets/img/og/unmanned-study-cafe-complaint-design.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3265,
+   "chars": 3371,
    "status": "live",
-   "file": "content/posts/unmanned-study-cafe-complaint-design.md"
+   "file": "content/posts/unmanned-study-cafe-complaint-design.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "commercial-area-walking-route-analysis",
    "title": "상권 분석, 유동인구 숫자보다 먼저 걸어 봐야 할 동선",
    "date": "2026-11-04T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "startup",
    "keyword": "상권 분석",
    "tags": [
@@ -544,15 +608,17 @@
    "og": "/assets/img/og/commercial-area-walking-route-analysis.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2994,
+   "chars": 3114,
    "status": "live",
-   "file": "content/posts/commercial-area-walking-route-analysis.md"
+   "file": "content/posts/commercial-area-walking-route-analysis.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "store-photo-shot-list",
    "title": "매장 사진 촬영 가이드, 오픈 전 찍어야 할 컷 목록",
    "date": "2026-11-03T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "marketing",
    "keyword": "매장 사진 촬영",
    "tags": [
@@ -567,16 +633,18 @@
    "coverAlt": "공간 촬영과 콘텐츠 제작 장면",
    "og": "/assets/img/og/store-photo-shot-list.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3119,
+   "minutes": 7,
+   "chars": 3222,
    "status": "live",
-   "file": "content/posts/store-photo-shot-list.md"
+   "file": "content/posts/store-photo-shot-list.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "store-brand-color-guide",
    "title": "매장 컬러 정하기, 브랜드 컬러를 공간에 옮길 때",
    "date": "2026-11-02T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "branding",
    "keyword": "매장 컬러",
    "tags": [
@@ -592,15 +660,20 @@
    "og": "/assets/img/og/store-brand-color-guide.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3214,
+   "chars": 3340,
    "status": "live",
-   "file": "content/posts/store-brand-color-guide.md"
+   "file": "content/posts/store-brand-color-guide.md",
+   "fq": [
+    "브랜드 컬러가 아직 정해지지 않았는데 인테리어를 먼저 시작해도 될까요?",
+    "페인트 가게에서 색을 맞춰 주면 브랜드 컬러와 똑같이 나오나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "cafe-interior-cost-20-pyeong",
    "title": "카페 인테리어 비용, 20평 기준으로 돈이 드는 곳",
    "date": "2026-11-01T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "카페 인테리어 비용",
    "tags": [
@@ -615,15 +688,17 @@
    "og": "/assets/img/og/cafe-interior-cost-20-pyeong.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3260,
+   "chars": 3421,
    "status": "live",
-   "file": "content/posts/cafe-interior-cost-20-pyeong.md"
+   "file": "content/posts/cafe-interior-cost-20-pyeong.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "second-store-what-to-keep",
    "title": "2호점 출점, 1호점 공간에서 가져갈 것과 버릴 것",
    "date": "2026-10-31T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "business",
    "keyword": "2호점 출점",
    "tags": [
@@ -639,15 +714,20 @@
    "og": "/assets/img/og/second-store-what-to-keep.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2853,
+   "chars": 2972,
    "status": "live",
-   "file": "content/posts/second-store-what-to-keep.md"
+   "file": "content/posts/second-store-what-to-keep.md",
+   "fq": [
+    "1호점을 맡았던 업체에 2호점도 맡기는 편이 낫나요?",
+    "1호점 리뉴얼과 2호점 출점을 같이 해도 되나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "bakery-startup-interior-layout",
    "title": "베이커리 창업 인테리어, 오븐 위치와 진열대 동선부터 정합니다",
    "date": "2026-10-30T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "startup",
    "keyword": "베이커리 창업",
    "tags": [
@@ -662,15 +742,20 @@
    "og": "/assets/img/og/bakery-startup-interior-layout.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3331,
+   "chars": 3460,
    "status": "live",
-   "file": "content/posts/bakery-startup-interior-layout.md"
+   "file": "content/posts/bakery-startup-interior-layout.md",
+   "fq": [
+    "매장이 열 평 남짓이면 생산 공간을 따로 떼기 어렵지 않나요?",
+    "좌석을 두는 베이커리 카페로 하고 싶은데 무엇이 달라지나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "naver-place-photo-order",
    "title": "네이버 플레이스 사진, 대표 사진 순서를 정하는 기준",
    "date": "2026-10-29T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "marketing",
    "keyword": "네이버 플레이스 사진",
    "tags": [
@@ -686,15 +771,17 @@
    "og": "/assets/img/og/naver-place-photo-order.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2667,
+   "chars": 2804,
    "status": "live",
-   "file": "content/posts/naver-place-photo-order.md"
+   "file": "content/posts/naver-place-photo-order.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "menu-board-design-guide",
    "title": "메뉴판 디자인, 주문이 빨라지는 메뉴판의 조건",
    "date": "2026-10-28T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "branding",
    "keyword": "메뉴판 디자인",
    "tags": [
@@ -709,16 +796,18 @@
    "coverAlt": "통창 앞 바 좌석과 원목 구조물이 있는 카페 내부",
    "og": "/assets/img/og/menu-board-design-guide.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3092,
+   "minutes": 7,
+   "chars": 3206,
    "status": "live",
-   "file": "content/posts/menu-board-design-guide.md"
+   "file": "content/posts/menu-board-design-guide.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "commercial-flooring-guide",
    "title": "상가 바닥재 고르는 법, 폴리싱 타일·데코타일·에폭시 비교",
    "date": "2026-10-27T10:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "상가 바닥재",
    "tags": [
@@ -733,16 +822,18 @@
    "coverAlt": "햇살이 드는 테이블 위에 놓인 뉴트럴 톤 소재 샘플 보드",
    "og": "/assets/img/og/commercial-flooring-guide.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3111,
+   "minutes": 7,
+   "chars": 3256,
    "status": "live",
-   "file": "content/posts/commercial-flooring-guide.md"
+   "file": "content/posts/commercial-flooring-guide.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "office-interior-guide",
    "title": "사무실 인테리어, 직원이 머무르고 싶은 사무실의 조건",
    "date": "2026-10-26T08:50:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "business",
    "keyword": "사무실 인테리어",
    "tags": [
@@ -757,15 +848,17 @@
    "og": "/assets/img/og/office-interior-guide.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2933,
+   "chars": 3048,
    "status": "live",
-   "file": "content/posts/office-interior-guide.md"
+   "file": "content/posts/office-interior-guide.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "motel-remodeling-guide",
    "title": "모텔 리모델링, 객실 경쟁력을 바꾸는 요소와 공사 범위",
    "date": "2026-10-26T08:48:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "business",
    "keyword": "모텔 리모델링",
    "tags": [
@@ -780,15 +873,20 @@
    "og": "/assets/img/og/motel-remodeling-guide.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2961,
+   "chars": 3070,
    "status": "live",
-   "file": "content/posts/motel-remodeling-guide.md"
+   "file": "content/posts/motel-remodeling-guide.md",
+   "fq": [
+    "전 객실을 한 번에 공사하는 것과 순차 공사 중 어느 쪽이 낫나요?",
+    "욕실은 타일 덧방만 해도 되나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "vacant-store-leasing-fix",
    "title": "공실 상가, 임차인이 들어오게 만드는 최소한의 손질",
    "date": "2026-10-26T08:46:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "business",
    "keyword": "공실 상가",
    "tags": [
@@ -803,15 +901,20 @@
    "og": "/assets/img/og/vacant-store-leasing-fix.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3357,
+   "chars": 3501,
    "status": "live",
-   "file": "content/posts/vacant-store-leasing-fix.md"
+   "file": "content/posts/vacant-store-leasing-fix.md",
+   "fq": [
+    "인테리어를 다 마친 상태로 내놓으면 더 빨리 나가지 않나요?",
+    "업종별 시안은 어느 수준까지 만들어야 하나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "store-renewal-timing",
    "title": "매장 리뉴얼, 이런 신호가 보이면 시작할 때입니다",
    "date": "2026-10-26T08:44:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "business",
    "keyword": "매장 리뉴얼",
    "tags": [
@@ -826,16 +929,21 @@
    "coverAlt": "기존 설비를 걷어내 바닥 배관 자리와 붉은 모자이크 타일 벽이 드러난 충무로 음식점 공사 전 모습",
    "og": "/assets/img/og/store-renewal-timing.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3012,
+   "minutes": 7,
+   "chars": 3136,
    "status": "live",
-   "file": "content/posts/store-renewal-timing.md"
+   "file": "content/posts/store-renewal-timing.md",
+   "fq": [
+    "영업을 하면서 리뉴얼할 수 있나요?",
+    "처음 공사한 업체에 다시 맡겨야 하나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "unmanned-store-design",
    "title": "무인 매장 인테리어, 사람이 없어도 돌아가는 공간 동선",
    "date": "2026-10-26T08:42:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "business",
    "keyword": "무인 매장 인테리어",
    "tags": [
@@ -851,15 +959,17 @@
    "og": "/assets/img/og/unmanned-store-design.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3236,
+   "chars": 3346,
    "status": "live",
-   "file": "content/posts/unmanned-store-design.md"
+   "file": "content/posts/unmanned-store-design.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "salon-interior-checklist",
    "title": "미용실 인테리어 체크리스트, 샴푸대 배관부터 거울 조명까지",
    "date": "2026-10-26T08:40:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "startup",
    "keyword": "미용실 인테리어",
    "tags": [
@@ -875,15 +985,20 @@
    "og": "/assets/img/og/salon-interior-checklist.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3374,
+   "chars": 3477,
    "status": "live",
-   "file": "content/posts/salon-interior-checklist.md"
+   "file": "content/posts/salon-interior-checklist.md",
+   "fq": [
+    "미용실을 하던 자리를 인수하면 샴푸대 배관을 그대로 쓸 수 있나요?",
+    "1인 샵도 약제실을 따로 만들어야 하나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "study-cafe-interior-guide",
    "title": "스터디카페 인테리어, 좌석과 소음과 조명의 기준",
    "date": "2026-10-26T08:38:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "startup",
    "keyword": "스터디카페 인테리어",
    "tags": [
@@ -898,15 +1013,20 @@
    "og": "/assets/img/og/study-cafe-interior-guide.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2774,
+   "chars": 2887,
    "status": "live",
-   "file": "content/posts/study-cafe-interior-guide.md"
+   "file": "content/posts/study-cafe-interior-guide.md",
+   "fq": [
+    "기존 독서실을 스터디카페로 바꿀 수 있나요?",
+    "좌석은 많을수록 좋지 않나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "party-room-startup-interior",
    "title": "파티룸 창업, 공간 구성이 예약을 좌우하는 이유",
    "date": "2026-10-26T08:36:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "startup",
    "keyword": "파티룸 창업",
    "tags": [
@@ -921,15 +1041,20 @@
    "og": "/assets/img/og/party-room-startup-interior.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2809,
+   "chars": 2930,
    "status": "live",
-   "file": "content/posts/party-room-startup-interior.md"
+   "file": "content/posts/party-room-startup-interior.md",
+   "fq": [
+    "방 하나로 시작해도 괜찮을까요?",
+    "기존 인테리어가 남아 있는 자리는 공사를 줄일 수 있나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "cafe-startup-order",
    "title": "카페 창업 순서, 자리보다 먼저 정해야 할 것들",
    "date": "2026-10-26T08:34:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "startup",
    "keyword": "카페 창업 순서",
    "tags": [
@@ -944,15 +1069,17 @@
    "og": "/assets/img/og/cafe-startup-order.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2690,
+   "chars": 2798,
    "status": "live",
-   "file": "content/posts/cafe-startup-order.md"
+   "file": "content/posts/cafe-startup-order.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "lease-site-visit-checklist",
    "title": "상가 계약 전 확인사항, 현장 답사에서 볼 것들",
    "date": "2026-10-26T08:32:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "startup",
    "keyword": "상가 계약 전 확인사항",
    "tags": [
@@ -967,15 +1094,20 @@
    "og": "/assets/img/og/lease-site-visit-checklist.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2833,
+   "chars": 2958,
    "status": "live",
-   "file": "content/posts/lease-site-visit-checklist.md"
+   "file": "content/posts/lease-site-visit-checklist.md",
+   "fq": [
+    "가계약금을 이미 보냈는데 문제를 발견했다면 어떻게 하나요?",
+    "답사 때 실측까지 해야 하나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "store-instagram-before-opening",
    "title": "매장 인스타그램은 공사 시작과 함께 열어야 합니다",
    "date": "2026-10-26T08:30:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "marketing",
    "keyword": "매장 인스타그램",
    "tags": [
@@ -991,15 +1123,20 @@
    "og": "/assets/img/og/store-instagram-before-opening.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2899,
+   "chars": 3019,
    "status": "live",
-   "file": "content/posts/store-instagram-before-opening.md"
+   "file": "content/posts/store-instagram-before-opening.md",
+   "fq": [
+    "공사 현장을 보여 주면 오히려 기대가 떨어지지 않을까요?",
+    "인스타그램과 네이버 플레이스 중 무엇을 먼저 하나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "opening-month-marketing",
    "title": "매장 오픈 마케팅, 첫 달에 리뷰가 쌓이는 구조 만들기",
    "date": "2026-10-26T08:28:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "marketing",
    "keyword": "매장 오픈 마케팅",
    "tags": [
@@ -1015,15 +1152,20 @@
    "og": "/assets/img/og/opening-month-marketing.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2781,
+   "chars": 2908,
    "status": "live",
-   "file": "content/posts/opening-month-marketing.md"
+   "file": "content/posts/opening-month-marketing.md",
+   "fq": [
+    "오픈 초기에 지인에게 리뷰를 부탁해도 되나요?",
+    "오픈 프로모션은 얼마 동안 하는 게 좋을까요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "photogenic-store-interior",
    "title": "포토존 인테리어, 사진이 잘 나오는 매장의 조건",
    "date": "2026-10-26T08:26:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "marketing",
    "keyword": "포토존 인테리어",
    "tags": [
@@ -1039,15 +1181,20 @@
    "og": "/assets/img/og/photogenic-store-interior.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2814,
+   "chars": 2951,
    "status": "live",
-   "file": "content/posts/photogenic-store-interior.md"
+   "file": "content/posts/photogenic-store-interior.md",
+   "fq": [
+    "사진이 잘 나오는 매장이면 손님이 늘어나나요?",
+    "포토존에 네온사인이나 문구가 꼭 있어야 하나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "naver-place-setup-checklist",
    "title": "네이버 플레이스 등록, 오픈 전에 끝내야 할 세팅",
    "date": "2026-10-26T08:24:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "marketing",
    "keyword": "네이버 플레이스 등록",
    "tags": [
@@ -1062,16 +1209,18 @@
    "coverAlt": "통창 앞에 바 테이블과 원목 선반을 둔 인천 카페 내부",
    "og": "/assets/img/og/naver-place-setup-checklist.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3108,
+   "minutes": 7,
+   "chars": 3220,
    "status": "live",
-   "file": "content/posts/naver-place-setup-checklist.md"
+   "file": "content/posts/naver-place-setup-checklist.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "brand-manual-for-second-store",
    "title": "브랜드 매뉴얼, 2호점을 생각한다면 처음부터 정리할 것",
    "date": "2026-10-26T08:22:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "branding",
    "keyword": "브랜드 매뉴얼",
    "tags": [
@@ -1087,15 +1236,20 @@
    "og": "/assets/img/og/brand-manual-for-second-store.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2790,
+   "chars": 2919,
    "status": "live",
-   "file": "content/posts/brand-manual-for-second-store.md"
+   "file": "content/posts/brand-manual-for-second-store.md",
+   "fq": [
+    "매뉴얼은 몇 장 정도면 되나요?",
+    "2호점은 다른 인테리어 업체에 맡겨도 되나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "moodboard-guide",
    "title": "인테리어 무드보드 만드는 법, 취향을 설계 언어로 바꾸기",
    "date": "2026-10-26T08:20:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "branding",
    "keyword": "인테리어 무드보드",
    "tags": [
@@ -1110,15 +1264,20 @@
    "og": "/assets/img/og/moodboard-guide.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2855,
+   "chars": 2960,
    "status": "live",
-   "file": "content/posts/moodboard-guide.md"
+   "file": "content/posts/moodboard-guide.md",
+   "fq": [
+    "무드보드는 어떤 도구로 만들면 되나요?",
+    "마음에 드는 매장을 그대로 따라 해도 되나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "signage-design-guide",
    "title": "간판 디자인, 횡단보도 건너편에서도 읽히는 간판의 조건",
    "date": "2026-10-26T08:18:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "branding",
    "keyword": "간판 디자인",
    "tags": [
@@ -1134,15 +1293,20 @@
    "og": "/assets/img/og/signage-design-guide.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3207,
+   "chars": 3323,
    "status": "live",
-   "file": "content/posts/signage-design-guide.md"
+   "file": "content/posts/signage-design-guide.md",
+   "fq": [
+    "간판은 인테리어 업체와 따로 맡겨도 되나요?",
+    "간판 크기는 어느 정도가 적당한가요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "store-naming-guide",
    "title": "가게 이름 짓기, 실무에서 쓰는 다섯 가지 기준",
    "date": "2026-10-26T08:16:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "branding",
    "keyword": "가게 이름 짓기",
    "tags": [
@@ -1158,15 +1322,20 @@
    "og": "/assets/img/og/store-naming-guide.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2918,
+   "chars": 3043,
    "status": "live",
-   "file": "content/posts/store-naming-guide.md"
+   "file": "content/posts/store-naming-guide.md",
+   "fq": [
+    "영어 이름이 더 세련돼 보이는데 써도 될까요?",
+    "다른 지역에 같은 이름의 가게가 이미 있으면 포기해야 하나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "space-branding-one-sentence",
    "title": "공간 브랜딩, 로고보다 한 문장을 먼저 정해야 하는 이유",
    "date": "2026-10-26T08:14:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "branding",
    "keyword": "공간 브랜딩",
    "tags": [
@@ -1181,15 +1350,17 @@
    "og": "/assets/img/og/space-branding-one-sentence.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2863,
+   "chars": 2972,
    "status": "live",
-   "file": "content/posts/space-branding-one-sentence.md"
+   "file": "content/posts/space-branding-one-sentence.md",
+   "fq": [],
+   "sum": 3
   },
   {
    "slug": "restaurant-kitchen-layout",
    "title": "음식점 인테리어, 주방 동선부터 그려야 하는 이유",
    "date": "2026-10-26T08:12:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "음식점 인테리어",
    "tags": [
@@ -1204,15 +1375,20 @@
    "og": "/assets/img/og/restaurant-kitchen-layout.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2952,
+   "chars": 3058,
    "status": "live",
-   "file": "content/posts/restaurant-kitchen-layout.md"
+   "file": "content/posts/restaurant-kitchen-layout.md",
+   "fq": [
+    "기존 음식점 자리를 인수하면 주방을 그대로 써도 되나요?",
+    "주방 설비 때문에 공사비가 많이 올라가나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "interior-company-checklist",
    "title": "인테리어 업체 선정, 포트폴리오에서 먼저 확인할 것",
    "date": "2026-10-26T08:10:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "인테리어 업체 선정",
    "tags": [
@@ -1227,15 +1403,20 @@
    "og": "/assets/img/og/interior-company-checklist.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2875,
+   "chars": 2999,
    "status": "live",
-   "file": "content/posts/interior-company-checklist.md"
+   "file": "content/posts/interior-company-checklist.md",
+   "fq": [
+    "포트폴리오가 적은 신생 업체는 피하는 게 낫나요?",
+    "그 업체가 시공한 매장에 직접 가 봐도 되나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "lease-restoration-interior",
    "title": "상가 원상복구, 들어갈 때부터 계산하는 임차 매장 인테리어",
    "date": "2026-10-26T08:08:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "상가 원상복구",
    "tags": [
@@ -1251,15 +1432,20 @@
    "og": "/assets/img/og/lease-restoration-interior.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2977,
+   "chars": 3104,
    "status": "live",
-   "file": "content/posts/lease-restoration-interior.md"
+   "file": "content/posts/lease-restoration-interior.md",
+   "fq": [
+    "다음 임차인이 시설을 그대로 쓰겠다고 하면 원상복구를 안 해도 되나요?",
+    "원상복구 공사도 인테리어 업체에 맡기면 되나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "store-lighting-plan",
    "title": "매장 조명 인테리어, 색온도와 조도로 분위기 바꾸기",
    "date": "2026-10-26T08:06:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "매장 조명 인테리어",
    "tags": [
@@ -1275,15 +1461,20 @@
    "og": "/assets/img/og/store-lighting-plan.jpg",
    "draft": false,
    "minutes": 8,
-   "chars": 3758,
+   "chars": 3882,
    "status": "live",
-   "file": "content/posts/store-lighting-plan.md"
+   "file": "content/posts/store-lighting-plan.md",
+   "fq": [
+    "이미 영업 중인 매장인데 조명만 바꿔도 달라지나요?",
+    "조명은 공사 중 언제 정해야 하나요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "store-interior-schedule",
    "title": "인테리어 공사 기간, 오픈일에서 거꾸로 짜는 상가 공정 순서",
    "date": "2026-10-26T08:04:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "인테리어 공사 기간",
    "tags": [
@@ -1298,15 +1489,20 @@
    "og": "/assets/img/og/store-interior-schedule.jpg",
    "draft": false,
    "minutes": 6,
-   "chars": 2825,
+   "chars": 2948,
    "status": "live",
-   "file": "content/posts/store-interior-schedule.md"
+   "file": "content/posts/store-interior-schedule.md",
+   "fq": [
+    "영업을 하면서 부분 공사를 할 수 있나요?",
+    "준공 예정일을 계약서에 적어 두는 게 좋을까요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "interior-quote-comparison",
    "title": "인테리어 견적서 비교하는 법, 항목별로 봐야 할 것들",
    "date": "2026-10-26T08:02:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "인테리어 견적서",
    "tags": [
@@ -1320,16 +1516,22 @@
    "coverAlt": "설계 도면 위에 놓인 노트와 마감재 샘플, 투시도를 띄운 태블릿",
    "og": "/assets/img/og/interior-quote-comparison.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3052,
+   "minutes": 7,
+   "chars": 3171,
    "status": "live",
-   "file": "content/posts/interior-quote-comparison.md"
+   "file": "content/posts/interior-quote-comparison.md",
+   "fq": [
+    "가장 낮은 견적서를 고르면 안 되나요?",
+    "예산에 맞추려면 할인을 요청하는 게 맞나요?",
+    "견적은 몇 군데서 받는 게 적당한가요?"
+   ],
+   "sum": 3
   },
   {
    "slug": "commercial-interior-cost-guide",
    "title": "상가 인테리어 비용, 평당 단가만 보면 안 되는 이유",
    "date": "2026-10-26T08:00:00+09:00",
-   "updated": "",
+   "updated": "2026-11-26T23:50:00+09:00",
    "category": "interior",
    "keyword": "상가 인테리어 비용",
    "tags": [
@@ -1344,10 +1546,15 @@
    "coverAlt": "간접 조명이 들어간 선반과 대리석 카운터가 있는 쇼룸 인테리어",
    "og": "/assets/img/og/commercial-interior-cost-guide.jpg",
    "draft": false,
-   "minutes": 6,
-   "chars": 3087,
+   "minutes": 7,
+   "chars": 3222,
    "status": "live",
-   "file": "content/posts/commercial-interior-cost-guide.md"
+   "file": "content/posts/commercial-interior-cost-guide.md",
+   "fq": [
+    "예비비는 얼마나 잡아 두면 되나요?",
+    "시설이 남아 있는 자리를 인수하면 늘 싸게 끝나나요?"
+   ],
+   "sum": 3
   }
  ],
  "industries": [

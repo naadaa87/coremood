@@ -47,19 +47,31 @@
   }
 
   /* ---------- accordion ---------- */
+  var setAcc = function (q, open) {
+    var group = q.closest(".acc");
+    if (group) {
+      $$(".acc__q", group).forEach(function (o) { o.setAttribute("aria-expanded", "false"); });
+      $$(".acc__i", group).forEach(function (o) { o.classList.remove("is-open"); });
+    }
+    q.setAttribute("aria-expanded", open ? "true" : "false");
+    var item = q.closest(".acc__i");
+    if (item) item.classList.toggle("is-open", open);
+  };
   $$(".acc__q").forEach(function (q) {
-    q.addEventListener("click", function () {
-      var open = q.getAttribute("aria-expanded") === "true";
-      var group = q.closest(".acc");
-      if (group) {
-        $$(".acc__q", group).forEach(function (o) { o.setAttribute("aria-expanded", "false"); });
-        $$(".acc__i", group).forEach(function (o) { o.classList.remove("is-open"); });
-      }
-      q.setAttribute("aria-expanded", open ? "false" : "true");
-      var item = q.closest(".acc__i");
-      if (item) item.classList.toggle("is-open", !open);
-    });
+    q.addEventListener("click", function () { setAcc(q, q.getAttribute("aria-expanded") !== "true"); });
   });
+  // 주소 끝의 #faq-3 처럼 질문을 가리키는 링크로 들어오면 그 답을 펼쳐서 보여 줍니다 (검색 결과·주제 허브에서 연결)
+  var openHash = function () {
+    var id = "";
+    try { id = decodeURIComponent((location.hash || "").slice(1)); } catch (e) { return; }
+    var el = id ? document.getElementById(id) : null;
+    if (!el || !el.classList.contains("acc__i")) return;
+    var q = $(".acc__q", el);
+    if (q) setAcc(q, true);
+    setTimeout(function () { el.scrollIntoView({ block: "start" }); }, 80);
+  };
+  openHash();
+  window.addEventListener("hashchange", openHash);
 
   /* ---------- before / after ---------- */
   var ba = $("[data-ba]");
@@ -798,6 +810,118 @@
           if (empty) empty.hidden = hit.length > 0;
         });
       }, 160);
+    });
+  }
+
+  /* ---------- 사이트 검색 (/search · data/search.json) ---------- */
+  var sf = $("[data-search]");
+  if (sf) {
+    var sIn = $('input[name="q"]', sf), sOut = $("[data-sresults]"), sCount = $("[data-scount]"), sEmpty = $("[data-sempty]"), sBrowse = $("[data-sbrowse]");
+    var S_TYPES = [["post", "저널 글", 8], ["industry", "업종별 인테리어", 5], ["case", "시공 사례", 5], ["faq", "자주 묻는 질문", 6], ["term", "용어 사전", 6], ["topic", "주제별 글 모음", 5], ["ref", "톤앤매너 레퍼런스", 4], ["page", "안내 페이지", 5]];
+    var sIdx = null, sTracked = "";
+    var sEsc = function (t) { return String(t || "").replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+    var squash = function (t) { return String(t || "").toLowerCase().replace(/\s+/g, ""); };
+    var sLoad = function () {
+      if (sIdx) return Promise.resolve(sIdx);
+      return fetch("/data/search.json").then(function (r) { return r.json(); }).then(function (j) {
+        sIdx = (j.items || []).map(function (x) { x._h = squash(x.h); x._k = squash(x.k); x._d = squash(x.d); return x; });
+        return sIdx;
+      });
+    };
+    var sMark = function (text, words) {
+      var re = null;
+      try { re = new RegExp("(" + words.map(function (w) { return w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }).join("|") + ")", "gi"); } catch (e) { re = null; }
+      if (!re) return sEsc(text);
+      return String(text || "").split(re).map(function (part, i) { return i % 2 ? "<mark>" + sEsc(part) + "</mark>" : sEsc(part); }).join("");
+    };
+    var sCut = function (t, n) { t = String(t || ""); return t.length > n ? t.slice(0, n - 1) + "…" : t; };
+    var sItem = function (x, words) {
+      return '<a class="sitem" href="' + sEsc(x.u) + '"><span class="sitem__h">' + sMark(x.h, words) + '</span>' +
+        (x.d ? '<span class="sitem__d">' + sMark(sCut(x.d, 130), words) + "</span>" : "") +
+        '<span class="sitem__u">coremood.kr' + sEsc(x.u.replace(/[?#].*$/, "")) + (x.t === "faq" && x.k ? " · " + sEsc(sCut(x.k, 30)) : "") + "</span></a>";
+    };
+    var sTrack = function (q, n) {
+      var key = q.toLowerCase();
+      if (key === sTracked || q.length < 2 || q.length > 40 || /\d{7,}|@/.test(q)) return; // 전화번호·메일처럼 보이는 입력은 남기지 않습니다
+      sTracked = key;
+      TRK.ev("search", n ? (n > 9 ? "10+" : String(n)) : "0", q);
+      if (typeof window.gtag === "function") window.gtag("event", "search", { search_term: q });
+    };
+    var sRun = function (q, track) {
+      q = String(q || "").replace(/\s+/g, " ").trim();
+      try { history.replaceState(null, "", q ? "/search?q=" + encodeURIComponent(q) : "/search"); } catch (e) {}
+      if (!q) { sOut.innerHTML = ""; sCount.hidden = true; sEmpty.hidden = true; if (sBrowse) sBrowse.hidden = false; return; }
+      sLoad().then(function (list) {
+        var words = q.toLowerCase().split(" ").filter(Boolean).slice(0, 6), whole = squash(q);
+        var score = function (x, need) {
+          var s = 0, got = 0;
+          words.forEach(function (w) {
+            var h = 0;
+            if (x._h.indexOf(w) >= 0) h += 6;
+            if (x._k.indexOf(w) >= 0) h += 3;
+            if (x._d.indexOf(w) >= 0) h += 2;
+            if (h) got++;
+            s += h;
+          });
+          if (got < need) return 0;
+          if (x._h.indexOf(whole) >= 0) s += 8;
+          if (x._h === whole) s += 10;
+          return s;
+        };
+        var pick = function (need) { return list.map(function (x) { return { x: x, s: score(x, need) }; }).filter(function (o) { return o.s > 0; }); };
+        var hits = pick(words.length);
+        if (!hits.length && words.length > 1) hits = pick(Math.ceil(words.length / 2));
+        var html = "";
+        S_TYPES.forEach(function (ty) {
+          var g = hits.filter(function (o) { return o.x.t === ty[0]; }).sort(function (a, b) { return b.s - a.s; });
+          if (!g.length) return;
+          html += '<section class="sgrp"><h2 class="sgrp__t">' + ty[1] + "<small>" + g.length + "건</small></h2>" +
+            g.slice(0, ty[2]).map(function (o) { return sItem(o.x, words); }).join("") +
+            (g.length > ty[2] ? '<div data-smore hidden>' + g.slice(ty[2], 40).map(function (o) { return sItem(o.x, words); }).join("") + '</div><div class="sgrp__more"><button type="button" class="tlink" data-smore-btn>' + ty[1] + " " + (Math.min(g.length, 40) - ty[2]) + "건 더 보기</button></div>" : "") + "</section>";
+        });
+        sOut.innerHTML = html;
+        sCount.hidden = false;
+        sCount.innerHTML = "<strong>‘" + sEsc(q) + "’</strong> 검색 결과 " + hits.length + "건";
+        sEmpty.hidden = hits.length > 0;
+        if (sBrowse) sBrowse.hidden = hits.length > 0;
+        if (track) sTrack(q, hits.length);
+      }).catch(function () { sCount.hidden = false; sCount.textContent = "검색 데이터를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요."; });
+    };
+    sOut.addEventListener("click", function (e) {
+      var b = e.target.closest ? e.target.closest("[data-smore-btn]") : null;
+      if (!b) return;
+      var box = b.parentNode.previousElementSibling;
+      if (box) box.hidden = false;
+      b.parentNode.remove();
+    });
+    sf.addEventListener("submit", function (e) { e.preventDefault(); sRun(sIn.value, true); sIn.blur(); });
+    var sT = null;
+    sIn.addEventListener("input", function () { clearTimeout(sT); sT = setTimeout(function () { sRun(sIn.value, false); }, 220); });
+    $$(".shints a").forEach(function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); sIn.value = a.textContent; sRun(a.textContent, true); window.scrollTo(0, 0); });
+    });
+    var q0 = QS.get("q");
+    if (q0) { sIn.value = q0; sRun(q0, true); }
+    else if (window.matchMedia("(min-width: 901px)").matches) sIn.focus();
+  }
+
+  /* ---------- 용어 사전: 용어 찾기 ---------- */
+  var gl = $("[data-glossary]");
+  if (gl) {
+    var gIn = $("[data-gsearch]", gl), gEmpty = $("[data-gempty]", gl);
+    if (gIn) gIn.addEventListener("input", function () {
+      var q = gIn.value.toLowerCase().replace(/\s+/g, ""), n = 0;
+      $$("[data-ggroup]", gl).forEach(function (g) {
+        var vis = 0;
+        $$(".gterm", g).forEach(function (t) {
+          var hit = !q || (t.getAttribute("data-gterm") + " " + t.textContent).toLowerCase().replace(/\s+/g, "").indexOf(q) >= 0;
+          t.hidden = !hit;
+          if (hit) vis++;
+        });
+        g.hidden = !vis;
+        n += vis;
+      });
+      if (gEmpty) gEmpty.hidden = n > 0;
     });
   }
 

@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /* 코어무드 콘텐츠 점검
-   사용법: node scripts/check.js            → content/ 전체 점검
+   사용법: node scripts/check.js            → content/ 전체 + data/topics.json · data/glossary.json 점검
            node scripts/check.js 파일.md ... → 지정 파일만 점검
-   오류(✗)가 하나라도 있으면 종료 코드 1 */
+   오류(✗)가 하나라도 있으면 종료 코드 1
+   검색·AI 대응 규칙: 글에는 :::summary(핵심 요약)가 있어야 하고, FAQ_FROM 이후 발행하는 글에는 :::faq 도 있어야 합니다. */
 "use strict";
 const fs = require("fs");
 const path = require("path");
@@ -10,6 +11,11 @@ const CM = require("../assets/js/cm-render.js");
 
 const ROOT = path.join(__dirname, "..");
 const rel = (p) => path.relative(ROOT, p);
+const FAQ_FROM = "2026-11-27"; // 이 날짜부터 발행하는 글은 :::faq 블록이 필수입니다
+const readJson = (f, fb) => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, f), "utf8")); } catch (e) { return fb; } };
+const topicsDoc = readJson("data/topics.json", { topics: [] });
+const glossaryDoc = readJson("data/glossary.json", { groups: [] });
+CM.setData({ topics: topicsDoc, glossary: glossaryDoc });
 
 function listMd(dir) {
   const d = path.join(ROOT, dir);
@@ -19,7 +25,10 @@ function listMd(dir) {
 
 // 유효한 내부 경로
 function knownRoutes() {
-  const set = new Set(["/", "/about", "/services", "/portfolio", "/process", "/estimate", "/contact", "/faq", "/industries/", "/journal/", "/feed.xml"]);
+  const set = new Set(["/", "/about", "/services", "/portfolio", "/process", "/estimate", "/contact", "/join", "/faq", "/glossary", "/search", "/industries/", "/journal/", "/feed.xml"]);
+  // 주제 허브: 글이 TOPIC_MIN 편 이상 묶여 실제로 만들어지는 주제만
+  const metas = listMd("content/posts").map((f) => { const d = CM.parseFront(fs.readFileSync(f, "utf8")); return CM.postMeta(path.basename(f, ".md"), d.data, d.body); }).filter((m) => !m.draft);
+  CM.liveTopics({ posts: metas }).forEach((o) => set.add(CM.topicUrl(o.t)));
   CM.INDUSTRIES.forEach((x) => set.add("/industries/" + x.slug));
   CM.CAT_ORDER.forEach((k) => set.add("/journal/category/" + k));
   listMd("content/posts").forEach((f) => set.add("/journal/" + path.basename(f, ".md")));
@@ -95,16 +104,71 @@ function checkFile(file, routes) {
   links.filter((u) => /^\/assets\//.test(u)).forEach((u) => { if (!fs.existsSync(path.join(ROOT, u.slice(1)))) errs.push("없는 이미지: " + u); });
   if (kind !== "page" && internal.length < 2) errs.push(`내부 링크 ${internal.length}개 (최소 2개)`);
   if (kind === "industry" && !/:::faq/.test(body)) errs.push("업종 페이지에는 :::faq 블록이 필요합니다");
-  const blocks = (body.match(/^:::\s*\w+/gm) || []).length, ends = (body.match(/^:::\s*$/gm) || []).length;
+  if (kind === "post") {
+    const dg = CM.digest(body);
+    if (!dg.summary.length) errs.push("핵심 요약(:::summary) 블록이 없습니다 — 본문 맨 위에 2~4줄로 적습니다");
+    else {
+      if (dg.summary.length < 2 || dg.summary.length > 4) errs.push(`핵심 요약은 2~4줄 (지금 ${dg.summary.length}줄)`);
+      if (!/^\s*:::\s*summary/.test(body)) warns.push("핵심 요약(:::summary)은 본문 맨 위에 둡니다");
+      dg.summary.forEach((t, i) => { if (t.length > 140) warns.push(`핵심 요약 ${i + 1}번째 줄이 깁니다 (${t.length}자, 권장 40~120자)`); });
+    }
+    const day = data.date && !isNaN(new Date(data.date)) ? CM.isoDate(data.date) : "";
+    if (!dg.faq.length && day >= FAQ_FROM) errs.push(":::faq 블록이 없습니다 — 독자가 실제로 물을 질문 2~4개와 답을 적습니다");
+    if (dg.faq.length > 6) warns.push(`FAQ ${dg.faq.length}개 (글 하나에 2~4개 권장)`);
+    dg.faq.forEach((f) => { if (f.a.length < 40) warns.push("FAQ 답이 너무 짧습니다: " + f.q); });
+    const meta = CM.postMeta(base, data, body);
+    if (!CM.topicList().some((t) => CM.inTopic(t, meta))) warns.push("주제 허브에 묶이지 않는 글입니다 — 키워드나 앞쪽 태그 두 개에 data/topics.json 의 match 단어를 넣어 주세요");
+  }
+  const blocks = (body.match(/^:::[ \t]*\w+/gm) || []).length, ends = (body.match(/^:::\s*$/gm) || []).length;
   if (blocks !== ends) errs.push(`::: 블록 열고 닫힘 불일치 (${blocks}/${ends})`);
-  return { file, kind, len, errs, warns, data };
+  return { file, kind, len, errs, warns, data, faq: kind === "post" ? CM.digest(body).faq.length : 0 };
+}
+
+// data/topics.json · data/glossary.json · 견적 기준 점검
+function checkData(routes) {
+  const errs = [];
+  const scan = (label, obj) => {
+    JSON.stringify(obj, (k, v) => {
+      if (typeof v === "string" && k !== "_note") BANNED.forEach(([re, msg]) => { const m = v.match(re); if (m) errs.push(`${label}: ${msg}: “${m[0]}”`); });
+      return v;
+    });
+  };
+  const linkOk = (u) => /^https?:\/\//.test(u) || routes.has(String(u).replace(/[?#].*$/, ""));
+  const seen = new Set();
+  (topicsDoc.topics || []).forEach((t) => {
+    if (!/^[a-z0-9-]+$/.test(t.slug || "")) errs.push("topics.json: slug 형식 오류 " + t.slug);
+    if (seen.has(t.slug)) errs.push("topics.json: slug 중복 " + t.slug);
+    seen.add(t.slug);
+    ["name", "title", "desc", "intro"].forEach((k) => { if (!t[k]) errs.push(`topics.json: ${t.slug} 에 ${k} 가 없습니다`); });
+    if (!(t.match || []).length) errs.push(`topics.json: ${t.slug} 에 match 가 없습니다`);
+    if (t.desc && (t.desc.length < 60 || t.desc.length > 170)) errs.push(`topics.json: ${t.slug} desc ${t.desc.length}자 (60~170자)`);
+    (t.links || []).forEach((l) => { if (!linkOk(l[1])) errs.push(`topics.json: ${t.slug} 의 없는 링크 ${l[1]}`); });
+    (t.industries || []).forEach((x) => { if (!CM.INDUSTRIES.some((y) => y.slug === x)) errs.push(`topics.json: ${t.slug} 의 없는 업종 ${x}`); });
+  });
+  scan("topics.json", topicsDoc);
+  const ids = new Set();
+  (glossaryDoc.groups || []).forEach((g) => (g.terms || []).forEach((t) => {
+    if (!/^[a-z0-9-]+$/.test(t.id || "")) errs.push("glossary.json: id 형식 오류 " + t.id);
+    if (ids.has(t.id)) errs.push("glossary.json: id 중복 " + t.id);
+    ids.add(t.id);
+    if (!t.term || !t.def) errs.push("glossary.json: term·def 가 비어 있습니다 " + t.id);
+    if (t.link && !linkOk(t.link[1])) errs.push(`glossary.json: ${t.id} 의 없는 링크 ${t.link[1]}`);
+    if (/인허가|소방|용도\s*변경|영업\s*신고|전기\s*용량|승압|전기\s*증설/.test(t.def || "") && !/별도\s*(의\s*)?확인|별도로\s*확인/.test(t.def)) errs.push(`glossary.json: ${t.id} — 인허가·소방·전기 용량은 ‘별도 확인’으로 안내`);
+  }));
+  scan("glossary.json", glossaryDoc);
+  // 견적 안내 계산기(main.js)와 구조화 데이터·llms.txt(cm-render.js)의 평당 기준이 같은지
+  try {
+    const js = fs.readFileSync(path.join(ROOT, "assets/js/main.js"), "utf8");
+    CM.EST_GRADES.forEach(([name, price]) => { if (!new RegExp('\\["' + name + '",\\s*' + price + ",").test(js)) errs.push(`견적 기준 불일치: ${name} ${price}만 원 (assets/js/main.js 의 GRADE 와 cm-render.js 의 EST_GRADES 를 맞춰 주세요)`); });
+  } catch (e) { /* main.js 없음 */ }
+  return errs;
 }
 
 function main() {
   const args = process.argv.slice(2).filter((a) => !a.startsWith("--"));
   const files = args.length ? args.map((a) => path.resolve(a)) : [...listMd("content/posts"), ...listMd("content/industries"), ...listMd("content/pages")];
   const routes = knownRoutes();
-  let bad = 0;
+  let bad = 0, noFaq = 0;
   const slugs = {};
   files.forEach((f) => {
     const r = checkFile(f, routes);
@@ -118,7 +182,15 @@ function main() {
     r.errs.forEach((e) => console.log("    ✗ " + e));
     r.warns.forEach((w) => console.log("    △ " + w));
     if (r.errs.length) bad++;
+    if (r.kind === "post" && !r.faq) noFaq++;
   });
+  if (!args.length) {
+    const de = checkData(routes);
+    console.log(`${de.length ? "✗" : "✓"} data/topics.json · data/glossary.json · 견적 기준`);
+    de.forEach((e) => console.log("    ✗ " + e));
+    if (de.length) bad++;
+    if (noFaq) console.log(`  · FAQ 블록이 없는 예전 글 ${noFaq}편 (content/AUTOPILOT.md 의 ‘기존 글 보강’으로 하루 한 편씩 채웁니다)`);
+  }
   console.log(`\n${files.length}개 점검 · 오류 ${bad}개 파일`);
   process.exit(bad ? 1 : 0);
 }

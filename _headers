@@ -9,6 +9,7 @@
 
 /data/*
   Cache-Control: public, max-age=0, must-revalidate
+  X-Robots-Tag: noindex
 
 /feed.xml
   Cache-Control: public, max-age=600
@@ -21,3 +22,20 @@
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
   X-Frame-Options: DENY
+
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600
+  X-Robots-Tag: noindex
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600
+  X-Robots-Tag: noindex
+
+/search
+  X-Robots-Tag: noindex, follow

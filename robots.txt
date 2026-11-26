@@ -1,4 +1,37 @@
+# 코어무드 CORE MOOD — https://coremood.kr
+# 이 파일은 scripts/build.js 가 만듭니다. 직접 고치지 말고 assets/js/cm-render.js 의 renderRobots 를 고쳐 주세요.
+# 검색 엔진과 AI 검색 서비스의 수집을 모두 허용하고, 관리자 화면과 원본 폴더만 제외합니다.
+
 User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /content/
+Disallow: /scripts/
+Disallow: /functions/
+Disallow: /cdn-cgi/
+
+# 네이버, 구글, 빙, 다음과 AI 검색 서비스(ChatGPT, Perplexity, Claude, Gemini 등)
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Google-Extended
+User-agent: Yeti
+User-agent: Bingbot
+User-agent: Daum
+User-agent: Daumoa
+User-agent: DuckDuckBot
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: Amazonbot
+User-agent: CCBot
 Allow: /
 Disallow: /admin/
 Disallow: /api/

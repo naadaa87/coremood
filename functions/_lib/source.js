@@ -17,8 +17,15 @@ const RULES = [
   [/(^|\.)zum\.com$/, "줌"],
   [/(^|\.)(chatgpt\.com|openai\.com)$/, "ChatGPT"],
   [/(^|\.)perplexity\.ai$/, "Perplexity"],
-  [/(^|\.)(gemini\.google\.com|bard\.google\.com)$/, "Gemini"]
+  [/(^|\.)(gemini\.google\.com|bard\.google\.com)$/, "Gemini"],
+  [/(^|\.)claude\.ai$/, "Claude"],
+  [/(^|\.)copilot\.microsoft\.com$/, "Copilot"],
+  [/(^|\.)(wrtn\.ai|clova-x\.naver\.com|cue\.search\.naver\.com)$/, "국내 AI 검색"],
+  [/(^|\.)duckduckgo\.com$/, "DuckDuckGo"]
 ];
+// 검색 유입으로 묶어 보는 이름 (KPI 의 ‘검색 · AI 유입’)
+export const SEARCH_SOURCES = ["네이버 검색", "구글", "다음", "Bing", "줌", "DuckDuckGo"];
+export const AI_SOURCES = ["ChatGPT", "Perplexity", "Gemini", "Claude", "Copilot", "국내 AI 검색"];
 
 export function hostOf(ref) {
   try { return new URL(ref).hostname.toLowerCase().replace(/^(www|m)\./, ""); } catch (e) { return ""; }
@@ -34,6 +41,7 @@ export function classifySource(ref, utm, ua) {
   const host = ref ? hostOf(ref) : "";
   if (host) {
     if (/^gemini\.google\.com$/.test(host)) return "Gemini";
+    if (/^(clova-x|cue\.search)\.naver\.com$/.test(host)) return "국내 AI 검색";
     for (const [re, name] of RULES) if (re.test(host)) return name;
     return host.slice(0, 60);
   }

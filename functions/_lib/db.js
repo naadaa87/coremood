@@ -1,7 +1,7 @@
 // 상담 문의 저장소 — Cloudflare D1 (바인딩 이름: DB)
 // 표는 처음 요청 때 자동으로 만들어집니다. 따로 SQL을 실행할 필요가 없습니다.
 // 표 이름에 cm_ 를 붙여 두어, 다른 사이트가 쓰는 D1 데이터베이스를 함께 연결해도 서로 겹치지 않습니다.
-// 표: cm_inquiries(상담 문의) · cm_inquiry_notes(상담 기록) · cm_auth_cache(관리자 확인) · cm_events(방문 통계) · cm_members(회원)
+// 표: cm_inquiries(상담 문의) · cm_inquiry_notes(상담 기록) · cm_auth_cache(관리자 확인) · cm_events(방문 통계) · cm_members(회원) · cm_kv(검색엔진 알림 기록)
 
 export const STATUS = ["new", "contacted", "meeting", "quoted", "won", "hold", "closed"];
 export const STATUS_KO = { new: "새 문의", contacted: "연락 완료", meeting: "미팅·실측", quoted: "견적 발송", won: "계약", hold: "보류", closed: "종료" };
@@ -39,7 +39,9 @@ const SCHEMA = [
     channel TEXT, src TEXT, landing TEXT, ref TEXT, utm TEXT, page TEXT, memo TEXT, ip_hash TEXT, updated_by TEXT)`,
   "CREATE INDEX IF NOT EXISTS cm_idx_mem_created ON cm_members(created_at)",
   "CREATE INDEX IF NOT EXISTS cm_idx_mem_email ON cm_members(email)",
-  "CREATE INDEX IF NOT EXISTS cm_idx_mem_phone ON cm_members(phone)"
+  "CREATE INDEX IF NOT EXISTS cm_idx_mem_phone ON cm_members(phone)",
+  // 간단한 기록 보관 (검색엔진 자동 알림이 마지막으로 본 사이트맵 등)
+  "CREATE TABLE IF NOT EXISTS cm_kv (k TEXT PRIMARY KEY, v TEXT, at TEXT)"
 ];
 
 let ready = false;

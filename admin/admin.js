@@ -171,11 +171,27 @@
       getJson("data/site.json", { notice: { enabled: false, text: "", link: "", linkText: "" } }),
       getJson("data/pages.json", { pages: {} }),
       getJson("data/images.json", { images: [] }),
-      getJson("data/cases.json", { cases: [] })
+      getJson("data/cases.json", { cases: [] }),
+      // 검색·AI 대응 데이터: 주제 허브, 용어 사전, 사이트맵 수정일, 톤앤매너 아카이브, 이미지 크기
+      getJson("data/topics.json", { topics: [] }),
+      getJson("data/glossary.json", { groups: [] }),
+      getJson("data/lastmod.json", {}),
+      getJson("data/archive.json", null),
+      getJson("data/dims.json", {})
     ]).then(function (r) {
       S.index = r[0]; S.queue = r[1]; S.site = r[2]; S.pages = r[3]; S.imagesDoc = r[4]; S.images = (r[4] && r[4].images) || []; S.casesDoc = r[5];
+      S.topics = r[6]; S.glossary = r[7];
       CM.setVerify(S.site && S.site.verify); // 홈 <head> 를 다시 만들 때 소유확인 태그를 유지
+      // 관리자에서 다시 만드는 페이지가 자동 빌드(scripts/build.js)와 같은 결과가 되도록 같은 데이터를 넣어 줍니다
+      CM.setData({ topics: r[6], glossary: r[7], lastmod: r[8], archive: r[9] || undefined, dims: r[10], cases: cases(), channels: (S.site && S.site.channels) || {}, pages: (S.pages && S.pages.pages) || {}, bodies: {}, feedCache: {} });
+      syncSeoData();
     });
+  }
+  // 글 목록(content/index.json)에서 주제 허브·사이트맵에 쓰는 요약 정보를 다시 맞춥니다
+  function syncSeoData() {
+    var dg = {};
+    ((S.index && S.index.posts) || []).forEach(function (p) { dg[p.slug] = { faq: (p.fq || []).map(function (q) { return { q: q, a: "" }; }), toc: [], summary: [] }; });
+    CM.setData({ digest: dg, industries: ((S.index && S.index.industries) || []).map(function (x) { return { slug: x.slug, title: x.title, keyword: x.keyword, lead: x.lead || "", description: x.description || "", hero: x.hero || "" }; }) });
   }
   function cases() { return (S.casesDoc && S.casesDoc.cases) || []; }
 
@@ -565,6 +581,18 @@
       '<div class="panel"><h2>유입 경로 <small>방문 수 기준</small></h2>' + kbars(d.sources.map(function (r) { return { k: r.src || "직접 방문", n: r.n }; }), { total: srcTotal }) + "</div>" +
       '<div class="panel"><h2>처음 들어온 페이지</h2>' + kbars(d.landing.map(function (r) { return { k: titleOf(r), n: r.n, title: r.path }; }), { total: srcTotal }) + "</div>" +
       '<div class="panel"><h2>캠페인 <small>utm 주소로 들어온 방문</small></h2>' + kbars(d.campaigns.map(function (r) { return { k: utmName(r.utm), n: r.n, title: r.utm }; }), { share: false, empty: "캠페인 주소(utm)로 들어온 방문이 없습니다. 블로그·인스타그램 링크에 ?utm_source=blog 처럼 붙이면 여기서 따로 셀 수 있습니다." }) + "</div></div>";
+    // 검색엔진과 AI 검색으로 들어온 방문, 사이트 안에서 찾은 말
+    var find = d.find || { sources: [], landing: [], ai: [] };
+    var findTotal = find.sources.reduce(function (s, r) { return s + r.n; }, 0);
+    var aiTotal = find.sources.filter(function (r) { return (find.ai || []).indexOf(r.src) >= 0; }).reduce(function (s, r) { return s + r.n; }, 0);
+    html += '<div class="grid g3 kgrid">' +
+      '<div class="panel"><h2>검색 · AI 유입 <small>전체 방문의 ' + (srcTotal ? Math.round(findTotal / srcTotal * 100) : 0) + "%</small></h2>" +
+      kbars(find.sources.map(function (r) { return { k: r.src, sub: (find.ai || []).indexOf(r.src) >= 0 ? "AI 검색" : "", n: r.n }; }), { total: findTotal, empty: "검색엔진이나 AI 검색으로 들어온 방문이 아직 없습니다. 네이버 서치어드바이저와 구글 서치 콘솔에 사이트맵을 제출했는지 확인해 보세요." }) +
+      '<p class="tiny" style="margin-top:12px">검색 ' + (findTotal - aiTotal) + "회 · AI 검색(ChatGPT, Perplexity 등) " + aiTotal + "회. 네이버·구글 앱 안에서 열린 방문은 ‘직접 방문’이나 ‘네이버 앱’으로 잡히기도 합니다.</p></div>" +
+      '<div class="panel"><h2>검색으로 처음 들어온 페이지</h2>' + kbars(find.landing.map(function (r) { return { k: titleOf(r), n: r.n, title: r.path }; }), { total: findTotal, empty: "아직 기록이 없습니다." }) +
+      '<p class="tiny" style="margin-top:12px">여기 자주 나오는 글이 검색에서 잘 잡히는 글입니다. 같은 주제의 글을 발행 계획에 더 넣어 보세요.</p></div>' +
+      '<div class="panel"><h2>사이트 안에서 찾은 말 <small>검색 페이지</small></h2>' + kbars((d.searches || []).map(function (r) { return { k: r.label, sub: r.zero ? "결과 없음 " + r.zero + "회" : "", n: r.n }; }), { share: false, empty: "아직 사이트 검색 기록이 없습니다. 방문자가 검색 페이지에서 찾은 말이 여기 모입니다." }) +
+      '<p class="tiny" style="margin-top:12px">‘결과 없음’이 붙은 말은 방문자가 찾았지만 글이 없는 주제입니다. 발행 계획에 넣을 후보입니다.</p></div></div>';
     var devTotal = d.devices.reduce(function (s, r) { return s + r.n; }, 0);
     var reg = {};
     d.regions.forEach(function (r) { var k = r.country && r.country !== "KR" ? "해외 (" + r.country + ")" : REGION_KO[r.region] || r.region || "알 수 없음"; reg[k] = (reg[k] || 0) + r.n; });
@@ -835,12 +863,20 @@
     add(h2 >= 4 ? "ok" : h2 >= 3 ? "warn" : "bad", "소제목(##) " + h2 + "개");
     var links = (body.match(/\]\(\/(?!assets)[^)]*\)/g) || []).length;
     add(links >= 3 ? "ok" : links >= 2 ? "warn" : "bad", "내부 링크 " + links + "개 (권장 3~5개)");
+    if (kind === "post") {
+      // 검색 결과와 AI 답변에 인용되기 쉬운 구조인지
+      var dg = CM.digest(body);
+      add(dg.summary.length >= 2 && dg.summary.length <= 4 ? "ok" : "bad", dg.summary.length ? "핵심 요약 " + dg.summary.length + "줄 (2~4줄)" : "핵심 요약(:::summary)이 없습니다 — 본문 맨 위에 2~4줄");
+      add(dg.faq.length >= 2 ? "ok" : dg.faq.length ? "warn" : "bad", dg.faq.length ? "자주 묻는 질문 " + dg.faq.length + "개 (권장 2~4개)" : "자주 묻는 질문(:::faq)이 없습니다 — 2~4문항");
+      var tm = CM.topicList().filter(function (t) { return CM.inTopic(t, { keyword: d.keyword, tags: d.tags || [] }); });
+      add(tm.length ? "ok" : "warn", tm.length ? "주제별 글 모음: " + tm.map(function (t) { return t.name; }).slice(0, 3).join(", ") : "주제별 글 모음에 묶이지 않습니다 — 키워드나 앞쪽 태그 두 개를 확인해 주세요");
+    }
     if (/^#\s/m.test(body)) add("bad", "본문에 # 제목(H1)은 쓰지 않습니다");
     var txt = (d.title || "") + " " + (d.description || "") + " " + body;
     BANNED.forEach(function (b) { var m = txt.match(b[0]); if (m) add("bad", b[1] + ": “" + m[0] + "”"); });
     if (/340/.test(txt) && !/10여 년간 340개 이상/.test(txt)) add("bad", "실적은 ‘10여 년간 340개 이상 프로젝트’로만 표기");
     if (/인허가|소방|용도\s*변경|영업\s*신고|전기\s*용량|승압|전기\s*증설/.test(txt) && !/별도\s*(의\s*)?확인/.test(txt)) add("bad", "인허가·소방·전기 용량 언급 시 ‘별도 확인’ 안내 필요");
-    var b = (body.match(/^:::\s*\w+/gm) || []).length, e = (body.match(/^:::\s*$/gm) || []).length;
+    var b = (body.match(/^:::[ \t]*\w+/gm) || []).length, e = (body.match(/^:::\s*$/gm) || []).length;
     if (b !== e) add("bad", "::: 블록 열고 닫힘이 맞지 않습니다");
     var ex = (txt.match(/!/g) || []).length; if (ex > 1) add("warn", "느낌표 " + ex + "회");
     return out;
@@ -854,10 +890,11 @@
     h2: ["\n## ", "소제목", "\n"], h3: ["\n### ", "작은 소제목", "\n"], b: ["**", "굵게", "**"], link: ["[", "링크 글자", "](/estimate)"],
     ul: ["\n- ", "항목", "\n"], note: ["\n:::note 메모 제목\n", "내용", "\n:::\n"], check: ["\n:::check 체크리스트 제목\n- ", "확인할 항목", "\n- \n:::\n"],
     table: ["\n| 구분 | 내용 |\n|---|---|\n| ", "항목", " | 설명 |\n"], spec: ["\n:::spec\n", "업종: 카페", "\n면적: \n기간: \n범위: \n:::\n"],
-    faq: ["\n:::faq\nQ. ", "질문", "\n답변 문단\n\nQ. 다음 질문\n답변\n:::\n"]
+    faq: ["\n:::faq\nQ. ", "질문", "\n답변 문단\n\nQ. 다음 질문\n답변\n:::\n"],
+    summary: ["\n:::summary\n- ", "제목이 묻는 것에 대한 직접적인 답 한 줄", "\n- 가장 중요한 판단 기준\n- 놓치기 쉬운 조건이나 다음에 할 일\n:::\n"]
   };
   function toolbar(id) {
-    return '<div class="tool" data-for="' + id + '">' + [["h2", "소제목"], ["h3", "작은 소제목"], ["b", "굵게"], ["link", "링크"], ["ul", "목록"], ["check", "체크리스트"], ["note", "메모"], ["table", "표"], ["spec", "요약표"], ["faq", "FAQ"], ["img", "이미지 넣기"]]
+    return '<div class="tool" data-for="' + id + '">' + [["h2", "소제목"], ["h3", "작은 소제목"], ["b", "굵게"], ["link", "링크"], ["ul", "목록"], ["summary", "핵심 요약"], ["check", "체크리스트"], ["note", "메모"], ["table", "표"], ["spec", "요약표"], ["faq", "FAQ"], ["img", "이미지 넣기"]]
       .map(function (x) { return '<button type="button" data-snip="' + x[0] + '">' + x[1] + "</button>"; }).join("") + "</div>";
   }
   function bindToolbar(onImg) {
@@ -959,7 +996,7 @@
       if (isNew) {
         var tomorrow = new Date();
         d = { title: "", slug: "", date: new Date().toISOString(), category: "interior", keyword: "", tags: [], description: "", cover: (S.images[0] || {}).src || "", coverAlt: (S.images[0] || {}).alt || "", draft: true };
-        body = "도입 문단을 씁니다. 첫 문단에 핵심 키워드를 자연스럽게 한 번 넣어 주세요.\n\n## 첫 번째 소제목\n\n본문\n\n## 두 번째 소제목\n\n본문\n\n## 다음에 할 일\n\n마무리 문단과 [상담 신청](/contact) 같은 관련 페이지 링크.\n";
+        body = ":::summary\n- 제목이 묻는 것에 대한 직접적인 답 한 줄\n- 가장 중요한 판단 기준\n- 놓치기 쉬운 조건이나 다음에 할 일\n:::\n\n도입 문단을 씁니다. 첫 문단에 핵심 키워드를 자연스럽게 한 번 넣어 주세요.\n\n## 첫 번째 소제목\n\n본문\n\n## 두 번째 소제목\n\n본문\n\n## 자주 묻는 질문\n\n:::faq\nQ. 독자가 실제로 물을 질문\n첫 문장에서 바로 답하고, 조건을 덧붙입니다.\n\nQ. 다음 질문\n답변\n:::\n\n## 다음에 할 일\n\n마무리 문단과 [상담 신청](/contact) 같은 관련 페이지 링크.\n";
       }
       var orig = isNew ? "" : slug;
       var origEntry = (S.index.posts || []).filter(function (p) { return p.slug === orig; })[0];
@@ -970,7 +1007,7 @@
         '<div class="f"><label for="e-kw">핵심 키워드</label><input class="in" id="e-kw" value="' + h(d.keyword) + '" placeholder="예: 카페 인테리어 비용"></div></div>' +
         '<div class="f"><label for="e-desc">설명 (검색 결과에 보이는 문장) <small id="c-desc"></small></label><textarea class="ta" id="e-desc" style="min-height:76px">' + h(d.description) + "</textarea></div>" +
         '</div><div class="panel"><div class="tabs"><button type="button" class="on" data-tab="write">본문 쓰기</button><button type="button" data-tab="preview">실제 화면 미리보기</button></div>' +
-        '<div id="tab-write">' + toolbar("e-body") + '<textarea class="ta ta--code" id="e-body" spellcheck="false">' + h(body) + '</textarea><p class="tiny" style="margin-top:8px">문법 안내: ## 소제목 · **굵게** · [글자](/주소) · :::check / :::note / :::faq 블록 — 자세한 내용은 사용 안내의 ‘글쓰기 규칙’</p></div>' +
+        '<div id="tab-write">' + toolbar("e-body") + '<textarea class="ta ta--code" id="e-body" spellcheck="false">' + h(body) + '</textarea><p class="tiny" style="margin-top:8px">문법 안내: ## 소제목 · **굵게** · [글자](/주소) · :::summary(핵심 요약) / :::check / :::note / :::faq 블록 — 자세한 내용은 사용 안내의 ‘글쓰기 규칙’</p></div>' +
         '<div id="tab-preview" hidden><iframe class="pv" id="pv" title="미리보기"></iframe></div></div></div>' +
         '<div class="ed__side"><div class="panel"><h2>발행</h2>' +
         '<div class="f"><label for="e-cat">분류</label><select class="sel" id="e-cat">' + CM.CAT_ORDER.map(function (k) { return '<option value="' + k + '"' + (d.category === k ? " selected" : "") + ">" + catName(k) + "</option>"; }).join("") + "</select></div>" +
@@ -1072,6 +1109,7 @@
       { path: "data/posts.json", content: CM.postsJson(ctx) }
     ];
     CM.CAT_ORDER.forEach(function (k) { files.push({ path: "journal/category/" + k + ".html", content: CM.renderCategory(k, ctx) }); });
+    CM.liveTopics(ctx).forEach(function (o) { files.push({ path: "journal/topic/" + o.t.slug + ".html", content: CM.renderTopic(o.t, ctx) }); });
     if (homeHtml && S.pages && S.pages.pages && S.pages.pages.index) files.push({ path: "index.html", content: CM.injectPartials(homeHtml, "index", { posts: live, cases: cases(), pageMeta: S.pages.pages.index }) });
     return { files: files, ctx: ctx };
   }
@@ -1079,10 +1117,15 @@
   function savePost(c, body, orig, origEntry, pend, makeOg) {
     busy("저장하는 중입니다 (최신 목록 확인)");
     var fresh, homeHtml, ogKeys;
-    Promise.all([getJson("content/index.json", { posts: [], industries: [], pages: [] }), getText("index.html").catch(function () { return { text: "" }; }), getJson("content/og-keys.json", {})])
+    Promise.all([getJson("content/index.json", { posts: [], industries: [], pages: [] }), getText("index.html").catch(function () { return { text: "" }; }), getJson("content/og-keys.json", {}), getText("feed.xml").catch(function () { return { text: "" }; })])
       .then(function (r) {
         fresh = r[0]; homeHtml = r[1].text; ogKeys = r[2];
         var meta = CM.postMeta(c.slug, c, body); meta.slug = c.slug;
+        // RSS 본문은 이미 발행된 내용을 그대로 두고 이 글만 새로 만듭니다. 주제 허브의 질문 목록도 이 글 기준으로 맞춥니다
+        var dgOne = CM.digest(body), bd = {};
+        bd[c.slug] = body;
+        meta.fq = dgOne.faq.map(function (f) { return f.q; }); meta.sum = dgOne.summary.length;
+        CM.setData({ feedCache: CM.feedCache(r[3].text), bodies: bd });
         var files = [];
         Object.keys(pend).forEach(function (p) { if (body.indexOf(p) >= 0 || c.cover === p) files.push({ path: p.slice(1), bytes: pend[p].bytes }); });
         var ogP = Promise.resolve();
@@ -1114,6 +1157,7 @@
           var entry = Object.assign({}, meta, { status: statusOf(meta), file: "content/posts/" + c.slug + ".md" });
           posts.push(entry);
           posts = CM.sortPosts(posts);
+          var keep = S.index; S.index = Object.assign({}, fresh, { posts: posts }); syncSeoData(); S.index = keep;
           var jf = journalFiles(posts, homeHtml);
           if (CM.isLive(meta)) files.push({ path: "journal/" + c.slug + ".html", content: CM.renderPost(meta, body, jf.ctx) });
           else if (prevLive && orig === c.slug) files.push({ path: "journal/" + c.slug + ".html", delete: true });
@@ -1136,8 +1180,9 @@
   }
   function deletePost(slug, entry) {
     busy("삭제하는 중");
-    Promise.all([getJson("content/index.json", { posts: [] }), getText("index.html").catch(function () { return { text: "" }; })]).then(function (r) {
+    Promise.all([getJson("content/index.json", { posts: [] }), getText("index.html").catch(function () { return { text: "" }; }), getText("feed.xml").catch(function () { return { text: "" }; })]).then(function (r) {
       var fresh = r[0];
+      CM.setData({ feedCache: CM.feedCache(r[2].text), bodies: {} });
       var files = [{ path: "content/posts/" + slug + ".md", delete: true }];
       var was = (fresh.posts || []).filter(function (p) { return p.slug === slug; })[0];
       if (was && CM.isLive(was)) files.push({ path: "journal/" + slug + ".html", delete: true });
@@ -1610,7 +1655,7 @@
         busy("GitHub에 반영하는 중");
         return commit(files, "cases: " + (c ? (src ? "수정 " : "추가 ") + c.title : "삭제 " + src.title));
       }).then(function () {
-        S.casesDoc = doc; busy();
+        S.casesDoc = doc; CM.setData({ cases: cases() }); busy();
         toast(c ? "저장했습니다. 1~2분 뒤 사이트에 반영됩니다." : "삭제했습니다.");
         if (c && !c.draft) pingIndex([SITE.url + "/projects/" + c.slug, SITE.url + "/portfolio"], true);
         location.hash = c ? "#/case/" + encodeURIComponent(c.slug) : "#/cases";
@@ -1726,18 +1771,22 @@
       '<div class="f"><label for="o-nv">네이버 애널리틱스 ID</label><input class="in" id="o-nv" value="' + h(oa.naver || "") + '" placeholder="예: 1a2b3c4d5e6f7"></div></div>' +
       '<div class="f"><label for="o-ts">스팸 방지 Turnstile 사이트 키 <small>비밀 키는 Cloudflare 변수 TURNSTILE_SECRET에</small></label><input class="in" id="o-ts" value="' + h(ots.siteKey || "") + '" placeholder="0x4AAAAAAA..."></div>' +
       '<div class="row" style="margin-top:14px"><button class="btn" id="o-save">저장</button><a class="btn btn--ghost" href="#/setup">설정 방법 보기</a></div></div>' +
-      '<div class="panel"><h2>검색엔진에 바로 알리기 <small>IndexNow · 네이버 · 빙</small></h2><p class="small muted" style="margin-bottom:10px">새 글이나 고친 페이지 주소를 검색엔진에 즉시 알립니다. 글을 저장할 때 자동으로도 보냅니다. 한 줄에 주소 하나.</p>' +
+      '<div class="panel"><h2>검색엔진에 바로 알리기 <small>IndexNow · 네이버 · 빙</small></h2><p class="small muted" style="margin-bottom:10px">새 글이나 고친 페이지 주소를 검색엔진에 즉시 알립니다. 관리자에서 글을 저장할 때, 그리고 매일 아침 자동 발행된 뒤에도 사이트가 바뀐 주소를 찾아 자동으로 보냅니다. 급할 때만 여기서 직접 보내면 됩니다. 한 줄에 주소 하나.</p>' +
       '<textarea class="ta" id="ix" style="min-height:150px">' + h(recent.join("\n")) + '</textarea><div class="row" style="margin-top:10px"><button class="btn btn--olive" id="ix-go">보내기</button></div></div></div>' +
       '<div><div class="panel"><h2>검색엔진 소유확인 <small>HTML 태그 방식 · 권장</small></h2><p class="small muted" style="margin-bottom:12px">네이버 서치어드바이저나 구글 서치 콘솔에서 ‘HTML 태그’를 고르면 나오는 메타 태그를 그대로 붙여 넣으세요. 홈페이지 &lt;head&gt;에 들어가고, 1~2분 뒤 소유확인 버튼을 누르면 됩니다.</p>' +
       '<div class="f"><label for="vt-naver">네이버 <small>' + (vf.naver ? "적용 중" : "미적용") + '</small></label><input class="in" id="vt-naver" value="' + h(vf.naver || "") + '" placeholder="&lt;meta name=&quot;naver-site-verification&quot; content=&quot;…&quot; /&gt;"></div>' +
       '<div class="f"><label for="vt-google">구글 <small>' + (vf.google ? "적용 중" : "미적용") + '</small></label><input class="in" id="vt-google" value="' + h(vf.google || "") + '" placeholder="&lt;meta name=&quot;google-site-verification&quot; content=&quot;…&quot; /&gt;"></div>' +
+      '<div class="f"><label for="vt-bing">빙(Bing) <small>' + (vf.bing ? "적용 중" : "미적용") + ' · 구글 서치 콘솔에서 가져오기를 쓰면 비워 둬도 됩니다</small></label><input class="in" id="vt-bing" value="' + h(vf.bing || "") + '" placeholder="&lt;meta name=&quot;msvalidate.01&quot; content=&quot;…&quot; /&gt;"></div>' +
       '<div class="row" style="margin-top:12px"><button class="btn" id="vt-save">소유확인 태그 저장</button><a class="btn btn--ghost" href="/" target="_blank" rel="noopener">홈 열기 ↗</a></div></div>' +
+      '<div class="panel"><h2>운영 채널 주소 <small>검색엔진 · AI에 같은 브랜드로 알리기</small></h2><p class="small muted" style="margin-bottom:12px">블로그, 플레이스, 인스타그램 같은 공식 채널 주소를 넣으면 홈페이지 아래쪽에 링크가 생기고, 검색엔진과 AI가 읽는 정보(sameAs)에도 들어가 채널과 홈페이지를 같은 브랜드로 묶어 줍니다. 운영하지 않는 채널은 비워 두세요.</p>' +
+      CM.CHANNEL_KEYS.map(function (k) { return '<div class="f"><label for="ch-' + k[0] + '">' + k[1] + '</label><input class="in" id="ch-' + k[0] + '" value="' + h((S.site && S.site.channels && S.site.channels[k[0]]) || "") + '" placeholder="https://"></div>'; }).join("") +
+      '<div class="row" style="margin-top:12px"><button class="btn" id="ch-save">채널 주소 저장</button></div><p class="tiny" style="margin-top:10px">홈 화면에는 바로, 나머지 페이지에는 다음 자동 발행(매일 오전 10시) 때 반영됩니다.</p></div>' +
       '<div class="panel"><h2>소유확인 파일 <small>보조 방법</small></h2><p class="small muted" style="margin-bottom:12px">‘HTML 파일 업로드’ 방식용입니다. 호스팅(Cloudflare Pages)이 <code>.html</code> 주소를 확장자 없는 주소로 넘겨 주기 때문에 확인이 실패할 수 있습니다. 가능하면 위의 HTML 태그 방식을 쓰세요.</p>' +
       '<div class="f"><label for="v-name">파일 이름</label><input class="in" id="v-name" placeholder="예: naver1a2b3c....html 또는 google1a2b....html"></div>' +
       '<div class="f"><label for="v-body">파일 내용 <small>받은 파일을 메모장으로 열어 전체 복사</small></label><textarea class="ta" id="v-body" style="min-height:90px"></textarea></div>' +
       '<div class="row" style="margin-top:10px"><button class="btn" id="v-save">사이트에 올리기</button><button class="btn btn--ghost" id="v-file">파일 선택</button></div><div id="v-list" class="tiny" style="margin-top:12px"></div></div>' +
       '<div class="panel"><h2>서버 기능 연결 상태</h2><p class="small">상담 문의 저장, 새 문의 알림, 스팸 방지 연결 상태는 <a href="#/setup">설정 점검</a>에서 확인합니다.</p></div></div></div>';
-    shell("settings", "사이트 설정", "공지, 상담 버튼, 방문 분석, 스팸 방지, 검색엔진 등록", "", body);
+    shell("settings", "사이트 설정", "공지, 상담 버튼, 방문 분석, 스팸 방지, 검색엔진 등록, 운영 채널", "", body);
     $("#n-save").addEventListener("click", function () {
       S.site = S.site || {};
       S.site.notice = { enabled: $("#n-on").checked, text: $("#n-text").value.trim(), link: $("#n-link").value.trim(), linkText: $("#n-lt").value.trim() };
@@ -1748,15 +1797,29 @@
     $("#vt-save").addEventListener("click", function () {
       // 메타 태그 전체를 붙여 넣어도, content 값만 넣어도 됩니다
       var pick = function (v) { v = (v || "").trim(); var m = /content\s*=\s*["']([^"']+)["']/i.exec(v); return (m ? m[1] : v).replace(/[^A-Za-z0-9_\-]/g, ""); };
-      var next = { naver: pick($("#vt-naver").value), google: pick($("#vt-google").value) };
+      var next = { naver: pick($("#vt-naver").value), google: pick($("#vt-google").value), bing: pick($("#vt-bing").value) };
       var home = S.pages && S.pages.pages && S.pages.pages.index;
       if (!home) return toast("홈 페이지 정보를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.", true);
       busy("저장하는 중");
       getText("index.html").then(function (r) {
         S.site = S.site || {}; S.site.verify = next; CM.setVerify(next);
         var html = CM.injectPartials(r.text, "index", { pageMeta: home });
-        return commit([{ path: "data/site.json", content: JSON.stringify(S.site, null, 2) + "\n" }, { path: "index.html", content: html }], "verify: 검색엔진 소유확인 태그 " + (next.naver || next.google ? "적용" : "삭제"));
+        return commit([{ path: "data/site.json", content: JSON.stringify(S.site, null, 2) + "\n" }, { path: "index.html", content: html }], "verify: 검색엔진 소유확인 태그 " + (next.naver || next.google || next.bing ? "적용" : "삭제"));
       }).then(function () { busy(); toast("저장했습니다. 1~2분 뒤 홈에 반영되면 소유확인 버튼을 눌러 주세요."); settingsView(); })
+        .catch(function (e) { busy(); toast("저장하지 못했습니다: " + e.message, true); });
+    });
+    $("#ch-save").addEventListener("click", function () {
+      var next = {}, bad = "";
+      CM.CHANNEL_KEYS.forEach(function (k) { var v = $("#ch-" + k[0]).value.trim(); if (v && !/^https:\/\//.test(v)) bad = k[1]; if (v) next[k[0]] = v; });
+      if (bad) return toast(bad + " 주소는 https:// 로 시작해야 합니다.", true);
+      var home = S.pages && S.pages.pages && S.pages.pages.index;
+      if (!home) return toast("홈 페이지 정보를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.", true);
+      busy("저장하는 중");
+      getText("index.html").then(function (r) {
+        S.site = S.site || {}; S.site.channels = next; CM.setData({ channels: next });
+        var html = CM.injectPartials(r.text, "index", { posts: livePosts(), cases: cases(), pageMeta: home });
+        return commit([{ path: "data/site.json", content: JSON.stringify(S.site, null, 2) + "\n" }, { path: "index.html", content: html }], "site: 운영 채널 주소 " + (Object.keys(next).length ? "설정" : "삭제"));
+      }).then(function () { busy(); toast("저장했습니다. 홈 화면에는 1~2분 뒤, 나머지 페이지에는 다음 자동 발행 때 반영됩니다."); })
         .catch(function (e) { busy(); toast("저장하지 못했습니다: " + e.message, true); });
     });
     $("#o-save").addEventListener("click", function () {
@@ -1833,7 +1896,12 @@
       '<section class="panel su"><h2>' + mark(vf.naver ? "ok" : "warn") + ' 4. 검색엔진 등록</h2>' +
       '<ul class="seo"><li class="' + (vf.naver ? "ok" : "warn") + '"><span class="i">' + (vf.naver ? "✓" : "!") + "</span><span>네이버 서치어드바이저 소유확인 태그 " + (vf.naver ? "적용됨" : "없음") + " — 사이트맵 <code>/sitemap.xml</code>, RSS <code>/feed.xml</code> 제출</span></li>" +
       '<li class="' + (vf.google ? "ok" : "warn") + '"><span class="i">' + (vf.google ? "✓" : "!") + "</span><span>구글 서치 콘솔 소유확인 태그 " + (vf.google ? "적용됨" : "없음 — HTML 태그 방식으로 받아 사이트 설정에 저장") + "</span></li>" +
-      '<li class="ok"><span class="i">✓</span><span>새 글·사례 저장 때 IndexNow로 검색엔진에 자동 알림</span></li></ul></section>' +
+      '<li class="' + (vf.bing ? "ok" : "warn") + '"><span class="i">' + (vf.bing ? "✓" : "!") + "</span><span>빙(Bing) 웹마스터 도구 " + (vf.bing ? "소유확인 태그 적용됨" : "— bing.com/webmasters 에서 ‘구글 서치 콘솔에서 가져오기’로 등록하면 가장 빠릅니다. 빙에 등록되면 ChatGPT 검색과 코파일럿에도 잡히기 쉬워집니다") + "</span></li>" +
+      '<li class="warn"><span class="i">!</span><span>다음(Daum) 검색 등록 — register.search.daum.net 에서 사이트 주소를 한 번 등록합니다</span></li>' +
+      '<li class="ok"><span class="i">✓</span><span>새 글·바뀐 페이지를 IndexNow로 네이버·빙에 자동 알림 (관리자 저장 때 + 매일 자동 발행 뒤)</span></li>' +
+      '<li class="ok"><span class="i">✓</span><span>AI 검색 대응 파일 — <a href="/robots.txt" target="_blank" rel="noopener">robots.txt</a> · <a href="/llms.txt" target="_blank" rel="noopener">llms.txt</a> · <a href="/llms-full.txt" target="_blank" rel="noopener">llms-full.txt</a> · <a href="/sitemap.xml" target="_blank" rel="noopener">sitemap.xml</a> · <a href="/feed.xml" target="_blank" rel="noopener">feed.xml</a></span></li></ul>' +
+      '<div class="su__st" data-st="ix"></div>' +
+      '<p class="tiny" style="margin-top:10px">Cloudflare 대시보드의 <b>Security → Bots</b>(또는 AI Audit)에 ‘AI 봇 차단’이 켜져 있으면 ChatGPT·Perplexity 같은 AI 검색이 사이트를 읽지 못합니다. AI 검색 노출을 원하시면 꺼 두세요.</p></section>' +
       '<section class="panel su"><h2>' + mark((cfg.analytics && (cfg.analytics.ga4 || cfg.analytics.naver)) ? "ok" : "off") + ' 5. 방문 분석 <small>선택</small></h2>' +
       '<p class="small" style="margin-bottom:10px">방문자·페이지뷰·체류 시간·클릭은 따로 설정하지 않아도 coremood-db에 모여 <a href="#/kpi">KPI 지표</a>에서 볼 수 있습니다. 아래 서비스는 검색어 분석처럼 더 자세한 정보가 필요할 때 함께 씁니다.</p>' +
       '<ul class="bul2"><li><b>Cloudflare Web Analytics</b> (무료, 쿠키 없음): Workers &amp; Pages → coremood → <b>Metrics → Web Analytics → Enable</b>. 다음 배포부터 자동으로 집계됩니다.</li>' +
@@ -1860,6 +1928,8 @@
       put("nt", '<ul class="seo">' + [["email", "이메일" + (r.notifyEmail ? " → " + r.notifyEmail : "")], ["telegram", "텔레그램"], ["webhook", "웹후크"]].map(function (x) {
         return '<li class="' + (n[x[0]] ? "ok" : "warn") + '"><span class="i">' + (n[x[0]] ? "✓" : "–") + "</span><span>" + h(x[1]) + (n[x[0]] ? " 설정됨" : " 미설정") + "</span></li>";
       }).join("") + "</ul>");
+      var ix = r.indexnowAuto;
+      put("ix", ix ? '<div class="note' + (ix.ok ? "" : " warn") + '">검색엔진 자동 알림 · 마지막 전송 ' + h(String(ix.at).slice(0, 16).replace("T", " ")) + " (UTC) · 주소 " + ix.count + "개 · " + (ix.ok ? "전송됨" : "응답 오류 — 잠시 뒤 자동으로 다시 시도합니다") + "</div>" : '<div class="tiny">검색엔진 자동 알림 기록이 아직 없습니다. 배포 뒤 첫 방문이 들어오면 사이트맵의 주소를 한 번에 보냅니다.</div>');
       var tsSt = r.turnstile && ts ? "ok" : !r.turnstile && !ts ? "off" : "bad";
       setMark("su-ts", tsSt);
       put("ts", tsSt === "ok" ? '<div class="note">사이트 키와 비밀 키가 모두 설정되어 있습니다.</div>' : tsSt === "off" ? '<div class="tiny">아직 쓰지 않습니다. 숨김 칸 검사와 ‘같은 곳에서 10분에 5건까지’ 제한 같은 기본 스팸 차단은 이미 동작합니다.</div>' :
@@ -1885,7 +1955,12 @@
       "<h3>시공 사례 추가</h3><p>시공 사례 → 새 사례 추가. 시공 전·후 대표 사진 두 장과 현장 이야기를 넣으면 <code>/projects/영문주소</code> 페이지가 만들어지고, ‘대표 사례’를 켜면 홈과 프로젝트 페이지의 전후 비교 슬라이더에도 나옵니다. 지역과 업종이 들어간 사례 페이지는 ‘강남 카페 인테리어’ 같은 지역 검색에 잡히기 좋습니다.</p>" +
       "<h3>상담 문의 관리</h3><ul><li>새 문의는 ‘새 문의’ 상태로 들어옵니다. 연락한 뒤 상태를 바꾸고 <b>다음 연락일</b>을 정해 두면 대시보드 ‘오늘 할 일’에 다시 나타납니다.</li><li>통화 내용은 ‘상담 기록 추가’에 남기면 시간순으로 쌓입니다.</li><li>전화·카카오톡으로 받은 문의도 ‘문의 직접 등록’으로 같은 목록에서 관리하세요.</li><li>각 문의의 ‘유입 경로’에서 어떤 글이나 검색을 보고 들어왔는지 확인할 수 있습니다.</li></ul>" +
       "<h3>KPI 지표와 회원</h3><ul><li><b>KPI 지표</b>: 기간을 고르면 방문자, 페이지뷰, 체류 시간, 이탈률, 상담 연결 클릭, 문의 전환율, 회원 가입을 바로 앞 같은 기간과 비교해 보여 줍니다. CSV로 내려받아 보고서에 쓸 수 있습니다.</li><li><b>회원</b>: 홈페이지 /join 에서 가입한 분과 직접 등록한 분을 관리합니다. 소식을 보낼 때는 ‘소식 수신 동의’ 회원만 골라 CSV로 내려받으세요.</li><li>관리자로 로그인한 브라우저의 방문은 통계에서 자동으로 빠집니다.</li></ul>" +
-      "<h3>글쓰기 규칙</h3><ul><li>실적은 ‘10여 년간 340개 이상 프로젝트’로만 씁니다.</li><li>최고·1위·보장 같은 표현은 쓰지 않습니다.</li><li>인허가·소방·전기 용량은 ‘별도 확인 항목’으로 안내합니다.</li><li>소제목은 <code>## </code>, 체크리스트는 <code>:::check 제목</code> … <code>:::</code>, 자주 묻는 질문은 <code>:::faq</code> 안에 <code>Q. 질문</code> 다음 줄에 답변.</li></ul>" +
+      "<h3>글쓰기 규칙</h3><ul><li>실적은 ‘10여 년간 340개 이상 프로젝트’로만 씁니다.</li><li>최고·1위·보장 같은 표현은 쓰지 않습니다.</li><li>인허가·소방·전기 용량은 ‘별도 확인 항목’으로 안내합니다.</li><li>소제목은 <code>## </code>, 체크리스트는 <code>:::check 제목</code> … <code>:::</code>, 자주 묻는 질문은 <code>:::faq</code> 안에 <code>Q. 질문</code> 다음 줄에 답변.</li><li>글 맨 위에는 <code>:::summary</code> 로 핵심 요약 2~4줄을 넣습니다. 첫 줄은 제목이 묻는 것에 대한 직접적인 답입니다.</li></ul>" +
+      "<h3>검색 · AI 검색 노출</h3><ul><li><b>핵심 요약과 FAQ</b>: 글마다 핵심 요약(:::summary)과 자주 묻는 질문(:::faq)을 넣으면 네이버·구글의 요약 답변과 ChatGPT·Perplexity 같은 AI 검색이 가져다 쓰기 쉬워집니다. 편집 화면 오른쪽 점검 목록에서 확인할 수 있습니다.</li>" +
+      "<li><b>주제별 글 모음</b>: 글의 키워드와 앞쪽 태그 두 개에 따라 <code>/journal/topic/…</code> 페이지에 자동으로 묶입니다. 주제 목록은 저장소의 <code>data/topics.json</code> 에서 고칩니다.</li>" +
+      "<li><b>용어 사전 · 사이트 검색</b>: <code>/glossary</code> 는 <code>data/glossary.json</code> 에서 고치고, <code>/search</code> 의 검색 색인은 매일 자동 발행 때 다시 만들어집니다. 관리자에서 방금 저장한 글은 다음 날 아침부터 검색에 나옵니다.</li>" +
+      "<li><b>방문자가 찾은 말</b>: KPI 지표의 ‘사이트 안에서 찾은 말’에서 결과가 없었던 검색어를 보고 발행 계획에 주제를 보태세요.</li>" +
+      "<li><b>운영 채널</b>: 사이트 설정에 블로그·인스타그램 주소를 넣으면 검색엔진이 채널과 홈페이지를 같은 브랜드로 묶어 봅니다.</li></ul>" +
       '</div><div class="panel help">' +
       "<h3>반영 시간과 되돌리기</h3><p>저장하면 GitHub에 기록되고 Cloudflare Pages가 1~2분 안에 사이트를 다시 배포합니다. 모든 변경은 왼쪽 아래 ‘변경 기록’에 남고, 잘못 올린 내용도 이전 상태로 되돌릴 수 있습니다. 상담 문의는 GitHub가 아니라 Cloudflare D1에 저장되므로 공개 저장소에 올라가지 않습니다.</p>" +
       "<h3>사이트 설정에서 할 수 있는 것</h3><ul><li>상단 공지 띠 (휴무·이벤트 안내)</li><li>오른쪽 아래 ‘빠른 상담 신청’ 버튼과 카카오톡 채널 버튼</li><li>네이버 애널리틱스·구글 애널리틱스 연결</li><li>스팸 방지(Turnstile) 사이트 키</li><li>네이버·구글 소유확인 태그, 검색엔진 즉시 알림</li></ul>" +
