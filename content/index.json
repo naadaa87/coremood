@@ -1,6 +1,30 @@
 {
- "updated": "2026-11-25T01:00:00.000Z",
+ "updated": "2026-11-26T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "store-information-sign-design",
+   "title": "매장 사인물 디자인, 손님이 묻기 전에 답하는 안내 사인",
+   "date": "2026-11-26T10:00:00+09:00",
+   "updated": "",
+   "category": "branding",
+   "keyword": "매장 사인물",
+   "tags": [
+    "매장 사인물",
+    "안내 사인",
+    "파티룸",
+    "스터디카페",
+    "음식점"
+   ],
+   "description": "화장실 위치, 주문 방법, 이용 규칙처럼 손님이 매번 묻는 것을 안내 사인으로 정리할 때 무엇을 어디에 어떤 말투로 붙일지, 브랜드와 어긋나지 않게 만드는 기준을 정리했습니다.",
+   "cover": "/assets/img/p-lobby-w.webp",
+   "coverAlt": "석재와 브론즈 사이니지로 정리한 기업 로비",
+   "og": "/assets/img/og/store-information-sign-design.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3291,
+   "status": "live",
+   "file": "content/posts/store-information-sign-design.md"
+  },
   {
    "slug": "store-mood-change-without-renovation",
    "title": "매장 분위기 바꾸기, 큰 공사 없이 시즌 리뉴얼하는 범위",

@@ -6,7 +6,15 @@
     <description>상업공간 브랜딩, 인테리어, 마케팅, 창업에 대한 코어무드의 실무 노트</description>
     <language>ko</language>
     <atom:link href="https://coremood.kr/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Wed, 25 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Nov 2026 01:00:00 GMT</lastBuildDate>
+    <item>
+      <title>매장 사인물 디자인, 손님이 묻기 전에 답하는 안내 사인</title>
+      <link>https://coremood.kr/journal/store-information-sign-design</link>
+      <guid isPermaLink="true">https://coremood.kr/journal/store-information-sign-design</guid>
+      <description>화장실 위치, 주문 방법, 이용 규칙처럼 손님이 매번 묻는 것을 안내 사인으로 정리할 때 무엇을 어디에 어떤 말투로 붙일지, 브랜드와 어긋나지 않게 만드는 기준을 정리했습니다.</description>
+      <category>브랜딩</category>
+      <pubDate>Thu, 26 Nov 2026 01:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>매장 분위기 바꾸기, 큰 공사 없이 시즌 리뉴얼하는 범위</title>
       <link>https://coremood.kr/journal/store-mood-change-without-renovation</link>
@@ -398,14 +406,6 @@
       <description>공간 브랜딩은 로고 시안보다 이 매장을 설명하는 한 문장에서 시작합니다. 판단에 쓸 수 있는 문장의 조건과 만드는 순서, 그 문장으로 조명과 자재, 이름과 간판을 고르는 방법을 정리했습니다.</description>
       <category>브랜딩</category>
       <pubDate>Sun, 25 Oct 2026 23:14:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>음식점 인테리어, 주방 동선부터 그려야 하는 이유</title>
-      <link>https://coremood.kr/journal/restaurant-kitchen-layout</link>
-      <guid isPermaLink="true">https://coremood.kr/journal/restaurant-kitchen-layout</guid>
-      <description>음식점 공사에서 홀 좌석보다 주방 동선을 먼저 그려야 하는 이유를 정리했습니다. 식자재 입고부터 퇴식까지의 흐름, 주방 배치 유형, 배기와 배수 위치, 도면 확정 전 체크리스트까지 담았습니다.</description>
-      <category>인테리어</category>
-      <pubDate>Sun, 25 Oct 2026 23:12:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
