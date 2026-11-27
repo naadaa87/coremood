@@ -340,8 +340,10 @@
       "category": "interior",
       "keyword": "미용실 인테리어 비용",
       "angle": "샴푸대 배관과 급탕, 드라이어 전기처럼 미용실에서 금액을 움직이는 항목을 순서대로. 금액은 견적 안내 기준(업종 계수)으로만 말하고, 전기 증설은 별도 확인으로 안내. 태그 앞쪽에 미용실, 인테리어 비용",
-      "status": "pending",
-      "addedAt": "2026-11-26T23:55:00+09:00"
+      "status": "done",
+      "addedAt": "2026-11-26T23:55:00+09:00",
+      "publishedSlug": "salon-interior-cost-plumbing-electric",
+      "publishedAt": "2026-11-27T10:00:00+09:00"
     },
     {
       "id": "q32",
