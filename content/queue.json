@@ -351,8 +351,10 @@
       "category": "marketing",
       "keyword": "네이버 플레이스 리뷰",
       "angle": "리뷰를 부탁하는 자리와 시점, 사진 리뷰가 나오는 공간 조건, 플랫폼 정책상 하면 안 되는 일(대가 제공 등은 별도 확인). 건수나 기간을 숫자로 약속하지 않기",
-      "status": "pending",
-      "addedAt": "2026-11-26T23:55:00+09:00"
+      "status": "done",
+      "addedAt": "2026-11-26T23:55:00+09:00",
+      "publishedSlug": "naver-place-review-early-stage",
+      "publishedAt": "2026-11-28T10:00:00+09:00"
     },
     {
       "id": "q33",

@@ -1,6 +1,36 @@
 {
- "updated": "2026-11-27T01:00:00.000Z",
+ "updated": "2026-11-28T01:00:00.000Z",
  "posts": [
+  {
+   "slug": "naver-place-review-early-stage",
+   "title": "네이버 플레이스 리뷰, 초반에 쌓이는 매장이 하는 일",
+   "date": "2026-11-28T10:00:00+09:00",
+   "updated": "",
+   "category": "marketing",
+   "keyword": "네이버 플레이스 리뷰",
+   "tags": [
+    "플레이스",
+    "리뷰",
+    "카페",
+    "음식점",
+    "미용실"
+   ],
+   "description": "네이버 플레이스 리뷰가 초반에 쌓이는 매장은 부탁하는 자리와 시점, 사진이 나오는 공간 조건, 리뷰를 다시 운영에 쓰는 습관을 갖추고 있습니다. 플랫폼 정책상 하지 말아야 할 일까지 함께 정리했습니다.",
+   "cover": "/assets/img/s-marketing.webp",
+   "coverAlt": "매장 마케팅과 운영 자료를 펼쳐 놓고 작업하는 테이블",
+   "og": "/assets/img/og/naver-place-review-early-stage.jpg",
+   "draft": false,
+   "minutes": 7,
+   "chars": 3426,
+   "status": "live",
+   "file": "content/posts/naver-place-review-early-stage.md",
+   "fq": [
+    "네이버 플레이스 리뷰는 오픈하고 언제부터 부탁하는 게 좋나요?",
+    "리뷰 안내 QR코드는 어디에 붙이는 게 좋나요?",
+    "사진 리뷰가 적은데 포토존을 따로 만들어야 하나요?"
+   ],
+   "sum": 3
+  },
   {
    "slug": "salon-interior-cost-plumbing-electric",
    "title": "미용실 인테리어 비용, 평수보다 설비에서 갈리는 이유",
@@ -1223,7 +1253,7 @@
    "slug": "naver-place-setup-checklist",
    "title": "네이버 플레이스 등록, 오픈 전에 끝내야 할 세팅",
    "date": "2026-10-26T08:24:00+09:00",
-   "updated": "2026-11-26T23:50:00+09:00",
+   "updated": "2026-11-28T10:00:00+09:00",
    "category": "marketing",
    "keyword": "네이버 플레이스 등록",
    "tags": [
@@ -1239,10 +1269,14 @@
    "og": "/assets/img/og/naver-place-setup-checklist.jpg",
    "draft": false,
    "minutes": 7,
-   "chars": 3220,
+   "chars": 3548,
    "status": "live",
    "file": "content/posts/naver-place-setup-checklist.md",
-   "fq": [],
+   "fq": [
+    "네이버 플레이스 등록은 오픈 얼마 전에 신청해야 하나요?",
+    "같은 주소에 이전 가게가 아직 떠 있으면 어떻게 하나요?",
+    "오픈 전이라 완성된 사진이 없으면 대표 사진은 무엇으로 하나요?"
+   ],
    "sum": 3
   },
   {
